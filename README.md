@@ -1,73 +1,239 @@
-# Welcome to your Lovable project
+# Sheikh Yeasin Ahsanullah Al-Galib Portfolio
 
-## Project info
+A modern, responsive portfolio website showcasing AI innovation, software engineering projects, and research work.
 
-**URL**: https://lovable.dev/projects/bed2bd99-489d-4abc-be83-1aef10290bf9
+## 🚀 Features
 
-## How can I edit this code?
+### Pages Overview
+1. **Home** - Hero section with featured projects, research, testimonials, and call-to-action
+2. **Projects** - Filterable showcase of software projects and case studies  
+3. **Research** - Academic publications and research work with detailed abstracts
+4. **Achievements** - Timeline of awards, certifications, and milestones
+5. **Gallery** - Visual media from events, awards, speaking engagements
+6. **About** - Personal bio, skills grid, and 12-phase workflow
+7. **Blog** - Insights on AI, technology, and innovation
+8. **Contact** - Contact form with multiple communication channels
+9. **Admin Panel** - Content management system (UI only, ready for backend)
 
-There are several ways of editing your application.
+### Design System
+- **Color Scheme**: Indigo to Cyan gradient theme with HSL color system
+- **Typography**: Inter font family with semantic heading hierarchy
+- **Animations**: Fade-in, scale, float, and glow effects using Framer Motion
+- **Components**: Shadcn/ui with custom variants for hero buttons and cards
+- **Responsive**: Mobile-first design with breakpoint optimization
 
-**Use Lovable**
+### Key Components
+- **Navbar**: Sticky navigation with scroll effects
+- **Footer**: Brand info, quick links, and social connections
+- **FloatingMessageButton**: Expandable contact options
+- **Cards**: Elevated cards with hover effects and gradients
+- **Timeline**: Visual milestone representation
+- **Lightbox**: Media gallery with zoom and navigation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bed2bd99-489d-4abc-be83-1aef10290bf9) and start prompting.
+## 🛠 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Shadcn/ui component library
+- **Icons**: Lucide React icon set
+- **Routing**: React Router v6
+- **State**: React Query for data fetching
+- **Animations**: CSS transitions and keyframes
+- **Images**: Responsive images with lazy loading
 
-**Use your preferred IDE**
+## 📱 Responsive Design
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Mobile**: Single column layouts, collapsible navigation
+- **Tablet**: Two-column grids, optimized touch interactions  
+- **Desktop**: Multi-column layouts, hover effects, advanced animations
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🎨 Design Features
 
-Follow these steps:
+### Visual Elements
+- **Gradient Backgrounds**: Animated gradient morphing
+- **Glow Effects**: CSS-based glow borders and shadows
+- **Parallax**: Subtle parallax effects on hero images
+- **Cards**: Elevated cards with soft shadows and hover transforms
+- **Badges**: Color-coded category and technology badges
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Animations
+- **Scroll-triggered**: Content reveals on scroll
+- **Staggered**: Sequential animation delays for lists
+- **Hover States**: Interactive feedback on all clickable elements
+- **Loading States**: Skeleton loading for better UX
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🔗 Integration Ready
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Backend API Expectations
+The frontend is designed to integrate with REST APIs for:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+#### Content Management
+```
+GET /api/projects - Fetch all projects
+POST /api/projects - Create new project
+PUT /api/projects/:id - Update project
+DELETE /api/projects/:id - Remove project
+```
+
+#### Contact Form
+```
+POST /api/contact - Submit contact form
+GET /api/messages - Fetch messages (admin)
+```
+
+#### Blog System
+```
+GET /api/blog - Fetch blog posts
+GET /api/blog/:slug - Get single post
+POST /api/blog - Create new post (admin)
+```
+
+#### Media Management
+```
+GET /api/gallery - Fetch gallery items
+POST /api/gallery - Upload new media
+DELETE /api/gallery/:id - Remove media
+```
+
+### Data Models
+
+#### Project Object
+```typescript
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  techStack: string[];
+  metrics: string[];
+  links: {
+    live?: string;
+    github?: string;
+  };
+  featured: boolean;
+  createdAt: string;
+}
+```
+
+#### Research Object
+```typescript
+interface Research {
+  id: string;
+  title: string;
+  abstract: string;
+  image: string;
+  category: string;
+  tags: string[];
+  publication: string;
+  year: string;
+  authors: string[];
+  links: {
+    paper?: string;
+    code?: string;
+    dataset?: string;
+  };
+  featured: boolean;
+}
+```
+
+#### Achievement Object
+```typescript
+interface Achievement {
+  id: string;
+  title: string;
+  subtitle: string;
+  type: 'Education' | 'Awards' | 'Certifications' | 'Leadership';
+  description: string;
+  organization: string;
+  location: string;
+  date: string;
+  year: string;
+  image: string;
+  links: Record<string, string>;
+}
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project directory
+cd portfolio-website
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Environment Setup
+Create a `.env.local` file for environment variables:
+```
+VITE_API_BASE_URL=http://localhost:3001/api
+VITE_CONTACT_EMAIL=your.email@example.com
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📦 Deployment
 
-**Use GitHub Codespaces**
+### Build for Production
+```bash
+npm run build
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Deploy to Vercel/Netlify
+The app is configured for static hosting and can be deployed to:
+- Vercel
+- Netlify  
+- AWS S3 + CloudFront
+- Any static hosting service
 
-## What technologies are used for this project?
+## 🔧 Customization
 
-This project is built with:
+### Colors
+Update the design system in `src/index.css`:
+```css
+:root {
+  --primary: 238 60% 60%;        /* Brand primary color */
+  --secondary: 188 95% 68%;      /* Brand secondary color */
+  --gradient-primary: linear-gradient(135deg, hsl(238 60% 60%), hsl(188 95% 68%));
+}
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Typography
+Modify font settings in `tailwind.config.ts`:
+```typescript
+fontFamily: {
+  sans: ['Inter', 'system-ui', 'sans-serif'],
+  mono: ['Fira Code', 'monospace'],
+}
+```
 
-## How can I deploy this project?
+### Content
+Update content in respective page components:
+- Personal info in `src/pages/Home.tsx`
+- Projects in `src/pages/Projects.tsx`
+- Research in `src/pages/Research.tsx`
 
-Simply open [Lovable](https://lovable.dev/projects/bed2bd99-489d-4abc-be83-1aef10290bf9) and click on Share -> Publish.
+## 📞 Support
 
-## Can I connect a custom domain to my Lovable project?
+For questions about implementation or customization:
+- Review component documentation in `/src/components`
+- Check design system tokens in `/src/index.css`
+- Reference Tailwind configuration in `/tailwind.config.ts`
 
-Yes, you can!
+## 📄 License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This project is built for Sheikh Yeasin Ahsanullah Al-Galib's personal portfolio.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+
+**Built with ❤️ in Bangladesh**
