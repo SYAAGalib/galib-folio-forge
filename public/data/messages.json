@@ -1,0 +1,13 @@
+{
+  "messages": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "subject": "Project Inquiry",
+      "message": "Hi, I'm interested in discussing a potential project collaboration.",
+      "read": false,
+      "createdAt": "2024-01-20T10:30:00Z"
+    }
+  ]
+}

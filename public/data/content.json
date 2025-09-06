@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "AI-Powered Portfolio Website",
+      "description": "Modern responsive portfolio built with React and AI assistance",
+      "content": "<h2>Project Overview</h2><p>This project demonstrates the integration of modern web technologies with AI-powered development workflows.</p>",
+      "image": "/src/assets/project-hero.jpg",
+      "technologies": ["React", "TypeScript", "Tailwind CSS"],
+      "status": "completed",
+      "featured": true,
+      "createdAt": "2024-01-15",
+      "updatedAt": "2024-01-15"
+    }
+  ],
+  "research": [
+    {
+      "id": "1",
+      "title": "Machine Learning in Web Development",
+      "description": "Exploring the applications of ML algorithms in modern web applications",
+      "content": "<h2>Research Abstract</h2><p>This research investigates the practical applications of machine learning in web development...</p>",
+      "image": "/src/assets/research-hero.jpg",
+      "category": "AI/ML",
+      "status": "published",
+      "featured": true,
+      "createdAt": "2024-01-10",
+      "updatedAt": "2024-01-10"
+    }
+  ],
+  "blog": [
+    {
+      "id": "1",
+      "title": "The Future of Web Development",
+      "description": "Exploring emerging trends and technologies shaping the web",
+      "content": "<h2>Introduction</h2><p>The web development landscape is constantly evolving...</p>",
+      "image": "/src/assets/hero-portrait.jpg",
+      "category": "Technology",
+      "status": "published",
+      "featured": true,
+      "createdAt": "2024-01-05",
+      "updatedAt": "2024-01-05"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "Sarah Johnson",
+      "role": "Project Manager",
+      "company": "TechCorp",
+      "content": "Exceptional work quality and attention to detail. Highly recommended!",
+      "avatar": "/src/assets/hero-portrait.jpg",
+      "rating": 5,
+      "category": "client",
+      "featured": true,
+      "createdAt": "2024-01-01"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "overview": {
+    "totalVisits": 1234,
+    "uniqueVisitors": 892,
+    "bounceRate": 35.2,
+    "avgSessionDuration": "3:45"
+  },
+  "topPages": [
+    { "page": "/", "views": 450, "title": "Home" },
+    { "page": "/projects", "views": 320, "title": "Projects" },
+    { "page": "/research", "views": 280, "title": "Research" },
+    { "page": "/about", "views": 184, "title": "About" }
+  ],
+  "referrers": [
+    { "source": "Direct", "visits": 540 },
+    { "source": "Google", "visits": 423 },
+    { "source": "LinkedIn", "visits": 156 },
+    { "source": "GitHub", "visits": 115 }
+  ],
+  "devices": {
+    "desktop": 65.3,
+    "mobile": 28.7,
+    "tablet": 6.0
+  }
+}
