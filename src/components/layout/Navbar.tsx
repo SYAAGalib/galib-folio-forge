@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -72,7 +72,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <Button variant="outline" size="sm" className="btn-ghost-glow">
               <Download className="w-4 h-4 mr-2" />
               Resume
@@ -83,7 +83,7 @@ const Navbar = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden"
+            className="lg:hidden"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -93,7 +93,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border">
           <div className="container mx-auto px-4 py-4 space-y-4">
             {navItems.map((item) => (
               <Link
