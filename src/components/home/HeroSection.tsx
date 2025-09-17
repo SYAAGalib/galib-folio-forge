@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
-import heroPortrait from '@/assets/hero-galib.jpg';
+import heroPortrait from '@/assets/hero-portrait.jpg';
 
 const HeroSection = () => {
   const socialLinks = [
