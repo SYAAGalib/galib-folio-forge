@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=./" />
+  </head>
+  <body>
+    <script>
+      // Client-side redirect for SPA on GitHub Pages
+      const redirectTo = location.pathname.replace(/\/[^/]*$/, '/');
+      location.replace(redirectTo);
+    </script>
+  </body>
+  </html>

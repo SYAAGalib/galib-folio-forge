@@ -32,7 +32,7 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+  <BrowserRouter basename={(import.meta as any).env.BASE_URL}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
@@ -54,7 +54,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
+  </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>

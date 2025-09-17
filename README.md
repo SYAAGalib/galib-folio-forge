@@ -184,17 +184,33 @@ VITE_CONTACT_EMAIL=your.email@example.com
 
 ## 📦 Deployment
 
-### Build for Production
+### GitHub Pages (recommended)
+
+This repository is configured to auto-deploy to GitHub Pages from the `main` branch using GitHub Actions.
+
+What’s set up:
+- Vite `base` is set to `/galib-folio-forge/` in production so assets and routes work under the repo subpath.
+- React Router uses the same base via `basename={(import.meta as any).env.BASE_URL}`.
+- A Pages workflow builds the site and publishes `dist` to Pages, adding a SPA fallback `404.html`.
+
+Steps:
+1. Push to `main` (or use the “Run workflow” button in Actions).
+2. In your repo settings → Pages, set source to “GitHub Actions.”
+3. Your site will be available at `https://<your-username>.github.io/galib-folio-forge/`.
+
+Local build:
 ```bash
+npm ci
 npm run build
+npm run preview
 ```
 
-### Deploy to Vercel/Netlify
-The app is configured for static hosting and can be deployed to:
-- Vercel
-- Netlify  
-- AWS S3 + CloudFront
-- Any static hosting service
+Notes:
+- If you fork/rename the repository, update the Vite `base` in `vite.config.ts` to match the new repo name.
+- For organization or user sites (username.github.io), set `base: "/"` and remove the `basename` if deploying at root.
+
+### Other static hosts
+The app is static and also works on Vercel, Netlify, S3/CloudFront, etc. For Netlify/Vercel, set the build command to `npm run build` and publish directory to `dist`. Ensure SPA fallback is enabled (e.g., Netlify `_redirects` or Vercel rewrites).
 
 ## 🔧 Customization
 

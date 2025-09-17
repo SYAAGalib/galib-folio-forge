@@ -43,10 +43,11 @@ const AdminDashboard = () => {
     // Load content stats
     const loadStats = async () => {
       try {
+        const base = (import.meta as any).env.BASE_URL || '/';
         const [contentRes, messagesRes, analyticsRes] = await Promise.all([
-          fetch('/data/content.json'),
-          fetch('/data/messages.json'),
-          fetch('/data/analytics.json')
+          fetch(`${base}data/content.json`),
+          fetch(`${base}data/messages.json`),
+          fetch(`${base}data/analytics.json`)
         ]);
 
         const content = await contentRes.json();
