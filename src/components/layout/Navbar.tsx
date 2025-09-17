@@ -48,9 +48,9 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">YG</span>
+              <span className="text-primary-foreground font-bold text-sm"><img src="/galib-ambigram.svg" alt="" /></span>
             </div>
-            <span className="font-semibold text-lg hidden sm:block">Sheikh Yeasin</span>
+            <span className="font-semibold text-lg hidden sm:block">Galib</span>
           </Link>
 
           {/* Desktop Navigation */}
