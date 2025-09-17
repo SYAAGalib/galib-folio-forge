@@ -48,9 +48,10 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-16 flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm"><img src="/galib-ambigram.svg" alt="logo" /></span>
+              <img src="/galib-ambigram.svg" alt="logo" />
+              {/* <span className="text-primary-foreground font-bold text-sm"><img src="/galib-ambigram.svg" alt="logo" /></span> */}
             </div>
-            <span className="font-semibold text-lg hidden sm:block">Galib</span>
+            {/* <span className="font-semibold text-lg hidden sm:block">Galib</span> */}
           </Link>
 
           {/* Desktop Navigation */}
