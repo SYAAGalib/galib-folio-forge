@@ -24,10 +24,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <img src="/galib-ambigram.svg" alt="logo" />
+              {/* <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">YG</span>
               </div>
-              <span className="font-semibold text-lg">Sheikh Yeasin</span>
+              <span className="font-semibold text-lg">Sheikh Yeasin</span> */}
             </div>
             <p className="text-muted-foreground text-sm max-w-sm">
               AI Innovator • Software Engineer • Startup Founder
