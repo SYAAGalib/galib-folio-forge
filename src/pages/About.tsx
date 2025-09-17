@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Brain, Code, Rocket, Users, Award, Globe } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
-import heroPortrait from '@/assets/hero-portrait.jpg';
+import heroPortrait from '@/assets/hero-galib.jpg';
 
 const About = () => {
   const skills = [
