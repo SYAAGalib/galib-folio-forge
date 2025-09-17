@@ -47,8 +47,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm"><img src="/galib-ambigram.svg" alt="" /></span>
+            <div className="w-16 flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm"><img src="/galib-ambigram.svg" alt="logo" /></span>
             </div>
             <span className="font-semibold text-lg hidden sm:block">Galib</span>
           </Link>
