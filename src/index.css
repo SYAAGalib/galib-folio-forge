@@ -246,12 +246,22 @@
     }
   }
 
+  @keyframes ripple {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(0.9); }
+  }
+
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
 
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-ripple {
+    animation: ripple 2s ease infinite;
+    animation-delay: calc(var(--i, 0) * 0.2s);
   }
 
   /* Scrollbar Styling */
