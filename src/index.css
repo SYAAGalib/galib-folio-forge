@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    /* Core Brand Colors - Indigo to Cyan Gradient Theme */
+    /* Core Brand Colors - Logo Gradient Theme */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -18,18 +18,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Primary Brand - LinkedIn Blue */
-    --primary: 210 90% 40%;
+    /* Primary Brand - Deep Blue from Logo */
+    --primary: 220 85% 35%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 90% 50%;
+    --primary-glow: 220 85% 45%;
 
-    /* Secondary - Vibrant Cyan */
-    --secondary: 180 100% 50%;
+    /* Secondary - Vibrant Cyan from Logo */
+    --secondary: 185 90% 50%;
     --secondary-foreground: 0 0% 100%;
 
     /* Accent Colors */
-    --accent: hsl(215, 85%, 35%);
-    --accent-foreground: 210 90% 40%;
+    --accent: 200 80% 40%;
+    --accent-foreground: 220 85% 35%;
 
     --muted: 240 5% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -41,18 +41,18 @@
     --input: 220 13% 91%;
     --ring: 210 90% 40%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210, 90%, 40%), hsl(180 100% 50%));
-    --gradient-primary-soft: linear-gradient(135deg, hsl(210 90% 92%), hsl(180 100% 92%));
-    --gradient-bg: linear-gradient(180deg, hsl(240 100% 99%), hsl(240 100% 98%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 20% 99%));
+    /* Gradients - Matching Logo Colors */
+    --gradient-primary: linear-gradient(135deg, hsl(220, 85%, 35%), hsl(185 90% 50%));
+    --gradient-primary-soft: linear-gradient(135deg, hsl(220 85% 95%), hsl(185 90% 95%));
+    --gradient-bg: linear-gradient(180deg, hsl(240 100% 99%), hsl(185 100% 99%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(185 20% 99%));
 
-    /* Shadows */
-    --shadow-soft: 0 2px 8px -2px hsl(210 90% 40% / 0.15);
-    --shadow-medium: 0 8px 25px -5px hsl(210 90% 40% / 0.25);
-    --shadow-strong: 0 25px 50px -12px hsl(210 90% 40% / 0.35);
-    --shadow-glow: 0 0 40px hsl(210 90% 40% / 0.25);
-    --shadow-glow-cyan: 0 0 40px hsl(180 100% 50% / 0.25);
+    /* Shadows - Logo Theme */
+    --shadow-soft: 0 2px 8px -2px hsl(220 85% 35% / 0.1);
+    --shadow-medium: 0 8px 25px -5px hsl(220 85% 35% / 0.15);
+    --shadow-strong: 0 25px 50px -12px hsl(220 85% 35% / 0.25);
+    --shadow-glow: 0 0 40px hsl(220 85% 35% / 0.2);
+    --shadow-glow-cyan: 0 0 40px hsl(185 90% 50% / 0.2);
 
     /* Border Radius */
     --radius: 0.75rem;
@@ -85,16 +85,16 @@
     --popover: 222 47% 10%;
     --popover-foreground: 0 0% 98%;
 
-    /* Keep bright primary colors in dark mode */
-    --primary: 210 90% 50%;
+    /* Keep bright logo colors in dark mode */
+    --primary: 220 85% 45%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 90% 60%;
+    --primary-glow: 220 85% 55%;
 
-    --secondary: 180 100% 60%;
+    --secondary: 185 90% 60%;
     --secondary-foreground: 222 47% 8%;
 
     --accent: 222 47% 12%;
-    --accent-foreground: 210 90% 50%;
+    --accent-foreground: 220 85% 45%;
 
     --muted: 222 47% 12%;
     --muted-foreground: 215 20% 65%;
@@ -106,18 +106,18 @@
     --input: 222 47% 15%;
     --ring: 210 90% 50%;
 
-    /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210, 90%, 50%), hsl(180 100% 60%));
-    --gradient-primary-soft: linear-gradient(135deg, hsl(210 90% 15%), hsl(180 100% 15%));
+    /* Dark mode gradients - Logo Colors */
+    --gradient-primary: linear-gradient(135deg, hsl(220, 85%, 45%), hsl(185 90% 60%));
+    --gradient-primary-soft: linear-gradient(135deg, hsl(220 85% 15%), hsl(185 90% 15%));
     --gradient-bg: linear-gradient(180deg, hsl(222 47% 8%), hsl(222 47% 6%));
     --gradient-card: linear-gradient(145deg, hsl(222 47% 10%), hsl(222 47% 12%));
 
-    /* Dark mode shadows with glow */
+    /* Dark mode shadows with glow - Logo Theme */
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
     --shadow-medium: 0 8px 25px -5px hsl(0 0% 0% / 0.4);
     --shadow-strong: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
-    --shadow-glow: 0 0 40px hsl(210 90% 50% / 0.4);
-    --shadow-glow-cyan: 0 0 40px hsl(180 100% 60% / 0.4);
+    --shadow-glow: 0 0 40px hsl(220 85% 45% / 0.3);
+    --shadow-glow-cyan: 0 0 40px hsl(185 90% 60% / 0.3);
 
     --sidebar-background: 222 47% 6%;
     --sidebar-foreground: 0 0% 90%;
@@ -246,22 +246,12 @@
     }
   }
 
-  @keyframes ripple {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(0.9); }
-  }
-
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
 
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  .animate-ripple {
-    animation: ripple 2s ease infinite;
-    animation-delay: calc(var(--i, 0) * 0.2s);
   }
 
   /* Scrollbar Styling */

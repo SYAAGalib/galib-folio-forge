@@ -4,8 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
-import { useState, useEffect } from "react";
-import LoadingScreen from "@/components/ui/loading-screen";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Research from "./pages/Research";
@@ -28,20 +26,14 @@ import AdminLayout from "./components/admin/AdminLayout";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const [showLoading, setShowLoading] = useState(true);
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          {showLoading && (
-            <LoadingScreen onComplete={() => setShowLoading(false)} />
-          )}
-          <BrowserRouter basename={(import.meta as any).env.BASE_URL}>
-            <Routes>
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+  <BrowserRouter basename={(import.meta as any).env.BASE_URL}>
+          <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/research" element={<Research />} />
@@ -61,12 +53,11 @@ const App = () => {
             <Route path="/admin/settings" element={<AdminLayout><AdminSettings /></AdminLayout>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+          </Routes>
+  </BrowserRouter>
+      </AuthProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
