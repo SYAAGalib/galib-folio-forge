@@ -220,7 +220,7 @@ Update the design system in `src/index.css`:
 :root {
   --primary: 238 60% 60%;        /* Brand primary color */
   --secondary: 188 95% 68%;      /* Brand secondary color */
-  --gradient-primary: linear-gradient(135deg, hsl(238 60% 60%), hsl(188 95% 68%));
+  --gradient-primary: linear-gradient(135deg, hsl(210, 90%, 40%), hsl(188 95% 68%));
 }
 ```
 
