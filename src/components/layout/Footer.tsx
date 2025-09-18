@@ -24,7 +24,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <img className='h-20' src="/galib-ambigram.svg" alt="logo" />
+              <img className='h-20' src="/logo.svg" alt="logo" />
               {/* <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">YG</span>
               </div>
