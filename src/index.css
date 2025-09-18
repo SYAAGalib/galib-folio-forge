@@ -28,7 +28,7 @@
     --secondary-foreground: 0 0% 100%;
 
     /* Accent Colors */
-    --accent: hsl(210, 90%, 40%);
+    --accent: 210, 90%, 40%;
     --accent-foreground: 238 60% 60%;
 
     --muted: 240 5% 96%;
