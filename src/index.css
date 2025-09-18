@@ -18,20 +18,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-  /* Primary Brand - LinkedIn Blues */
-  /* Base: #0a66c2 ≈ hsl(210 90% 40%) */
-  --primary: 210 90% 40%;
-  --primary-foreground: 0 0% 100%;
-  /* Glow / lighter: #68cffe ≈ hsl(199 99% 70%) */
-  --primary-glow: 199 99% 70%;
+    /* Primary Brand - Indigo */
+    --primary: 238 60% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 238 60% 70%;
 
     /* Secondary - Cyan */
     --secondary: 188 95% 68%;
     --secondary-foreground: 0 0% 100%;
 
-  /* Accent Colors (tints of LinkedIn palette) */
-  --accent: 199 99% 80%;
-  --accent-foreground: 210 90% 40%;
+    /* Accent Colors */
+    --accent: hsl(210, 90%, 40%);
+    --accent-foreground: 238 60% 60%;
 
     --muted: 240 5% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -41,20 +39,19 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-  --ring: 210 90% 40%;
+    --ring: 238 60% 60%;
 
     /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(210 90% 40%), hsl(188 95% 68%));
-  /* Soft gradient should remain almost white (neutral) */
-  --gradient-primary-soft: linear-gradient(135deg, hsl(0 0% 99%), hsl(0 0% 100%));
+    --gradient-primary: linear-gradient(135deg, hsl(210, 90%, 40%), hsl(188 95% 68%));
+    --gradient-primary-soft: linear-gradient(135deg, hsl(238 60% 95%), hsl(188 95% 95%));
     --gradient-bg: linear-gradient(180deg, hsl(240 100% 99%), hsl(240 100% 98%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 20% 99%));
 
     /* Shadows */
-  --shadow-soft: 0 2px 8px -2px hsl(210 90% 40% / 0.1);
-  --shadow-medium: 0 8px 25px -5px hsl(210 90% 40% / 0.15);
-  --shadow-strong: 0 25px 50px -12px hsl(210 90% 40% / 0.25);
-  --shadow-glow: 0 0 40px hsl(210 90% 40% / 0.15);
+    --shadow-soft: 0 2px 8px -2px hsl(238 60% 60% / 0.1);
+    --shadow-medium: 0 8px 25px -5px hsl(238 60% 60% / 0.15);
+    --shadow-strong: 0 25px 50px -12px hsl(238 60% 60% / 0.25);
+    --shadow-glow: 0 0 40px hsl(238 60% 60% / 0.15);
     --shadow-glow-cyan: 0 0 40px hsl(188 95% 68% / 0.15);
 
     /* Border Radius */
@@ -88,16 +85,16 @@
     --popover: 222 47% 10%;
     --popover-foreground: 0 0% 98%;
 
-  /* Keep bright primary colors in dark mode (LinkedIn palette tints) */
-  --primary: 199 99% 70%;
-  --primary-foreground: 222 47% 8%;
-  --primary-glow: 199 99% 80%;
+    /* Keep bright primary colors in dark mode */
+    --primary: 238 60% 70%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 238 60% 80%;
 
     --secondary: 188 95% 78%;
     --secondary-foreground: 222 47% 8%;
 
     --accent: 222 47% 12%;
-  --accent-foreground: 199 99% 70%;
+    --accent-foreground: 238 60% 70%;
 
     --muted: 222 47% 12%;
     --muted-foreground: 215 20% 65%;
@@ -107,11 +104,11 @@
 
     --border: 222 47% 15%;
     --input: 222 47% 15%;
-  --ring: 199 99% 70%;
+    --ring: 238 60% 70%;
 
     /* Dark mode gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(199 99% 70%), hsl(188 95% 78%));
-  --gradient-primary-soft: linear-gradient(135deg, hsl(210 90% 15%), hsl(188 95% 15%));
+    --gradient-primary: linear-gradient(135deg, hsl(210, 90%, 40%), hsl(188 95% 78%));
+    --gradient-primary-soft: linear-gradient(135deg, hsl(238 60% 15%), hsl(188 95% 15%));
     --gradient-bg: linear-gradient(180deg, hsl(222 47% 8%), hsl(222 47% 6%));
     --gradient-card: linear-gradient(145deg, hsl(222 47% 10%), hsl(222 47% 12%));
 
@@ -119,17 +116,17 @@
     --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
     --shadow-medium: 0 8px 25px -5px hsl(0 0% 0% / 0.4);
     --shadow-strong: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
-  --shadow-glow: 0 0 40px hsl(199 99% 70% / 0.3);
+    --shadow-glow: 0 0 40px hsl(238 60% 70% / 0.3);
     --shadow-glow-cyan: 0 0 40px hsl(188 95% 78% / 0.3);
 
     --sidebar-background: 222 47% 6%;
     --sidebar-foreground: 0 0% 90%;
-  --sidebar-primary: 199 99% 70%;
+    --sidebar-primary: 238 60% 70%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 222 47% 10%;
     --sidebar-accent-foreground: 0 0% 90%;
     --sidebar-border: 222 47% 15%;
-  --sidebar-ring: 199 99% 70%;
+    --sidebar-ring: 238 60% 70%;
   }
 }
 
