@@ -42,7 +42,7 @@
     --ring: 238 60% 60%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(238 60% 60%), hsl(188 95% 68%));
+    --gradient-primary: linear-gradient(135deg, hsl(201, 100%, 35%), hsl(188 95% 68%));
     --gradient-primary-soft: linear-gradient(135deg, hsl(238 60% 95%), hsl(188 95% 95%));
     --gradient-bg: linear-gradient(180deg, hsl(240 100% 99%), hsl(240 100% 98%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(240 20% 99%));
