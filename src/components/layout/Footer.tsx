@@ -10,11 +10,11 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Mail, href: 'mailto:galib@example.com', label: 'Email' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/galibtech', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com/galibtech', label: 'GitHub' },
-    { icon: MessageCircle, href: 'https://wa.me/8801234567890', label: 'WhatsApp' },
-    { icon: Send, href: 'https://t.me/galibtech', label: 'Telegram' },
+    { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
+    { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
+    { icon: MessageCircle, href: 'https://wa.me/+8801946303020', label: 'WhatsApp' },
+    { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram' },
   ];
 
   return (
