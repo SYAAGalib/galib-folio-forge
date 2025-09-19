@@ -264,10 +264,10 @@ const Research = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge variant="secondary" className="bg-background/90">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {item.category}
                         </Badge>
-                        <Badge variant="outline" className="bg-background/90 text-xs">
+                        <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {item.year}
                         </Badge>
                       </div>
