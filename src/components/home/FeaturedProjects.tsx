@@ -64,7 +64,7 @@ const FeaturedProjects = () => {
                   {/* Metrics */}
                   <div className="flex flex-wrap gap-3">
                     {heroProject.metrics.map((metric) => (
-                      <Badge key={metric} variant="secondary" className="px-3 py-1">
+                      <Badge key={metric} variant="secondary" className="px-3 py-1 bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
                         {metric}
                       </Badge>
                     ))}

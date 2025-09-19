@@ -30,6 +30,10 @@
     /* Accent Colors */
     --accent: hsl(215, 85%, 35%);
     --accent-foreground: 210 90% 40%;
+    
+    /* Custom metric badge color */
+    --metric-badge: 197 71% 58%;
+    --metric-badge-foreground: 0 0% 100%;
 
     --muted: 240 5% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -127,6 +131,10 @@
     --sidebar-accent-foreground: 0 0% 90%;
     --sidebar-border: 222 47% 15%;
     --sidebar-ring: 210 90% 50%;
+    
+    /* Custom metric badge color for dark mode */
+    --metric-badge: 197 71% 58%;
+    --metric-badge-foreground: 0 0% 100%;
   }
 }
 
