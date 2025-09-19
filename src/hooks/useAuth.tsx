@@ -28,8 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-  const base = (import.meta as any).env.BASE_URL || '/';
-  const response = await fetch(`${base}data/admin-user.json`);
+      const response = await fetch('/data/admin-user.json');
       const adminUser = await response.json();
       
       if (email === adminUser.email && password === adminUser.password) {

@@ -32,7 +32,7 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
-  <BrowserRouter basename={(import.meta as any).env.BASE_URL}>
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
