@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Brain, Code, Rocket, Users, Award, Globe } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
-import heroPortrait from '@/assets/hero-galib.jpg';
+import heroPortrait from '@/assets/galib-hero-best.jpg';
 
 const About = () => {
   const skills = [
@@ -32,7 +32,7 @@ const About = () => {
                 <div>
                   <h1 className="text-4xl md:text-6xl font-bold mb-4">
                     <span className="hero-text-gradient">Sheikh Yeasin</span>
-                    <br />Ahsanullah Al‑Galib
+                    <br /><span className="text-foreground">Ahsanullah Al‑Galib</span>
                   </h1>
                   <p className="text-xl text-muted-foreground">
                     AI Innovator • Software Engineer • Startup Founder

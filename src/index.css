@@ -294,4 +294,68 @@
   ::-webkit-scrollbar-thumb:hover {
     filter: brightness(1.2);
   }
+
+  /* Dark Mode Extension Compatibility */
+  .text-foreground {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .hero-text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    /* Ensure gradient works in dark mode extensions */
+    -webkit-text-stroke: 0.5px transparent;
+    /* Fallback for extreme dark mode scenarios */
+    text-shadow: none;
+  }
+
+  /* Special handling for dark mode forced by extensions */
+  @media (prefers-color-scheme: dark) {
+    .hero-text-gradient {
+      background: linear-gradient(135deg, #3b82f6, #06b6d4, #0077B5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: gradient-shift 3s ease infinite;
+    }
+  }
+
+  /* Force override for dark mode extensions that change text color */
+  html[data-theme="dark"] .hero-text-gradient,
+  html[style*="color-scheme: dark"] .hero-text-gradient,
+  [data-darkreader-scheme="dark"] .hero-text-gradient {
+    background: linear-gradient(135deg, #60a5fa, #22d3ee, #0077B5) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 200% 200% !important;
+    animation: gradient-shift 3s ease infinite !important;
+  }
+
+  /* Ensure text visibility in forced dark modes */
+  h1, h2, h3, h4, h5, h6 {
+    color: hsl(var(--foreground));
+  }
+
+  .text-muted-foreground {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* Simple hero image background fix for light mode */
+  .hero-portrait-bg {
+    background: var(--gradient-bg);
+    border-radius: inherit;
+  }
+
+  /* Only apply in light mode - dark mode keeps original */
+  @media (prefers-color-scheme: dark) {
+    .hero-portrait-bg {
+      background-color: transparent;
+    }
+  }
 }

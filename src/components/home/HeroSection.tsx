@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
-import heroPortrait from '@/assets/hero-galib.jpg';
+import heroPortrait from '@/assets/galib-hero-best.jpg';
 import { useEffect } from 'react';
 import TypeIt from 'typeit';
 
@@ -196,7 +196,7 @@ const HeroSection = () => {
                 <img
                   src={heroPortrait}
                   alt="Sheikh Yeasin Ahsanullah Al‑Galib - AI Engineer and Startup Founder"
-                  className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-lg"
+                  className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-lg hero-portrait-bg"
                 />
               </div>
               {/* Floating elements */}
