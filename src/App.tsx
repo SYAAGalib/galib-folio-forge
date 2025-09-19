@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "@/hooks/useAuth";
+import { useEffect } from "react";
+import useTitle from "@/hooks/useTitle";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Research from "./pages/Research";
@@ -27,7 +29,16 @@ import AdminLayout from "./components/admin/AdminLayout";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  // Force set the correct title on app load
+  useEffect(() => {
+    document.title = "Sheikh Yeasin Ahsanullah Al-Galib | AI Engineer & Startup Founder";
+  }, []);
+
+  // Use the title hook to monitor and maintain the correct title
+  useTitle();
+
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
@@ -60,6 +71,7 @@ const App = () => (
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
