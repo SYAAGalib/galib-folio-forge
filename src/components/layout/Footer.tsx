@@ -78,9 +78,9 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-          <p className="text-muted-foreground text-sm">
-            © 2024 Sheikh Yeasin Ahsanullah Al‑Galib. All rights reserved.
-          </p>
+            <p className="text-muted-foreground text-sm">
+            © {new Date().getFullYear()} Sheikh Yeasin Ahsanullah Al‑Galib. All rights reserved.
+            </p>
           <p className="text-muted-foreground text-sm flex items-center">
             Made with <span className="text-red-500 mx-1">❤️</span> in Bangladesh
           </p>
