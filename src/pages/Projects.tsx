@@ -187,8 +187,8 @@ const Projects = () => {
                       <div className="space-y-6">
                         <div>
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary">{project.type}</Badge>
-                            <Badge variant="outline">{project.category}</Badge>
+                            <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{project.type}</Badge>
+                            <Badge variant="outline" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{project.category}</Badge>
                           </div>
                           <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
                           <p className="text-muted-foreground mb-4">{project.description}</p>
