@@ -270,7 +270,7 @@ const Research = () => {
                         <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {item.year}
                         </Badge>
-                      </div>
+                      </div>absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100
                     </div>
                     
                     <CardContent className="p-6">
