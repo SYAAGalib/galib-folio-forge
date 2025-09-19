@@ -251,10 +251,10 @@ const Projects = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {project.type}
                         </Badge>
-                        <Badge variant="outline" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
+                        <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300">
                           {project.category}
                         </Badge>
                       </div>
