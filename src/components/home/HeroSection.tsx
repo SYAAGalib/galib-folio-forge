@@ -6,9 +6,9 @@ import TypeIt from 'typeit';
 
 const HeroSection = () => {
   const socialLinks = [
-    { icon: Mail, href: 'mailto:galib@example.com', label: 'Email' },
+    { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
     { icon: MessageCircle, href: 'https://wa.me/8801234567890', label: 'WhatsApp' },
-    { icon: Send, href: 'https://t.me/galibtech', label: 'Telegram' },
+    { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram' },
     { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
   ];

@@ -21,31 +21,31 @@ const FloatingMessageButton = () => {
     {
       icon: Mail,
       label: 'Email',
-      href: 'mailto:galib@example.com',
+      href: 'mailto:syaagalib@gmail.com',
       color: 'hover:bg-blue-500',
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      href: 'https://linkedin.com/in/galibtech',
+      href: 'https://linkedin.com/in/SYAAGalib',
       color: 'hover:bg-blue-600',
     },
     {
       icon: Github,
       label: 'GitHub',
-      href: 'https://github.com/galibtech',
+      href: 'https://github.com/syaagalib',
       color: 'hover:bg-gray-700',
     },
     {
       icon: Phone,
       label: 'WhatsApp',
-      href: 'https://wa.me/8801234567890',
+      href: 'https://wa.me/8801946303020',
       color: 'hover:bg-green-500',
     },
     {
       icon: Send,
       label: 'Telegram',
-      href: 'https://t.me/galibtech',
+      href: 'https://t.me/SYAAGalib',
       color: 'hover:bg-blue-500',
     },
   ];

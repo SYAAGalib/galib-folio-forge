@@ -13,7 +13,7 @@ const Footer = () => {
     { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
     { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
-    { icon: MessageCircle, href: 'https://wa.me/+8801946303020', label: 'WhatsApp' },
+    { icon: MessageCircle, href: 'https://wa.me/8801946303020', label: 'WhatsApp' },
     { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram' },
   ];
 
