@@ -14,10 +14,11 @@ const HeroSection = () => {
   ];
 
   useEffect(() => {
-    const primaryBullet = '<em><strong class="text-pink-600"> • </strong></em>';
-    const primaryHyphen = '<em><strong class="text-pink-600">‑</strong></em>';
+    const primaryBullet = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> • </strong></em>';
+    const primaryHyphen = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
     // '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
-
+    // '<em><strong class="text-pink-600"> • </strong></em>';
+    
     let heroComplete = false;
     let subInitialComplete = false;
 
