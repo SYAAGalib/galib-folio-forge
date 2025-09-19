@@ -196,7 +196,7 @@ const Projects = () => {
 
                         <div className="flex flex-wrap gap-2">
                           {project.metrics.map((metric) => (
-                            <Badge key={metric} variant="secondary" className="px-3 py-1">
+                            <Badge key={metric} variant="secondary" className="px-3 py-1 bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
                               {metric}
                             </Badge>
                           ))}
@@ -272,7 +272,7 @@ const Projects = () => {
 
                         <div className="flex flex-wrap gap-1">
                           {project.metrics.slice(0, 2).map((metric) => (
-                            <Badge key={metric} variant="secondary" className="text-xs">
+                            <Badge key={metric} variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
                               {metric}
                             </Badge>
                           ))}
