@@ -254,6 +254,21 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
+  /* TypeIt Cursor Styling */
+  .ti-cursor {
+    animation: cursorBlink 1s infinite;
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: 300 !important;
+  }
+
+  @keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
   /* Scrollbar Styling */
   ::-webkit-scrollbar {
     width: 8px;

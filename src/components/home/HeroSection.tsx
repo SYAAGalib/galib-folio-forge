@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
 import heroPortrait from '@/assets/hero-galib.jpg';
+import { useEffect } from 'react';
+import TypeIt from 'typeit';
 
 const HeroSection = () => {
   const socialLinks = [
@@ -10,6 +12,127 @@ const HeroSection = () => {
     { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
   ];
+
+  useEffect(() => {
+    const primaryBullet = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> • </strong></em>';
+    const primaryHyphen = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
+
+    let heroComplete = false;
+    let subInitialComplete = false;
+
+    // Step 1: Hero name typing with corrections
+    const heroInstance = new TypeIt("#hero-typing", {
+      speed: 80,
+      startDelay: 500,
+      cursorChar: "|",
+      lifeLike: true,
+      waitUntilVisible: true,
+      afterComplete: function(instance) {
+        heroComplete = true;
+        setTimeout(() => {
+          hideCursor("#hero-typing");
+          startSubtitleSequence();
+        }, 300);
+      }
+    });
+
+    heroInstance
+      .type("Ahsanullah A", { delay: 300 })
+      .move(null, { to: "START", delay: 200 })
+      .move(7, { delay: 150 })
+      .delete(1, { delay: 150 })
+      .type("l", { delay: 150 })
+      .move(null, { to: "END", delay: 200 })
+      .type("l galib", { delay: 300 })
+      .move(-4, { delay: 200 })
+      .delete(1, { delay: 150 })
+      .type("G", { delay: 150 })
+      .move(null, { to: "END", delay: 200 })
+      .go();
+
+    function startSubtitleSequence() {
+      const subInstance = new TypeIt("#sub-typing", {
+        speed: 70,
+        startDelay: 200,
+        cursorChar: "|",
+        lifeLike: true,
+        afterComplete: function(instance) {
+          subInitialComplete = true;
+          setTimeout(() => {
+            performCursorJumpEdit();
+          }, 300);
+        }
+      });
+
+      subInstance
+        .type(`AI Innovator${primaryBullet}`, { delay: 250 })
+        .type(`Software Engineer${primaryBullet}`, { delay: 250 })
+        .go();
+    }
+
+    function performCursorJumpEdit() {
+      hideCursor("#sub-typing");
+      
+      setTimeout(() => {
+        showCursor("#hero-typing");
+        
+        const heroEl = document.querySelector("#hero-typing");
+        let currentContent = heroEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
+        
+        simulateEdit(currentContent);
+      }, 400);
+    }
+
+    function simulateEdit(originalContent: string) {
+      const heroEl = document.querySelector("#hero-typing");
+      
+      setTimeout(() => {
+        const editedContent = originalContent.replace(/(\s)(Galib)/, primaryHyphen + '$2');
+        if (heroEl) {
+          heroEl.innerHTML = editedContent + '<span class="ti-cursor" style="font-weight: 100; color: inherit;">|</span>';
+        }
+        
+        setTimeout(() => {
+          hideCursor("#hero-typing");
+          showCursor("#sub-typing");
+          finishSubtitleTyping();
+        }, 800);
+      }, 600);
+    }
+
+    function finishSubtitleTyping() {
+      const subEl = document.querySelector("#sub-typing");
+      const currentContent = subEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
+      
+      let finalText = "Startup Founder";
+      let currentIndex = 0;
+      
+      function typeNextChar() {
+        if (currentIndex < finalText.length && subEl) {
+          const char = finalText.charAt(currentIndex);
+          subEl.innerHTML = currentContent + finalText.substring(0, currentIndex + 1) + '<span class="ti-cursor" style="font-weight: 100; color: inherit;">|</span>';
+          currentIndex++;
+          setTimeout(typeNextChar, 70 + Math.random() * 50);
+        }
+      }
+      
+      setTimeout(typeNextChar, 200);
+    }
+
+    function hideCursor(selector: string) {
+      const cursor = document.querySelector(`${selector} .ti-cursor`) as HTMLElement;
+      if (cursor) {
+        cursor.style.visibility = "hidden";
+      }
+    }
+
+    function showCursor(selector: string) {
+      const cursor = document.querySelector(`${selector} .ti-cursor`) as HTMLElement;
+      if (cursor) {
+        cursor.style.visibility = "visible";
+      }
+    }
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
@@ -27,11 +150,9 @@ const HeroSection = () => {
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 <span className="hero-text-gradient">Sheikh Yeasin</span>
                 <br />
-                <span className="text-foreground">Ahsanullah Al‑Galib</span>
+                <span id="hero-typing" className="text-foreground"></span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-                AI Innovator • Software Engineer • Startup Founder
-              </p>
+              <p id="sub-typing" className="text-xl md:text-2xl text-muted-foreground font-medium"></p>
             </div>
 
             {/* CTA Buttons */}
