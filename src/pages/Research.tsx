@@ -186,7 +186,7 @@ const Research = () => {
                       <div className="space-y-6">
                         <div>
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary">{item.category}</Badge>
+                            <Badge variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{item.category}</Badge>
                             <Badge variant="outline" className="text-xs">
                               <Calendar className="w-3 h-3 mr-1" />
                               {item.year}
