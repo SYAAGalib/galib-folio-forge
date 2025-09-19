@@ -79,7 +79,7 @@ const HeroSection = () => {
         showCursor("#hero-typing");
         
         const heroEl = document.querySelector("#hero-typing");
-        let currentContent = heroEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
+        const currentContent = heroEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
         
         simulateEdit(currentContent);
       }, 400);
@@ -106,7 +106,7 @@ const HeroSection = () => {
       const subEl = document.querySelector("#sub-typing");
       const currentContent = subEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
       
-      let finalText = "Startup Founder";
+      const finalText = "Startup Founder";
       let currentIndex = 0;
       
       function typeNextChar() {
