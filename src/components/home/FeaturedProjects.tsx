@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import projectHero from '@/assets/project-hero.jpg';
 
 const FeaturedProjects = () => {
@@ -84,13 +85,17 @@ const FeaturedProjects = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-4 pt-4">
-                    <Button className="btn-hero">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Live
+                    <Button asChild className="btn-hero">
+                      <a href={heroProject.links.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View Live
+                      </a>
                     </Button>
-                    <Button variant="outline" className="btn-ghost-glow">
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
+                    <Button asChild variant="outline" className="btn-ghost-glow">
+                      <a href={heroProject.links.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -124,8 +129,10 @@ const FeaturedProjects = () => {
 
         {/* View All Button */}
         <div className="text-center">
-          <Button variant="outline" size="lg" className="btn-ghost-glow">
-            View All Projects
+          <Button asChild variant="outline" size="lg" className="btn-ghost-glow">
+            <Link to="/projects">
+              View All Projects
+            </Link>
           </Button>
         </div>
       </div>

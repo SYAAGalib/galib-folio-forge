@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FileText, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import researchHero from '@/assets/research-hero.jpg';
 
 const FeaturedResearch = () => {
@@ -71,13 +72,17 @@ const FeaturedResearch = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-4 pt-4">
-                    <Button className="btn-hero">
-                      <FileText className="w-4 h-4 mr-2" />
-                      Read Paper
+                    <Button asChild className="btn-hero">
+                      <a href={heroResearch.links.paper} target="_blank" rel="noopener noreferrer">
+                        <FileText className="w-4 h-4 mr-2" />
+                        Read Paper
+                      </a>
                     </Button>
-                    <Button variant="outline" className="btn-ghost-glow">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Code
+                    <Button asChild variant="outline" className="btn-ghost-glow">
+                      <a href={heroResearch.links.code} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View Code
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -119,8 +124,10 @@ const FeaturedResearch = () => {
 
         {/* View All Button */}
         <div className="text-center">
-          <Button variant="outline" size="lg" className="btn-ghost-glow">
-            View All Research
+          <Button asChild variant="outline" size="lg" className="btn-ghost-glow">
+            <Link to="/research">
+              View All Research
+            </Link>
           </Button>
         </div>
       </div>

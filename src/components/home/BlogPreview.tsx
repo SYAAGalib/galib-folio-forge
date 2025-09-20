@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BlogPreview = () => {
   const blogPosts = [
@@ -56,11 +57,11 @@ const BlogPreview = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {blogPosts.map((post, index) => (
-            <Card
-              key={post.id}
-              className="card-elevated group cursor-pointer animate-fade-in-up"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
+            <Link key={post.id} to="/blog" className="block">
+              <Card
+                className="card-elevated group cursor-pointer animate-fade-in-up hover:shadow-lg transition-shadow"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
               <div className="relative overflow-hidden">
                 <img
                   src={post.image}
@@ -108,14 +109,17 @@ const BlogPreview = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 
         {/* View All Button */}
         <div className="text-center">
-          <Button variant="outline" size="lg" className="btn-ghost-glow">
-            View All Posts
+          <Button asChild variant="outline" size="lg" className="btn-ghost-glow">
+            <Link to="/blog">
+              View All Posts
+            </Link>
           </Button>
         </div>
       </div>
