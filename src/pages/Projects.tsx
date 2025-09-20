@@ -3,13 +3,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { ExternalLink, Github, Search, Filter } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ExternalLink, Github, Search, Filter, X } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import projectHero from '@/assets/project-hero.jpg';
 
 const Projects = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [showMore, setShowMore] = useState(false);
 
   const filters = ['All', 'Projects', 'Case Studies', 'AI/ML', 'Web Dev', 'Mobile'];
 
@@ -116,6 +119,15 @@ const Projects = () => {
 
   const featuredProjects = filteredProjects.filter(p => p.featured);
   const regularProjects = filteredProjects.filter(p => !p.featured);
+  const visibleProjects = showMore ? regularProjects : regularProjects.slice(0, 6);
+
+  const openProjectModal = (project) => {
+    setSelectedProject(project);
+  };
+
+  const closeProjectModal = () => {
+    setSelectedProject(null);
+  };
 
   return (
     <Layout>
@@ -214,13 +226,17 @@ const Projects = () => {
                         </div>
 
                         <div className="flex space-x-4 pt-4">
-                          <Button className="btn-hero">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            View Live
+                          <Button asChild className="btn-hero">
+                            <a href={project.links.live} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View Live
+                            </a>
                           </Button>
-                          <Button variant="outline" className="btn-ghost-glow">
-                            <Github className="w-4 h-4 mr-2" />
-                            Code
+                          <Button asChild variant="outline" className="btn-ghost-glow">
+                            <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                              <Github className="w-4 h-4 mr-2" />
+                              Code
+                            </a>
                           </Button>
                         </div>
                       </div>
@@ -236,13 +252,15 @@ const Projects = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             {regularProjects.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularProjects.map((project, index) => (
-                  <Card
-                    key={project.id}
-                    className="card-elevated group cursor-pointer animate-fade-in-up"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
+              <>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {visibleProjects.map((project, index) => (
+                    <Card
+                      key={project.id}
+                      className="card-elevated group cursor-pointer animate-fade-in-up hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                      onClick={() => openProjectModal(project)}
+                    >
                     <div className="relative overflow-hidden">
                       <img
                         src={project.image}
@@ -250,6 +268,11 @@ const Projects = () => {
                         className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                          View Details
+                        </Button>
+                      </div>
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {project.type}
@@ -292,11 +315,26 @@ const Projects = () => {
                         </div>
 
                         <div className="flex space-x-2 pt-4">
-                          <Button size="sm" className="btn-hero flex-1">
+                          <Button 
+                            size="sm" 
+                            className="btn-hero flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.live, '_blank');
+                            }}
+                          >
                             <ExternalLink className="w-3 h-3 mr-1" />
                             Live
                           </Button>
-                          <Button variant="outline" size="sm" className="btn-ghost-glow flex-1">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="btn-ghost-glow flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.github, '_blank');
+                            }}
+                          >
                             <Github className="w-3 h-3 mr-1" />
                             Code
                           </Button>
@@ -304,8 +342,23 @@ const Projects = () => {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
+                  ))}
+                </div>
+
+                {/* Load More Button */}
+                {regularProjects.length > 6 && (
+                  <div className="text-center mt-12">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="btn-ghost-glow"
+                      onClick={() => setShowMore(!showMore)}
+                    >
+                      {showMore ? 'Show Less' : `View More Projects (${regularProjects.length - 6} more)`}
+                    </Button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-16">
                 <p className="text-muted-foreground text-lg">
@@ -315,6 +368,77 @@ const Projects = () => {
             )}
           </div>
         </section>
+
+        {/* Project Modal */}
+        <Dialog open={!!selectedProject} onOpenChange={closeProjectModal}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            {selectedProject && (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold">{selectedProject.title}</DialogTitle>
+                </DialogHeader>
+                
+                <div className="space-y-6">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Badge variant="secondary">{selectedProject.type}</Badge>
+                    <Badge variant="outline">{selectedProject.category}</Badge>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Overview</h3>
+                    <p className="text-muted-foreground">{selectedProject.description}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Key Metrics</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.metrics.map((metric) => (
+                        <Badge key={metric} variant="secondary" className="px-3 py-1">
+                          {metric}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">Tech Stack</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.techStack.map((tech) => (
+                        <Badge key={tech} variant="outline">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-4 pt-4">
+                    <Button asChild className="btn-hero">
+                      <a href={selectedProject.links.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View Live Project
+                      </a>
+                    </Button>
+                    <Button asChild variant="outline" className="btn-ghost-glow">
+                      <a href={selectedProject.links.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        View Code
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </Layout>
   );

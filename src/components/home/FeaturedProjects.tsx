@@ -107,23 +107,27 @@ const FeaturedProjects = () => {
         {/* Secondary Projects */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {secondaryProjects.map((project, index) => (
-            <Card
-              key={project.title}
-              className="card-elevated p-6 animate-fade-in-up"
-              style={{ animationDelay: `${(index + 1) * 200}ms` }}
-            >
-              <div className="space-y-4">
-                <h4 className="text-xl font-semibold">{project.title}</h4>
-                <p className="text-muted-foreground">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <Badge key={tech} variant="outline" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
+            <Link key={project.title} to="/projects">
+              <Card
+                className="card-elevated p-6 animate-fade-in-up cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                style={{ animationDelay: `${(index + 1) * 200}ms` }}
+              >
+                <div className="space-y-4">
+                  <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">{project.title}</h4>
+                  <p className="text-muted-foreground">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <Badge key={tech} variant="outline" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2">
+                    <span className="text-sm text-primary font-medium">Click to view in portfolio →</span>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 
