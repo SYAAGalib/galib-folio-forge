@@ -185,15 +185,24 @@ const Projects = () => {
                 Featured <span className="hero-text-gradient">Projects</span>
               </h2>
               {featuredProjects.map((project) => (
-                <Card key={project.id} className="card-elevated overflow-hidden mb-8">
+                <Card 
+                  key={project.id} 
+                  className="card-elevated overflow-hidden mb-8 cursor-pointer group"
+                  onClick={() => openProjectModal(project)}
+                >
                   <div className="grid lg:grid-cols-2 gap-0">
-                    <div className="relative h-64 lg:h-auto">
+                    <div className="relative h-64 lg:h-auto overflow-hidden">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                          View Details
+                        </Button>
+                      </div>
                     </div>
                     <CardContent className="p-8 flex flex-col justify-center">
                       <div className="space-y-6">
@@ -226,17 +235,26 @@ const Projects = () => {
                         </div>
 
                         <div className="flex space-x-4 pt-4">
-                          <Button asChild className="btn-hero">
-                            <a href={project.links.live} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              View Live
-                            </a>
+                          <Button 
+                            className="btn-hero"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.live, '_blank');
+                            }}
+                          >
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            View Live
                           </Button>
-                          <Button asChild variant="outline" className="btn-ghost-glow">
-                            <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              Code
-                            </a>
+                          <Button 
+                            variant="outline" 
+                            className="btn-ghost-glow"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.links.github, '_blank');
+                            }}
+                          >
+                            <Github className="w-4 h-4 mr-2" />
+                            Code
                           </Button>
                         </div>
                       </div>
