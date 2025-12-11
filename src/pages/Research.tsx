@@ -3,13 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { FileText, ExternalLink, Search, Filter, Calendar, User } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { FileText, ExternalLink, Search, Filter, Calendar, User, Github } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import researchHero from '@/assets/research-hero.jpg';
 
 const Research = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedResearch, setSelectedResearch] = useState(null);
 
   const filters = ['All', 'AI/ML', 'LLMs', 'NLP', 'Computer Vision', 'Robotics'];
 
@@ -124,6 +126,14 @@ const Research = () => {
   const featuredResearch = filteredResearch.filter(r => r.featured);
   const regularResearch = filteredResearch.filter(r => !r.featured);
 
+  const openResearchModal = (item) => {
+    setSelectedResearch(item);
+  };
+
+  const closeResearchModal = () => {
+    setSelectedResearch(null);
+  };
+
   return (
     <Layout>
       <div className="min-h-screen">
@@ -180,7 +190,11 @@ const Research = () => {
                 Featured <span className="hero-text-gradient">Research</span>
               </h2>
               {featuredResearch.map((item) => (
-                <Card key={item.id} className="card-elevated overflow-hidden mb-8">
+                <Card 
+                  key={item.id} 
+                  className="card-elevated overflow-hidden mb-8 cursor-pointer group"
+                  onClick={() => openResearchModal(item)}
+                >
                   <div className="grid lg:grid-cols-2 gap-0">
                     <CardContent className="p-8 flex flex-col justify-center">
                       <div className="space-y-6">
@@ -219,24 +233,42 @@ const Research = () => {
                         </div>
 
                         <div className="flex space-x-4 pt-4">
-                          <Button className="btn-hero">
+                          <Button 
+                            className="btn-hero"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(item.links.paper, '_blank');
+                            }}
+                          >
                             <FileText className="w-4 h-4 mr-2" />
                             Read Paper
                           </Button>
-                          <Button variant="outline" className="btn-ghost-glow">
+                          <Button 
+                            variant="outline" 
+                            className="btn-ghost-glow"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(item.links.code, '_blank');
+                            }}
+                          >
                             <ExternalLink className="w-4 h-4 mr-2" />
                             View Code
                           </Button>
                         </div>
                       </div>
                     </CardContent>
-                    <div className="relative h-64 lg:h-auto">
+                    <div className="relative h-64 lg:h-auto overflow-hidden">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20"></div>
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                          View Details
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </Card>
@@ -253,8 +285,9 @@ const Research = () => {
                 {regularResearch.map((item, index) => (
                   <Card
                     key={item.id}
-                    className="card-elevated group cursor-pointer animate-fade-in-up"
+                    className="card-elevated group cursor-pointer animate-fade-in-up hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                     style={{ animationDelay: `${index * 100}ms` }}
+                    onClick={() => openResearchModal(item)}
                   >
                     <div className="relative overflow-hidden">
                       <img
@@ -263,7 +296,9 @@ const Research = () => {
                         className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span className="text-white font-semibold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Details</span>
+                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                          View Details
+                        </Button>
                       </div>
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
@@ -305,11 +340,26 @@ const Research = () => {
                         </div>
 
                         <div className="flex space-x-2 pt-4">
-                          <Button size="sm" className="btn-hero flex-1">
+                          <Button 
+                            size="sm" 
+                            className="btn-hero flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(item.links.paper, '_blank');
+                            }}
+                          >
                             <FileText className="w-3 h-3 mr-1" />
                             Paper
                           </Button>
-                          <Button variant="outline" size="sm" className="btn-ghost-glow flex-1">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="btn-ghost-glow flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(item.links.code, '_blank');
+                            }}
+                          >
                             <ExternalLink className="w-3 h-3 mr-1" />
                             Code
                           </Button>
@@ -328,6 +378,97 @@ const Research = () => {
             )}
           </div>
         </section>
+
+        {/* Research Modal */}
+        <Dialog open={!!selectedResearch} onOpenChange={closeResearchModal}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            {selectedResearch && (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold">{selectedResearch.title}</DialogTitle>
+                </DialogHeader>
+                
+                <div className="space-y-6">
+                  <div className="relative h-64 rounded-lg overflow-hidden">
+                    <img
+                      src={selectedResearch.image}
+                      alt={selectedResearch.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">
+                      {selectedResearch.category}
+                    </Badge>
+                    <Badge variant="outline">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {selectedResearch.year}
+                    </Badge>
+                  </div>
+
+                  <div className="bg-accent/50 rounded-lg p-4">
+                    <p className="text-sm font-medium text-primary">
+                      📄 {selectedResearch.publication}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold mb-2">Abstract</h4>
+                    <p className="text-muted-foreground">{selectedResearch.abstract}</p>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-1 mb-2 text-sm text-muted-foreground">
+                      <User className="w-3 h-3" />
+                      <span className="font-medium">Authors:</span>
+                    </div>
+                    <p className="text-sm">{selectedResearch.authors.join(', ')}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold mb-2">Research Areas</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedResearch.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-4 pt-4 border-t">
+                    <Button 
+                      className="btn-hero"
+                      onClick={() => window.open(selectedResearch.links.paper, '_blank')}
+                    >
+                      <FileText className="w-4 h-4 mr-2" />
+                      Read Paper
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="btn-ghost-glow"
+                      onClick={() => window.open(selectedResearch.links.code, '_blank')}
+                    >
+                      <Github className="w-4 h-4 mr-2" />
+                      View Code
+                    </Button>
+                    {selectedResearch.links.dataset && (
+                      <Button 
+                        variant="outline"
+                        onClick={() => window.open(selectedResearch.links.dataset, '_blank')}
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Dataset
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </Layout>
   );
