@@ -262,7 +262,9 @@ const Research = () => {
                         alt={item.title}
                         className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="text-white font-semibold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Details</span>
+                      </div>
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {item.category}
@@ -270,7 +272,7 @@ const Research = () => {
                         <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
                           {item.year}
                         </Badge>
-                      </div>absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100
+                      </div>
                     </div>
                     
                     <CardContent className="p-6">
