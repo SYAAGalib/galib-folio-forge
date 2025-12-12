@@ -1,41 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Mail, Linkedin, Github, Send, Phone, Sparkles } from 'lucide-react';
+import { MessageCircle, X, Mail, Linkedin, Github, Send, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const FloatingMessageButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isMorphing, setIsMorphing] = useState(false);
-  const [morphDirection, setMorphDirection] = useState<'in' | 'out'>('in');
-  const [sparkles, setSparkles] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [animationState, setAnimationState] = useState<'idle' | 'flying-in' | 'flying-out'>('idle');
+  const [magicTrails, setMagicTrails] = useState<{ id: number; delay: number }[]>([]);
   const wasVisibleRef = useRef(false);
-  const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const shouldBeVisible = window.scrollY > window.innerHeight * 0.8;
       
       if (shouldBeVisible !== wasVisibleRef.current) {
-        setIsMorphing(true);
-        setMorphDirection(shouldBeVisible ? 'in' : 'out');
-        
-        // Create sparkle effects
         if (shouldBeVisible) {
-          const newSparkles = Array.from({ length: 8 }, (_, i) => ({
-            id: Date.now() + i,
-            x: Math.random() * 80 - 40,
-            y: Math.random() * 80 - 40,
-          }));
-          setSparkles(newSparkles);
-          setTimeout(() => setSparkles([]), 800);
+          // Flying in from top
+          setAnimationState('flying-in');
+          setMagicTrails(Array.from({ length: 6 }, (_, i) => ({ id: Date.now() + i, delay: i * 0.08 })));
+          setIsVisible(true);
+          setTimeout(() => {
+            setAnimationState('idle');
+            setMagicTrails([]);
+          }, 1200);
+        } else {
+          // Flying out to bottom
+          setAnimationState('flying-out');
+          setMagicTrails(Array.from({ length: 6 }, (_, i) => ({ id: Date.now() + i, delay: i * 0.08 })));
+          setTimeout(() => {
+            setIsVisible(false);
+            setAnimationState('idle');
+            setMagicTrails([]);
+          }, 1200);
         }
-
-        setTimeout(() => {
-          setIsVisible(shouldBeVisible);
-          setIsMorphing(false);
-        }, shouldBeVisible ? 100 : 700);
-
         wasVisibleRef.current = shouldBeVisible;
       }
     };
@@ -82,43 +80,59 @@ const FloatingMessageButton = () => {
     },
   ];
 
-  // Don't render if not visible and not morphing
-  if (!isVisible && !isMorphing) return null;
+  if (!isVisible) return null;
 
   return (
     <div 
-      ref={buttonRef}
       className={cn(
         'fixed bottom-6 left-6 z-50',
-        isMorphing && morphDirection === 'in' && 'animate-social-morph-in',
-        isMorphing && morphDirection === 'out' && 'animate-social-morph-out'
+        animationState === 'flying-in' && 'animate-fly-from-top',
+        animationState === 'flying-out' && 'animate-fly-to-bottom'
       )}
     >
-      {/* Sparkle effects */}
-      {sparkles.map((sparkle) => (
-        <Sparkles
-          key={sparkle.id}
-          className="absolute w-4 h-4 text-primary animate-magic-sparkle pointer-events-none"
-          style={{
-            left: `calc(50% + ${sparkle.x}px)`,
-            top: `calc(50% + ${sparkle.y}px)`,
-          }}
-        />
+      {/* Magic trail effects */}
+      {magicTrails.map((trail) => (
+        <div
+          key={trail.id}
+          className="absolute inset-0 pointer-events-none"
+          style={{ animationDelay: `${trail.delay}s` }}
+        >
+          {/* Sparkle star */}
+          <svg
+            className={cn(
+              'absolute w-6 h-6',
+              animationState === 'flying-in' ? 'animate-trail-sparkle-down' : 'animate-trail-sparkle-up'
+            )}
+            style={{ 
+              left: `${Math.random() * 40 - 20}px`,
+              animationDelay: `${trail.delay}s`
+            }}
+            viewBox="0 0 24 24"
+            fill="hsl(var(--primary))"
+          >
+            <path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z" />
+          </svg>
+          
+          {/* Glowing orb */}
+          <div
+            className={cn(
+              'absolute w-4 h-4 rounded-full bg-gradient-to-r from-primary to-secondary blur-sm',
+              animationState === 'flying-in' ? 'animate-trail-orb-down' : 'animate-trail-orb-up'
+            )}
+            style={{ 
+              left: `${Math.random() * 30 - 15}px`,
+              animationDelay: `${trail.delay + 0.05}s`
+            }}
+          />
+        </div>
       ))}
 
-      {/* Trail effect during morph */}
-      {isMorphing && morphDirection === 'in' && (
-        <>
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/30 to-secondary/30 pointer-events-none"
-              style={{
-                animation: `trail-fade 0.6s ease-out ${i * 0.1}s forwards`,
-              }}
-            />
-          ))}
-        </>
+      {/* Magic glow aura */}
+      {animationState !== 'idle' && (
+        <div className="absolute inset-0 -m-4">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/40 to-secondary/40 blur-xl animate-pulse" />
+          <div className="absolute inset-2 rounded-full bg-gradient-to-r from-secondary/30 to-primary/30 blur-lg animate-ping" />
+        </div>
       )}
 
       {/* Expanded Menu */}
@@ -160,7 +174,7 @@ const FloatingMessageButton = () => {
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
         className={cn(
-          'w-14 h-14 rounded-full shadow-strong transition-all duration-300 hover:scale-110',
+          'w-14 h-14 rounded-full shadow-strong transition-all duration-300 hover:scale-110 relative',
           isExpanded 
             ? 'bg-destructive hover:bg-destructive/90 hover:shadow-[0_0_30px_rgba(239,68,68,0.4)]' 
             : 'btn-hero animate-pulse-glow'
