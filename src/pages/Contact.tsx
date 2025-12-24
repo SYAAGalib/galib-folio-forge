@@ -1,14 +1,41 @@
+import { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, MessageCircle, Send, Download, QrCode } from 'lucide-react';
+import { Mail, MessageCircle, Send, Download, QrCode, Loader2 } from 'lucide-react';
 import { useContactPageContent } from '@/hooks/useContent';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
+  email: z.string().trim().email('Invalid email address').max(255, 'Email must be less than 255 characters'),
+  subject: z.string().trim().min(1, 'Subject is required').max(200, 'Subject must be less than 200 characters'),
+  message: z.string().trim().min(1, 'Message is required').max(2000, 'Message must be less than 2000 characters'),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const Contact = () => {
   const { contactPage, loading } = useContactPageContent();
+  const [sending, setSending] = useState(false);
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    },
+  });
 
   const title = contactPage?.title ?? "Let's";
   const titleHighlight = contactPage?.titleHighlight ?? 'Connect';
@@ -19,6 +46,55 @@ const Contact = () => {
     subject: 'Subject',
     message: 'Message',
     submit: 'Send Message'
+  };
+
+  const onSubmit = async (data: ContactFormData) => {
+    setSending(true);
+    try {
+      // Fetch SMTP settings from site-content.json
+      const response = await fetch('/data/site-content.json');
+      const siteContent = await response.json();
+      const smtpSettings = siteContent?.smtp;
+
+      if (!smtpSettings?.host || !smtpSettings?.email || !smtpSettings?.appPassword) {
+        toast.error('Email service is not configured. Please contact the administrator.');
+        return;
+      }
+
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          to: smtpSettings.email,
+          subject: `Contact Form: ${data.subject}`,
+          html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Subject:</strong> ${data.subject}</p>
+            <p><strong>Message:</strong></p>
+            <p>${data.message.replace(/\n/g, '<br>')}</p>
+          `,
+          text: `Name: ${data.name}\nEmail: ${data.email}\nSubject: ${data.subject}\nMessage: ${data.message}`,
+          smtp: {
+            host: smtpSettings.host,
+            port: smtpSettings.port || 587,
+            email: smtpSettings.email,
+            password: smtpSettings.appPassword,
+            fromName: smtpSettings.fromName || 'Contact Form',
+            secure: smtpSettings.secure || false,
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success('Message sent successfully! I\'ll get back to you soon.');
+      form.reset();
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      toast.error(error.message || 'Failed to send message. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -42,30 +118,77 @@ const Contact = () => {
               <Card className="card-elevated">
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
-                  <form className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">{formLabels.name}</Label>
-                        <Input id="name" placeholder="Your name" />
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{formLabels.name}</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Your name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{formLabels.email}</FormLabel>
+                              <FormControl>
+                                <Input type="email" placeholder="your.email@example.com" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       </div>
-                      <div>
-                        <Label htmlFor="email">{formLabels.email}</Label>
-                        <Input id="email" type="email" placeholder="your.email@example.com" />
-                      </div>
-                    </div>
-                    <div>
-                      <Label htmlFor="subject">{formLabels.subject}</Label>
-                      <Input id="subject" placeholder="What's this about?" />
-                    </div>
-                    <div>
-                      <Label htmlFor="message">{formLabels.message}</Label>
-                      <Textarea id="message" placeholder="Your message..." rows={5} />
-                    </div>
-                    <Button className="btn-hero w-full">
-                      <Send className="w-4 h-4 mr-2" />
-                      {formLabels.submit}
-                    </Button>
-                  </form>
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{formLabels.subject}</FormLabel>
+                            <FormControl>
+                              <Input placeholder="What's this about?" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{formLabels.message}</FormLabel>
+                            <FormControl>
+                              <Textarea placeholder="Your message..." rows={5} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button type="submit" className="btn-hero w-full" disabled={sending}>
+                        {sending ? (
+                          <>
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4 mr-2" />
+                            {formLabels.submit}
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
                 </CardContent>
               </Card>
 
