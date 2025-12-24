@@ -1,10 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Download, ArrowDown, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TypeIt from 'typeit';
+import useParallax from '@/hooks/useParallax';
+import LazyImage from '@/components/ui/LazyImage';
 
 const HeroSection = () => {
+  const { parallaxY, parallaxOpacity } = useParallax();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
   const socialLinks = [
     { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
     { icon: MessageCircle, href: 'https://wa.me/8801234567890', label: 'WhatsApp' },
@@ -138,10 +143,17 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
-      {/* Background Animation */}
-      <div className="absolute inset-0 opacity-30">
+      {/* Background Animation with Parallax */}
+      <div 
+        className="absolute inset-0 opacity-30 parallax-element"
+        style={{ 
+          transform: `translateY(${parallaxY(0.3)}px)`,
+          opacity: parallaxOpacity(0, 600)
+        }}
+      >
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-float"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full filter blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full filter blur-[100px] animate-pulse-glow"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -189,19 +201,32 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Portrait */}
-          <div className="flex justify-center lg:justify-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          {/* Right Column - Portrait with Parallax */}
+          <div 
+            className="flex justify-center lg:justify-end animate-fade-in parallax-element" 
+            style={{ 
+              animationDelay: '0.3s',
+              transform: `translateY(${parallaxY(-0.15)}px)`
+            }}
+          >
             <div className="relative">
               <div className="glow-border p-2 animate-pulse-glow">
-                <img
+                <LazyImage
                   src={heroPortrait}
                   alt="Sheikh Yeasin Ahsanullah Al‑Galib - AI Engineer and Startup Founder"
-                  className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-lg hero-portrait-bg"
+                  className="w-80 h-80 md:w-96 md:h-96 rounded-lg hero-portrait-bg"
+                  skeletonClassName="rounded-lg"
                 />
               </div>
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-float"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary rounded-full animate-float" style={{ animationDelay: '0.5s' }}></div>
+              {/* Floating elements with enhanced parallax */}
+              <div 
+                className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-float parallax-element"
+                style={{ transform: `translateY(${parallaxY(-0.4)}px)` }}
+              ></div>
+              <div 
+                className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary rounded-full animate-float parallax-element" 
+                style={{ animationDelay: '0.5s', transform: `translateY(${parallaxY(-0.2)}px)` }}
+              ></div>
             </div>
           </div>
         </div>
