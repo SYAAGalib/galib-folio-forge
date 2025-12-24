@@ -7,6 +7,7 @@ const Footer = () => {
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
+    { href: '/card', label: 'Digital Card' },
   ];
 
   const socialLinks = [
