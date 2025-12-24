@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/card';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
+import { Link } from 'react-router-dom';
+import { useAboutContent } from '@/hooks/useContent';
 import { 
   Brain, 
   Code, 
@@ -12,14 +14,33 @@ import {
   Globe 
 } from 'lucide-react';
 
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Brain,
+  Code,
+  Rocket,
+  Users,
+  Award,
+  Globe,
+};
+
 const AboutSnapshot = () => {
-  const skills = [
-    { icon: Brain, label: 'AI/ML', description: 'Deep Learning & LLMs' },
-    { icon: Code, label: 'Full Stack', description: 'React, Python, Node.js' },
-    { icon: Rocket, label: 'Innovation', description: 'Product Development' },
-    { icon: Users, label: 'Leadership', description: 'Team Management' },
-    { icon: Award, label: 'Research', description: 'Published Papers' },
-    { icon: Globe, label: 'Impact', description: 'Global Solutions' },
+  const { about, loading } = useAboutContent();
+
+  const title = about?.title ?? 'About';
+  const titleHighlight = about?.titleHighlight ?? 'Me';
+  const paragraphs = about?.paragraphs ?? [
+    "I'm a passionate AI engineer and startup founder from Bangladesh, driven by the vision of creating intelligent solutions that bridge technology with real-world impact.",
+    "From founding AIELTS and winning the UIHP National Award to leading Intelleeo as Chairman, I've dedicated my career to pushing the boundaries of what's possible with AI and machine learning.",
+    "My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities."
+  ];
+  const ctaButton = about?.ctaButton ?? { text: 'Read My Full Story', link: '/about' };
+  const skills = about?.skills ?? [
+    { icon: 'Brain', label: 'AI/ML', description: 'Deep Learning & LLMs' },
+    { icon: 'Code', label: 'Full Stack', description: 'React, Python, Node.js' },
+    { icon: 'Rocket', label: 'Innovation', description: 'Product Development' },
+    { icon: 'Users', label: 'Leadership', description: 'Team Management' },
+    { icon: 'Award', label: 'Research', description: 'Published Papers' },
+    { icon: 'Globe', label: 'Impact', description: 'Global Solutions' },
   ];
 
   return (
@@ -30,24 +51,26 @@ const AboutSnapshot = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                <TextReveal as="span" mode="words" staggerDelay={60}>About</TextReveal>{' '}
-                <GradientTextReveal delay={150}>Me</GradientTextReveal>
+                <TextReveal as="span" mode="words" staggerDelay={60}>{title}</TextReveal>{' '}
+                <GradientTextReveal delay={150}>{titleHighlight}</GradientTextReveal>
               </h2>
               <div className="space-y-4 text-muted-foreground">
-                <TextReveal as="p" mode="words" delay={300} staggerDelay={20}>
-                  I'm a passionate AI engineer and startup founder from Bangladesh, driven by the vision of creating intelligent solutions that bridge technology with real-world impact.
-                </TextReveal>
-                <TextReveal as="p" mode="words" delay={600} staggerDelay={20}>
-                  From founding AIELTS and winning the UIHP National Award to leading Intelleeo as Chairman, I've dedicated my career to pushing the boundaries of what's possible with AI and machine learning.
-                </TextReveal>
-                <TextReveal as="p" mode="words" delay={900} staggerDelay={20}>
-                  My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities.
-                </TextReveal>
+                {paragraphs.map((paragraph, index) => (
+                  <TextReveal 
+                    key={index}
+                    as="p" 
+                    mode="words" 
+                    delay={300 + index * 300} 
+                    staggerDelay={20}
+                  >
+                    {paragraph}
+                  </TextReveal>
+                ))}
               </div>
             </div>
             
-            <Button className="btn-hero">
-              Read My Full Story
+            <Button className="btn-hero" asChild>
+              <Link to={ctaButton.link}>{ctaButton.text}</Link>
             </Button>
           </div>
 
@@ -61,7 +84,7 @@ const AboutSnapshot = () => {
               duration={450}
             >
               {skills.map((skill) => {
-                const Icon = skill.icon;
+                const Icon = iconMap[skill.icon] || Brain;
                 return (
                   <Card
                     key={skill.label}
