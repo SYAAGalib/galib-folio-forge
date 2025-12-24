@@ -2,126 +2,22 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Play, X, ExternalLink, Calendar, MapPin } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import { useGalleryPageContent, GalleryItem } from '@/hooks/useContent';
 
 const Gallery = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
-  const [selectedMedia, setSelectedMedia] = useState<any>(null);
+  const [selectedMedia, setSelectedMedia] = useState<GalleryItem | null>(null);
 
-  const filters = ['All', 'Events', 'Awards', 'Speaking', 'Press', 'Behind the Scenes'];
+  const { galleryPage, loading } = useGalleryPageContent();
 
-  const mediaItems = [
-    {
-      id: 1,
-      title: 'UIHP Award Ceremony 2024',
-      category: 'Awards',
-      type: 'image',
-      thumbnail: 'https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=600&h=400&fit=crop',
-      fullImage: 'https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=1200&h=800&fit=crop',
-      date: 'January 15, 2024',
-      location: 'Dhaka, Bangladesh',
-      description: 'Receiving the prestigious UIHP National Award for innovation in AI technology and educational platforms.',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'AI Conference Keynote',
-      category: 'Speaking',
-      type: 'video',
-      thumbnail: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop',
-      videoUrl: 'https://player.vimeo.com/video/sample',
-      date: 'March 10, 2024',
-      location: 'Dhaka University',
-      description: 'Keynote presentation on "The Future of AI in Bangladesh" at the International AI Conference.',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'Team Building at Intelleeo',
-      category: 'Behind the Scenes',
-      type: 'image',
-      thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop',
-      fullImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop',
-      date: 'February 20, 2024',
-      location: 'Khulna Office',
-      description: 'Strategic planning session with the Intelleeo team, discussing new technology initiatives.',
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'TechCrunch Feature',
-      category: 'Press',
-      type: 'article',
-      thumbnail: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=400&fit=crop',
-      articleUrl: 'https://techcrunch.com/aielts-feature',
-      date: 'December 5, 2023',
-      location: 'Online',
-      description: 'Featured article about AIELTS platform and its impact on language learning technology.',
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Product Launch Event',
-      category: 'Events',
-      type: 'image',
-      thumbnail: 'https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&h=400&fit=crop',
-      fullImage: 'https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1200&h=800&fit=crop',
-      date: 'November 18, 2023',
-      location: 'Dhaka Tech Hub',
-      description: 'Official launch of AIELTS 2.0 with advanced AI features and enhanced user experience.',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Research Lab Visit',
-      category: 'Behind the Scenes',
-      type: 'image',
-      thumbnail: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop',
-      fullImage: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=800&fit=crop',
-      date: 'October 15, 2023',
-      location: 'BUET AI Lab',
-      description: 'Collaborative research session on Bengali language processing models.',
-      featured: false
-    },
-    {
-      id: 7,
-      title: 'Startup Summit Panel',
-      category: 'Speaking',
-      type: 'video',
-      thumbnail: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop',
-      videoUrl: 'https://player.vimeo.com/video/sample2',
-      date: 'September 22, 2023',
-      location: 'Dhaka Convention Center',
-      description: 'Panel discussion on "AI Entrepreneurship in Bangladesh" at the National Startup Summit.',
-      featured: false
-    },
-    {
-      id: 8,
-      title: 'University Guest Lecture',
-      category: 'Speaking',
-      type: 'image',
-      thumbnail: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop',
-      fullImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop',
-      date: 'August 12, 2023',
-      location: 'NSU, Dhaka',
-      description: 'Guest lecture on "Machine Learning Applications in EdTech" for computer science students.',
-      featured: false
-    },
-    {
-      id: 9,
-      title: 'IEEE Publication Feature',
-      category: 'Press',
-      type: 'article',
-      thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
-      articleUrl: 'https://ieee.org/publications/bengali-nlp',
-      date: 'July 8, 2023',
-      location: 'Online',
-      description: 'Research paper featured in IEEE Transactions on Audio, Speech, and Language Processing.',
-      featured: false
-    }
-  ];
+  const title = galleryPage?.title ?? 'Gallery &';
+  const titleHighlight = galleryPage?.titleHighlight ?? 'Media';
+  const subtitle = galleryPage?.subtitle ?? 'A visual journey through my work, achievements, and public appearances';
+  const filters = galleryPage?.filters ?? ['All', 'Events', 'Awards', 'Speaking', 'Press', 'Behind the Scenes'];
+  const mediaItems = galleryPage?.items ?? [];
 
   const filteredMedia = mediaItems.filter(item => 
     selectedFilter === 'All' || item.category === selectedFilter
@@ -130,7 +26,7 @@ const Gallery = () => {
   const featuredMedia = filteredMedia.filter(item => item.featured);
   const regularMedia = filteredMedia.filter(item => !item.featured);
 
-  const openLightbox = (item: any) => {
+  const openLightbox = (item: GalleryItem) => {
     setSelectedMedia(item);
   };
 
@@ -138,7 +34,7 @@ const Gallery = () => {
     setSelectedMedia(null);
   };
 
-  const MediaCard = ({ item, featured = false }: { item: any, featured?: boolean }) => (
+  const MediaCard = ({ item, featured = false }: { item: GalleryItem, featured?: boolean }) => (
     <Card
       className={`card-elevated group cursor-pointer animate-fade-in-up ${
         featured ? 'md:col-span-2 lg:col-span-2' : ''
@@ -209,10 +105,10 @@ const Gallery = () => {
           <div className="container mx-auto px-4">
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold">
-                Gallery & <span className="hero-text-gradient">Media</span>
+                {title} <span className="hero-text-gradient">{titleHighlight}</span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                A visual journey through my work, achievements, and public appearances
+                {subtitle}
               </p>
             </div>
           </div>
@@ -291,7 +187,7 @@ const Gallery = () => {
                   <X className="w-4 h-4" />
                 </Button>
 
-                {selectedMedia.type === 'image' && (
+                {selectedMedia.type === 'image' && selectedMedia.fullImage && (
                   <img
                     src={selectedMedia.fullImage}
                     alt={selectedMedia.title}
@@ -299,7 +195,7 @@ const Gallery = () => {
                   />
                 )}
 
-                {selectedMedia.type === 'video' && (
+                {selectedMedia.type === 'video' && selectedMedia.videoUrl && (
                   <div className="aspect-video">
                     <iframe
                       src={selectedMedia.videoUrl}

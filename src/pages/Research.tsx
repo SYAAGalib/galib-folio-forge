@@ -6,114 +6,20 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { FileText, ExternalLink, Search, Filter, Calendar, User, Github } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
-import researchHero from '@/assets/research-hero.jpg';
+import { useResearchPageContent, ResearchItem } from '@/hooks/useContent';
 
 const Research = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedResearch, setSelectedResearch] = useState(null);
+  const [selectedResearch, setSelectedResearch] = useState<ResearchItem | null>(null);
 
-  const filters = ['All', 'AI/ML', 'LLMs', 'NLP', 'Computer Vision', 'Robotics'];
+  const { researchPage, loading } = useResearchPageContent();
 
-  const research = [
-    {
-      id: 1,
-      title: 'Large Language Models for Bangladeshi Language Processing',
-      abstract: 'Comprehensive study on fine-tuning state-of-the-art LLMs for Bengali language understanding, achieving breakthrough results in sentiment analysis, machine translation, and text generation.',
-      image: researchHero,
-      category: 'LLMs',
-      tags: ['LLM', 'NLP', 'Bengali', 'Transformer', 'Fine-tuning'],
-      publication: 'Accepted at EMNLP 2024',
-      year: '2024',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Sarah Ahmed', 'Prof. Rajesh Kumar'],
-      links: {
-        paper: 'https://arxiv.org/paper/bengali-llm-2024',
-        code: 'https://github.com/galib/bengali-llm',
-        dataset: 'https://huggingface.co/datasets/galib/bengali-corpus'
-      },
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Federated Learning for Privacy-Preserving Healthcare AI',
-      abstract: 'Novel federated learning framework enabling collaborative medical AI training while maintaining patient privacy across distributed healthcare networks.',
-      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop',
-      category: 'AI/ML',
-      tags: ['Federated Learning', 'Healthcare', 'Privacy', 'Distributed ML'],
-      publication: 'Under Review at Nature Machine Intelligence',
-      year: '2024',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Maria Rodriguez', 'Prof. James Wilson'],
-      links: {
-        paper: 'https://arxiv.org/paper/federated-healthcare-2024',
-        code: 'https://github.com/galib/federated-health-ai'
-      },
-      featured: false
-    },
-    {
-      id: 3,
-      title: 'Real-time Emotion Recognition in Bengali Speech',
-      abstract: 'Deep learning approach for emotion classification in Bengali speech using attention-based neural networks with cultural context awareness.',
-      image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=600&h=400&fit=crop',
-      category: 'NLP',
-      tags: ['Speech Recognition', 'Emotion AI', 'Bengali', 'Attention Networks'],
-      publication: 'Published in IEEE TASLP 2023',
-      year: '2023',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Fatima Khan'],
-      links: {
-        paper: 'https://ieeexplore.ieee.org/document/bengali-emotion-2023',
-        code: 'https://github.com/galib/bengali-emotion-recognition'
-      },
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'Multimodal AI for Educational Content Generation',
-      abstract: 'Innovative multimodal approach combining text, image, and audio for automated educational content creation tailored to individual learning styles.',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
-      category: 'AI/ML',
-      tags: ['Multimodal AI', 'Education', 'Content Generation', 'Personalization'],
-      publication: 'Presented at ICML 2023',
-      year: '2023',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Alex Thompson', 'Prof. Linda Chen'],
-      links: {
-        paper: 'https://proceedings.mlr.press/multimodal-education-2023',
-        code: 'https://github.com/galib/multimodal-education-ai'
-      },
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Adversarial Robustness in Bengali Text Classification',
-      abstract: 'Comprehensive analysis of adversarial vulnerabilities in Bengali NLP models and development of robust defense mechanisms.',
-      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop',
-      category: 'NLP',
-      tags: ['Adversarial ML', 'Robustness', 'Bengali NLP', 'Security'],
-      publication: 'Published in ACL 2023',
-      year: '2023',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Michael Brown'],
-      links: {
-        paper: 'https://aclanthology.org/2023.acl-long.adversarial-bengali',
-        code: 'https://github.com/galib/adversarial-bengali-nlp'
-      },
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Neural Architecture Search for Edge AI Deployment',
-      abstract: 'Automated neural architecture search framework optimized for resource-constrained edge devices with emphasis on model efficiency.',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop',
-      category: 'AI/ML',
-      tags: ['NAS', 'Edge Computing', 'Model Compression', 'Optimization'],
-      publication: 'Published in NeurIPS 2022',
-      year: '2022',
-      authors: ['Sheikh Yeasin A. Al-Galib', 'Dr. Jennifer Lee', 'Prof. David Kim'],
-      links: {
-        paper: 'https://papers.nips.cc/paper/2022/nas-edge-ai',
-        code: 'https://github.com/galib/nas-edge-ai'
-      },
-      featured: false
-    }
-  ];
+  const title = researchPage?.title ?? 'Research &';
+  const titleHighlight = researchPage?.titleHighlight ?? 'Innovation';
+  const subtitle = researchPage?.subtitle ?? 'Exploring the frontiers of AI, machine learning, and intelligent systems';
+  const filters = researchPage?.filters ?? ['All', 'AI/ML', 'LLMs', 'NLP', 'Computer Vision', 'Robotics'];
+  const research = researchPage?.research ?? [];
 
   const filteredResearch = research.filter(item => {
     const matchesFilter = selectedFilter === 'All' || item.category === selectedFilter;
@@ -126,7 +32,7 @@ const Research = () => {
   const featuredResearch = filteredResearch.filter(r => r.featured);
   const regularResearch = filteredResearch.filter(r => !r.featured);
 
-  const openResearchModal = (item) => {
+  const openResearchModal = (item: ResearchItem) => {
     setSelectedResearch(item);
   };
 
@@ -142,10 +48,10 @@ const Research = () => {
           <div className="container mx-auto px-4">
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold">
-                Research & <span className="hero-text-gradient">Innovation</span>
+                {title} <span className="hero-text-gradient">{titleHighlight}</span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                Exploring the frontiers of AI, machine learning, and intelligent systems
+                {subtitle}
               </p>
             </div>
           </div>
@@ -200,7 +106,7 @@ const Research = () => {
                       <div className="space-y-6">
                         <div>
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{item.category}</Badge>
+                            <Badge variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">{item.category}</Badge>
                             <Badge variant="outline" className="text-xs">
                               <Calendar className="w-3 h-3 mr-1" />
                               {item.year}
@@ -264,11 +170,6 @@ const Research = () => {
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20"></div>
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
-                          View Details
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 </Card>
@@ -295,16 +196,11 @@ const Research = () => {
                         alt={item.title}
                         className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
-                          View Details
-                        </Button>
-                      </div>
                       <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800">
                           {item.category}
                         </Badge>
-                        <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
+                        <Badge variant="outline" className="bg-gray-100 text-gray-800">
                           {item.year}
                         </Badge>
                       </div>
@@ -387,82 +283,44 @@ const Research = () => {
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold">{selectedResearch.title}</DialogTitle>
                 </DialogHeader>
-                
                 <div className="space-y-6">
-                  <div className="relative h-64 rounded-lg overflow-hidden">
-                    <img
-                      src={selectedResearch.image}
-                      alt={selectedResearch.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  </div>
-
+                  <img
+                    src={selectedResearch.image}
+                    alt={selectedResearch.title}
+                    className="w-full h-64 object-cover rounded-lg"
+                  />
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">
-                      {selectedResearch.category}
-                    </Badge>
-                    <Badge variant="outline">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      {selectedResearch.year}
-                    </Badge>
+                    <Badge variant="secondary">{selectedResearch.category}</Badge>
+                    <Badge variant="outline">{selectedResearch.year}</Badge>
                   </div>
-
                   <div className="bg-accent/50 rounded-lg p-4">
-                    <p className="text-sm font-medium text-primary">
-                      📄 {selectedResearch.publication}
-                    </p>
+                    <p className="text-sm font-medium text-primary">📄 {selectedResearch.publication}</p>
                   </div>
-
+                  <div>
+                    <h4 className="font-semibold mb-2">Authors</h4>
+                    <p className="text-muted-foreground">{selectedResearch.authors.join(', ')}</p>
+                  </div>
                   <div>
                     <h4 className="font-semibold mb-2">Abstract</h4>
                     <p className="text-muted-foreground">{selectedResearch.abstract}</p>
                   </div>
-
                   <div>
-                    <div className="flex items-center gap-1 mb-2 text-sm text-muted-foreground">
-                      <User className="w-3 h-3" />
-                      <span className="font-medium">Authors:</span>
-                    </div>
-                    <p className="text-sm">{selectedResearch.authors.join(', ')}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold mb-2">Research Areas</h4>
+                    <h4 className="font-semibold mb-2">Tags</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedResearch.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
+                        <Badge key={tag} variant="outline">{tag}</Badge>
                       ))}
                     </div>
                   </div>
-
-                  <div className="flex flex-wrap gap-4 pt-4 border-t">
-                    <Button 
-                      className="btn-hero"
-                      onClick={() => window.open(selectedResearch.links.paper, '_blank')}
-                    >
+                  <div className="flex space-x-4">
+                    <Button className="btn-hero" onClick={() => window.open(selectedResearch.links.paper, '_blank')}>
                       <FileText className="w-4 h-4 mr-2" />
                       Read Paper
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      className="btn-ghost-glow"
-                      onClick={() => window.open(selectedResearch.links.code, '_blank')}
-                    >
+                    <Button variant="outline" className="btn-ghost-glow" onClick={() => window.open(selectedResearch.links.code, '_blank')}>
                       <Github className="w-4 h-4 mr-2" />
                       View Code
                     </Button>
-                    {selectedResearch.links.dataset && (
-                      <Button 
-                        variant="outline"
-                        onClick={() => window.open(selectedResearch.links.dataset, '_blank')}
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Dataset
-                      </Button>
-                    )}
                   </div>
                 </div>
               </>

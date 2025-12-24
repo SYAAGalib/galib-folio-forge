@@ -106,15 +106,22 @@ const AdminContent = () => {
       </div>
 
       <Tabs defaultValue="hero" className="space-y-6">
-        <TabsList className="grid grid-cols-4 lg:grid-cols-8 gap-2">
+        <TabsList className="flex flex-wrap gap-2">
           <TabsTrigger value="hero">Hero</TabsTrigger>
-          <TabsTrigger value="about">About</TabsTrigger>
+          <TabsTrigger value="about">About Home</TabsTrigger>
           <TabsTrigger value="stats">Stats</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="research">Research</TabsTrigger>
+          <TabsTrigger value="projects">Featured Projects</TabsTrigger>
+          <TabsTrigger value="research">Featured Research</TabsTrigger>
           <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
           <TabsTrigger value="cta">CTA</TabsTrigger>
           <TabsTrigger value="footer">Footer</TabsTrigger>
+          <TabsTrigger value="aboutPage">About Page</TabsTrigger>
+          <TabsTrigger value="projectsPage">Projects Page</TabsTrigger>
+          <TabsTrigger value="researchPage">Research Page</TabsTrigger>
+          <TabsTrigger value="blogPage">Blog Page</TabsTrigger>
+          <TabsTrigger value="contactPage">Contact Page</TabsTrigger>
+          <TabsTrigger value="achievementsPage">Achievements</TabsTrigger>
+          <TabsTrigger value="galleryPage">Gallery</TabsTrigger>
         </TabsList>
 
         {/* Hero Section */}
@@ -991,6 +998,756 @@ const AdminContent = () => {
                   <Plus className="w-4 h-4 mr-2" /> Add Link
                 </Button>
               </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* About Page */}
+        <TabsContent value="aboutPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>About Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.aboutPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Name</Label>
+                      <Input
+                        value={editedContent.aboutPage.name}
+                        onChange={(e) => updateField('aboutPage', 'name', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Full Name</Label>
+                      <Input
+                        value={editedContent.aboutPage.fullName}
+                        onChange={(e) => updateField('aboutPage', 'fullName', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Title</Label>
+                    <Input
+                      value={editedContent.aboutPage.title}
+                      onChange={(e) => updateField('aboutPage', 'title', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Paragraphs</Label>
+                    {editedContent.aboutPage.paragraphs.map((para, index) => (
+                      <div key={index} className="mt-2 flex gap-2">
+                        <Textarea
+                          value={para}
+                          onChange={(e) => {
+                            const newParagraphs = [...editedContent.aboutPage!.paragraphs];
+                            newParagraphs[index] = e.target.value;
+                            updateField('aboutPage', 'paragraphs', newParagraphs);
+                          }}
+                          rows={2}
+                          className="flex-1"
+                        />
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => {
+                            const newParagraphs = editedContent.aboutPage!.paragraphs.filter((_, i) => i !== index);
+                            updateField('aboutPage', 'paragraphs', newParagraphs);
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="mt-2"
+                      onClick={() => {
+                        updateField('aboutPage', 'paragraphs', [...editedContent.aboutPage!.paragraphs, '']);
+                      }}
+                    >
+                      <Plus className="w-4 h-4 mr-2" /> Add Paragraph
+                    </Button>
+                  </div>
+                  <div>
+                    <Label>Workflow Phases (comma separated)</Label>
+                    <Textarea
+                      value={editedContent.aboutPage.workflowPhases.join(', ')}
+                      onChange={(e) => updateField('aboutPage', 'workflowPhases', e.target.value.split(', '))}
+                      rows={3}
+                    />
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Projects Page */}
+        <TabsContent value="projectsPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Projects Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.projectsPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.projectsPage.title}
+                        onChange={(e) => updateField('projectsPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.projectsPage.titleHighlight}
+                        onChange={(e) => updateField('projectsPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={editedContent.projectsPage.subtitle}
+                      onChange={(e) => updateField('projectsPage', 'subtitle', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Filters (comma separated)</Label>
+                    <Input
+                      value={editedContent.projectsPage.filters.join(', ')}
+                      onChange={(e) => updateField('projectsPage', 'filters', e.target.value.split(', '))}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Projects ({editedContent.projectsPage.projects.length})</h4>
+                    {editedContent.projectsPage.projects.map((project, index) => (
+                      <div key={project.id} className="border rounded-lg p-4 mb-4 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-medium">Project #{index + 1}</h5>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => {
+                              const newProjects = editedContent.projectsPage!.projects.filter((_, i) => i !== index);
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Title"
+                            value={project.title}
+                            onChange={(e) => {
+                              const newProjects = [...editedContent.projectsPage!.projects];
+                              newProjects[index] = { ...newProjects[index], title: e.target.value };
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          />
+                          <Input
+                            placeholder="Category"
+                            value={project.category}
+                            onChange={(e) => {
+                              const newProjects = [...editedContent.projectsPage!.projects];
+                              newProjects[index] = { ...newProjects[index], category: e.target.value };
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          />
+                        </div>
+                        <Textarea
+                          placeholder="Description"
+                          value={project.description}
+                          onChange={(e) => {
+                            const newProjects = [...editedContent.projectsPage!.projects];
+                            newProjects[index] = { ...newProjects[index], description: e.target.value };
+                            updateField('projectsPage', 'projects', newProjects);
+                          }}
+                          rows={2}
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Live URL"
+                            value={project.links.live}
+                            onChange={(e) => {
+                              const newProjects = [...editedContent.projectsPage!.projects];
+                              newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, live: e.target.value } };
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          />
+                          <Input
+                            placeholder="GitHub URL"
+                            value={project.links.github}
+                            onChange={(e) => {
+                              const newProjects = [...editedContent.projectsPage!.projects];
+                              newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, github: e.target.value } };
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={project.featured}
+                            onChange={(e) => {
+                              const newProjects = [...editedContent.projectsPage!.projects];
+                              newProjects[index] = { ...newProjects[index], featured: e.target.checked };
+                              updateField('projectsPage', 'projects', newProjects);
+                            }}
+                          />
+                          <Label>Featured</Label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Research Page */}
+        <TabsContent value="researchPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Research Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.researchPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.researchPage.title}
+                        onChange={(e) => updateField('researchPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.researchPage.titleHighlight}
+                        onChange={(e) => updateField('researchPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={editedContent.researchPage.subtitle}
+                      onChange={(e) => updateField('researchPage', 'subtitle', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Filters (comma separated)</Label>
+                    <Input
+                      value={editedContent.researchPage.filters.join(', ')}
+                      onChange={(e) => updateField('researchPage', 'filters', e.target.value.split(', '))}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Research Items ({editedContent.researchPage.research.length})</h4>
+                    {editedContent.researchPage.research.map((item, index) => (
+                      <div key={item.id} className="border rounded-lg p-4 mb-4 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-medium">Research #{index + 1}</h5>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => {
+                              const newResearch = editedContent.researchPage!.research.filter((_, i) => i !== index);
+                              updateField('researchPage', 'research', newResearch);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <Input
+                          placeholder="Title"
+                          value={item.title}
+                          onChange={(e) => {
+                            const newResearch = [...editedContent.researchPage!.research];
+                            newResearch[index] = { ...newResearch[index], title: e.target.value };
+                            updateField('researchPage', 'research', newResearch);
+                          }}
+                        />
+                        <Textarea
+                          placeholder="Abstract"
+                          value={item.abstract}
+                          onChange={(e) => {
+                            const newResearch = [...editedContent.researchPage!.research];
+                            newResearch[index] = { ...newResearch[index], abstract: e.target.value };
+                            updateField('researchPage', 'research', newResearch);
+                          }}
+                          rows={2}
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Publication"
+                            value={item.publication}
+                            onChange={(e) => {
+                              const newResearch = [...editedContent.researchPage!.research];
+                              newResearch[index] = { ...newResearch[index], publication: e.target.value };
+                              updateField('researchPage', 'research', newResearch);
+                            }}
+                          />
+                          <Input
+                            placeholder="Year"
+                            value={item.year}
+                            onChange={(e) => {
+                              const newResearch = [...editedContent.researchPage!.research];
+                              newResearch[index] = { ...newResearch[index], year: e.target.value };
+                              updateField('researchPage', 'research', newResearch);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Blog Page */}
+        <TabsContent value="blogPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Blog Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.blogPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.blogPage.title}
+                        onChange={(e) => updateField('blogPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.blogPage.titleHighlight}
+                        onChange={(e) => updateField('blogPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={editedContent.blogPage.subtitle}
+                      onChange={(e) => updateField('blogPage', 'subtitle', e.target.value)}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Blog Posts ({editedContent.blogPage.posts.length})</h4>
+                    {editedContent.blogPage.posts.map((post, index) => (
+                      <div key={post.id} className="border rounded-lg p-4 mb-4 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-medium">Post #{index + 1}</h5>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => {
+                              const newPosts = editedContent.blogPage!.posts.filter((_, i) => i !== index);
+                              updateField('blogPage', 'posts', newPosts);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <Input
+                          placeholder="Title"
+                          value={post.title}
+                          onChange={(e) => {
+                            const newPosts = [...editedContent.blogPage!.posts];
+                            newPosts[index] = { ...newPosts[index], title: e.target.value };
+                            updateField('blogPage', 'posts', newPosts);
+                          }}
+                        />
+                        <Textarea
+                          placeholder="Excerpt"
+                          value={post.excerpt}
+                          onChange={(e) => {
+                            const newPosts = [...editedContent.blogPage!.posts];
+                            newPosts[index] = { ...newPosts[index], excerpt: e.target.value };
+                            updateField('blogPage', 'posts', newPosts);
+                          }}
+                          rows={2}
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Date"
+                            value={post.date}
+                            onChange={(e) => {
+                              const newPosts = [...editedContent.blogPage!.posts];
+                              newPosts[index] = { ...newPosts[index], date: e.target.value };
+                              updateField('blogPage', 'posts', newPosts);
+                            }}
+                          />
+                          <Input
+                            placeholder="Read Time"
+                            value={post.readTime}
+                            onChange={(e) => {
+                              const newPosts = [...editedContent.blogPage!.posts];
+                              newPosts[index] = { ...newPosts[index], readTime: e.target.value };
+                              updateField('blogPage', 'posts', newPosts);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Contact Page */}
+        <TabsContent value="contactPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Contact Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.contactPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.contactPage.title}
+                        onChange={(e) => updateField('contactPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.contactPage.titleHighlight}
+                        onChange={(e) => updateField('contactPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Textarea
+                      value={editedContent.contactPage.subtitle}
+                      onChange={(e) => updateField('contactPage', 'subtitle', e.target.value)}
+                      rows={2}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Form Labels</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Name Label</Label>
+                        <Input
+                          value={editedContent.contactPage.formLabels.name}
+                          onChange={(e) => updateNestedField('contactPage', ['formLabels', 'name'], e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Label>Email Label</Label>
+                        <Input
+                          value={editedContent.contactPage.formLabels.email}
+                          onChange={(e) => updateNestedField('contactPage', ['formLabels', 'email'], e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Label>Subject Label</Label>
+                        <Input
+                          value={editedContent.contactPage.formLabels.subject}
+                          onChange={(e) => updateNestedField('contactPage', ['formLabels', 'subject'], e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Label>Message Label</Label>
+                        <Input
+                          value={editedContent.contactPage.formLabels.message}
+                          onChange={(e) => updateNestedField('contactPage', ['formLabels', 'message'], e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <Label>Submit Button Text</Label>
+                        <Input
+                          value={editedContent.contactPage.formLabels.submit}
+                          onChange={(e) => updateNestedField('contactPage', ['formLabels', 'submit'], e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Achievements Page */}
+        <TabsContent value="achievementsPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Achievements Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.achievementsPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.achievementsPage.title}
+                        onChange={(e) => updateField('achievementsPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.achievementsPage.titleHighlight}
+                        onChange={(e) => updateField('achievementsPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={editedContent.achievementsPage.subtitle}
+                      onChange={(e) => updateField('achievementsPage', 'subtitle', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Filters (comma separated)</Label>
+                    <Input
+                      value={editedContent.achievementsPage.filters.join(', ')}
+                      onChange={(e) => updateField('achievementsPage', 'filters', e.target.value.split(', '))}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Milestones ({editedContent.achievementsPage.milestones.length})</h4>
+                    {editedContent.achievementsPage.milestones.map((milestone, index) => (
+                      <div key={milestone.id} className="border rounded-lg p-4 mb-4 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-medium">Milestone #{index + 1}</h5>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => {
+                              const newMilestones = editedContent.achievementsPage!.milestones.filter((_, i) => i !== index);
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Title"
+                            value={milestone.title}
+                            onChange={(e) => {
+                              const newMilestones = [...editedContent.achievementsPage!.milestones];
+                              newMilestones[index] = { ...newMilestones[index], title: e.target.value };
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          />
+                          <Input
+                            placeholder="Subtitle"
+                            value={milestone.subtitle}
+                            onChange={(e) => {
+                              const newMilestones = [...editedContent.achievementsPage!.milestones];
+                              newMilestones[index] = { ...newMilestones[index], subtitle: e.target.value };
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          />
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Input
+                            placeholder="Year"
+                            value={milestone.year}
+                            onChange={(e) => {
+                              const newMilestones = [...editedContent.achievementsPage!.milestones];
+                              newMilestones[index] = { ...newMilestones[index], year: e.target.value };
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          />
+                          <Input
+                            placeholder="Type"
+                            value={milestone.type}
+                            onChange={(e) => {
+                              const newMilestones = [...editedContent.achievementsPage!.milestones];
+                              newMilestones[index] = { ...newMilestones[index], type: e.target.value };
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          />
+                          <Input
+                            placeholder="Organization"
+                            value={milestone.organization}
+                            onChange={(e) => {
+                              const newMilestones = [...editedContent.achievementsPage!.milestones];
+                              newMilestones[index] = { ...newMilestones[index], organization: e.target.value };
+                              updateField('achievementsPage', 'milestones', newMilestones);
+                            }}
+                          />
+                        </div>
+                        <Textarea
+                          placeholder="Description"
+                          value={milestone.description}
+                          onChange={(e) => {
+                            const newMilestones = [...editedContent.achievementsPage!.milestones];
+                            newMilestones[index] = { ...newMilestones[index], description: e.target.value };
+                            updateField('achievementsPage', 'milestones', newMilestones);
+                          }}
+                          rows={2}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Gallery Page */}
+        <TabsContent value="galleryPage">
+          <Card>
+            <CardHeader>
+              <CardTitle>Gallery Page Content</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {editedContent.galleryPage && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Title</Label>
+                      <Input
+                        value={editedContent.galleryPage.title}
+                        onChange={(e) => updateField('galleryPage', 'title', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Title Highlight</Label>
+                      <Input
+                        value={editedContent.galleryPage.titleHighlight}
+                        onChange={(e) => updateField('galleryPage', 'titleHighlight', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={editedContent.galleryPage.subtitle}
+                      onChange={(e) => updateField('galleryPage', 'subtitle', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Filters (comma separated)</Label>
+                    <Input
+                      value={editedContent.galleryPage.filters.join(', ')}
+                      onChange={(e) => updateField('galleryPage', 'filters', e.target.value.split(', '))}
+                    />
+                  </div>
+                  <div className="border-t pt-4">
+                    <h4 className="font-semibold mb-4">Gallery Items ({editedContent.galleryPage.items.length})</h4>
+                    {editedContent.galleryPage.items.map((item, index) => (
+                      <div key={item.id} className="border rounded-lg p-4 mb-4 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <h5 className="font-medium">Item #{index + 1}</h5>
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => {
+                              const newItems = editedContent.galleryPage!.items.filter((_, i) => i !== index);
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Input
+                            placeholder="Title"
+                            value={item.title}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], title: e.target.value };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                          <Input
+                            placeholder="Category"
+                            value={item.category}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], category: e.target.value };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Input
+                            placeholder="Type (image/video/article)"
+                            value={item.type}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], type: e.target.value };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                          <Input
+                            placeholder="Date"
+                            value={item.date}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], date: e.target.value };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                          <Input
+                            placeholder="Location"
+                            value={item.location}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], location: e.target.value };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                        </div>
+                        <Textarea
+                          placeholder="Description"
+                          value={item.description}
+                          onChange={(e) => {
+                            const newItems = [...editedContent.galleryPage!.items];
+                            newItems[index] = { ...newItems[index], description: e.target.value };
+                            updateField('galleryPage', 'items', newItems);
+                          }}
+                          rows={2}
+                        />
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={item.featured}
+                            onChange={(e) => {
+                              const newItems = [...editedContent.galleryPage!.items];
+                              newItems[index] = { ...newItems[index], featured: e.target.checked };
+                              updateField('galleryPage', 'items', newItems);
+                            }}
+                          />
+                          <Label>Featured</Label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
