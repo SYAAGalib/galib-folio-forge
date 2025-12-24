@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import AnimatedCounter from '@/components/ui/AnimatedCounter';
+import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import { Award, Users, Briefcase, Star } from 'lucide-react';
 
 interface Stat {
@@ -20,7 +21,12 @@ const StatsSection = () => {
   return (
     <section id="stats" className="py-16 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <StaggeredReveal 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+          staggerDelay={120}
+          animation="scale-up"
+          duration={500}
+        >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -47,7 +53,7 @@ const StatsSection = () => {
               </Card>
             );
           })}
-        </div>
+        </StaggeredReveal>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import { 
   Brain, 
   Code, 
@@ -24,7 +25,7 @@ const AboutSnapshot = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Bio */}
-          <div className="space-y-6 animate-fade-in-up">
+          <div className="space-y-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 About <span className="hero-text-gradient">Me</span>
@@ -52,16 +53,20 @@ const AboutSnapshot = () => {
           </div>
 
           {/* Right Side - Skills Grid */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div>
             <h3 className="text-2xl font-semibold mb-6 text-center">Core Expertise</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {skills.map((skill, index) => {
+            <StaggeredReveal 
+              className="grid grid-cols-2 gap-4"
+              staggerDelay={80}
+              animation="zoom-in"
+              duration={450}
+            >
+              {skills.map((skill) => {
                 const Icon = skill.icon;
                 return (
                   <Card
                     key={skill.label}
                     className="card-elevated p-4 text-center group hover:bg-gradient-primary-soft transition-all duration-300"
-                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="space-y-3">
                       <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
@@ -75,7 +80,7 @@ const AboutSnapshot = () => {
                   </Card>
                 );
               })}
-            </div>
+            </StaggeredReveal>
           </div>
         </div>
       </div>
