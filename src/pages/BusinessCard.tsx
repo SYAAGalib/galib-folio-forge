@@ -161,13 +161,23 @@ END:VCARD`;
           {/* Content */}
           <div className="p-6 pt-4 space-y-6">
             {/* Name & Title */}
-            <div className="text-center space-y-2">
+            <div 
+              className={`text-center space-y-2 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '200ms' }}
+            >
               <h1 className="text-2xl font-bold hero-text-gradient">{contactInfo.name}</h1>
               <p className="text-muted-foreground text-sm">{contactInfo.title}</p>
             </div>
 
             {/* Highlights */}
-            <div className="grid grid-cols-3 gap-2">
+            <div 
+              className={`grid grid-cols-3 gap-2 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            >
               {highlights.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -181,7 +191,12 @@ END:VCARD`;
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-3">
+            <div 
+              className={`space-y-3 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '400ms' }}
+            >
               <a 
                 href={`mailto:${contactInfo.email}`}
                 className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors group"
@@ -238,7 +253,12 @@ END:VCARD`;
             </div>
 
             {/* Expertise Tags */}
-            <div className="space-y-2">
+            <div 
+              className={`space-y-2 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '500ms' }}
+            >
               <h3 className="text-sm font-semibold text-muted-foreground">Expertise</h3>
               <div className="flex flex-wrap gap-2">
                 {expertise.map((skill) => (
@@ -253,7 +273,12 @@ END:VCARD`;
             </div>
 
             {/* Social Links */}
-            <div className="flex justify-center gap-3">
+            <div 
+              className={`flex justify-center gap-3 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '600ms' }}
+            >
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -272,7 +297,12 @@ END:VCARD`;
             </div>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-3">
+            <div 
+              className={`grid grid-cols-2 gap-3 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '700ms' }}
+            >
               <Button 
                 onClick={handleDownloadVCard}
                 className="btn-hero"
@@ -302,7 +332,12 @@ END:VCARD`;
             </div>
 
             {/* QR Code for sharing */}
-            <div className="flex flex-col items-center pt-4 border-t border-border space-y-2">
+            <div 
+              className={`flex flex-col items-center pt-4 border-t border-border space-y-2 transition-all duration-500 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: '800ms' }}
+            >
               <p className="text-xs text-muted-foreground">Share this card</p>
               <div className={`p-3 rounded-xl shadow-inner ${isDark ? 'bg-muted' : 'bg-white'}`}>
                 <QRCodeSVG 
