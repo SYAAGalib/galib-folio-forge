@@ -212,12 +212,14 @@
     border: none;
     box-shadow: var(--shadow-glow);
     transition: all 0.3s ease;
+    animation: btn-attention-pulse 3s ease-in-out infinite;
   }
 
   .btn-hero:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-strong);
     filter: brightness(1.1);
+    animation: none;
   }
 
   .btn-ghost-glow {
@@ -225,12 +227,35 @@
     border: 2px solid hsl(var(--primary));
     color: hsl(var(--primary));
     transition: all 0.3s ease;
+    animation: btn-outline-pulse 3s ease-in-out infinite;
+    animation-delay: 1.5s;
   }
 
   .btn-ghost-glow:hover {
     background: hsl(var(--primary) / 0.1);
     box-shadow: var(--shadow-glow);
     transform: translateY(-2px);
+    animation: none;
+  }
+
+  @keyframes btn-attention-pulse {
+    0%, 100% {
+      box-shadow: var(--shadow-glow);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.3);
+    }
+  }
+
+  @keyframes btn-outline-pulse {
+    0%, 100% {
+      border-color: hsl(var(--primary));
+      box-shadow: none;
+    }
+    50% {
+      border-color: hsl(var(--primary));
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.4), inset 0 0 10px hsl(var(--primary) / 0.1);
+    }
   }
 
   /* Animations */
