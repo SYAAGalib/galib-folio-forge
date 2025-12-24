@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,62 +11,77 @@ import {
   Filter,
   Eye,
   Edit,
-  Trash2,
   Globe,
   Calendar,
   Tag,
-  MoreHorizontal
+  MoreHorizontal,
+  Loader2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+interface Project {
+  id: number | string;
+  title: string;
+  description: string;
+  image: string;
+  type: string;
+  category: string;
+  techStack: string[];
+  metrics: string[];
+  links: { live?: string; github?: string };
+  featured: boolean;
+  status?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 const AdminProjects = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'AI-Powered Portfolio Website',
-      status: 'published',
-      category: 'Web Development',
-      views: 1250,
-      lastUpdated: '2024-01-15',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Machine Learning Research Platform',
-      status: 'draft',
-      category: 'Machine Learning',
-      views: 0,
-      lastUpdated: '2024-01-10',
-      featured: false
-    },
-    {
-      id: 3,
-      title: 'E-commerce Analytics Dashboard',
-      status: 'published',
-      category: 'Data Analytics',
-      views: 890,
-      lastUpdated: '2024-01-08',
-      featured: true
-    }
-  ];
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const base = (import.meta as any).env.BASE_URL || '/';
+        const response = await fetch(`${base}data/site-content.json`);
+        const data = await response.json();
+        setProjects(data.projectsPage?.projects || []);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
+
+  const filteredProjects = projects.filter(project =>
+    project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const stats = [
-    { label: 'Total Projects', value: 12, change: '+2' },
-    { label: 'Published', value: 8, change: '+1' },
-    { label: 'Drafts', value: 4, change: '+1' },
-    { label: 'Total Views', value: 5420, change: '+12%' }
+    { label: 'Total Projects', value: projects.length },
+    { label: 'Featured', value: projects.filter(p => p.featured).length },
+    { label: 'Categories', value: [...new Set(projects.map(p => p.category))].length }
   ];
 
-  const getStatusBadge = (status: string) => {
+  const getTypeBadge = (type: string) => {
     const variants = {
-      published: 'default',
-      draft: 'secondary',
-      archived: 'outline'
+      Projects: 'default',
+      'Case Studies': 'secondary'
     } as const;
-    return <Badge variant={variants[status as keyof typeof variants]}>{status}</Badge>;
+    return <Badge variant={variants[type as keyof typeof variants] || 'outline'}>{type}</Badge>;
   };
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -77,25 +92,22 @@ const AdminProjects = () => {
           <p className="text-muted-foreground">Manage your portfolio projects and case studies</p>
         </div>
         <Button asChild>
-          <Link to="/admin/projects/new">
-            <Plus className="h-4 w-4 mr-2" />
-            New Project
+          <Link to="/admin/content">
+            <Edit className="h-4 w-4 mr-2" />
+            Edit in Content Manager
           </Link>
         </Button>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {stats.map((stat) => (
           <Card key={stat.label}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{stat.label}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">
-                {stat.change} from last month
-              </p>
+              <div className="text-2xl font-bold">{stat.value}</div>
             </CardContent>
           </Card>
         ))}
@@ -131,10 +143,8 @@ const AdminProjects = () => {
       {/* Content Tabs */}
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="all">All Projects</TabsTrigger>
-          <TabsTrigger value="published">Published</TabsTrigger>
-          <TabsTrigger value="drafts">Drafts</TabsTrigger>
-          <TabsTrigger value="featured">Featured</TabsTrigger>
+          <TabsTrigger value="all">All Projects ({filteredProjects.length})</TabsTrigger>
+          <TabsTrigger value="featured">Featured ({projects.filter(p => p.featured).length})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
@@ -143,15 +153,14 @@ const AdminProjects = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Project</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead>Type</TableHead>
                   <TableHead>Category</TableHead>
-                  <TableHead>Views</TableHead>
-                  <TableHead>Last Updated</TableHead>
+                  <TableHead>Tech Stack</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {projects.map((project) => (
+                {filteredProjects.map((project) => (
                   <TableRow key={project.id}>
                     <TableCell>
                       <div className="space-y-1">
@@ -161,28 +170,31 @@ const AdminProjects = () => {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell>{getStatusBadge(project.status)}</TableCell>
+                    <TableCell>{getTypeBadge(project.type)}</TableCell>
                     <TableCell>{project.category}</TableCell>
-                    <TableCell>{project.views.toLocaleString()}</TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        {project.lastUpdated}
+                      <div className="flex flex-wrap gap-1">
+                        {project.techStack.slice(0, 3).map((tech, i) => (
+                          <Badge key={i} variant="outline" className="text-xs">{tech}</Badge>
+                        ))}
+                        {project.techStack.length > 3 && (
+                          <Badge variant="outline" className="text-xs">+{project.techStack.length - 3}</Badge>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button variant="ghost" size="icon">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Globe className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
+                        {project.links.live && (
+                          <Button variant="ghost" size="icon" asChild>
+                            <a href={project.links.live} target="_blank" rel="noopener noreferrer">
+                              <Globe className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        )}
+                        <Button variant="ghost" size="icon" asChild>
+                          <Link to="/admin/content">
+                            <Edit className="h-4 w-4" />
+                          </Link>
                         </Button>
                       </div>
                     </TableCell>
@@ -193,27 +205,36 @@ const AdminProjects = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="published">
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground text-center">Published projects view</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="drafts">
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground text-center">Draft projects view</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
         <TabsContent value="featured">
           <Card>
-            <CardContent className="p-6">
-              <p className="text-muted-foreground text-center">Featured projects view</p>
-            </CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Project</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {projects.filter(p => p.featured).map((project) => (
+                  <TableRow key={project.id}>
+                    <TableCell>
+                      <div className="font-medium">{project.title}</div>
+                    </TableCell>
+                    <TableCell>{getTypeBadge(project.type)}</TableCell>
+                    <TableCell>{project.category}</TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="ghost" size="icon" asChild>
+                        <Link to="/admin/content">
+                          <Edit className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </Card>
         </TabsContent>
       </Tabs>

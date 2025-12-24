@@ -9,8 +9,9 @@ import {
   MessageSquare,
   Star,
   Eye,
-  Plus,
-  TrendingUp
+  Edit,
+  TrendingUp,
+  Loader2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +33,7 @@ const AdminDashboard = () => {
     messages: 0,
     unreadMessages: 0
   });
+  const [loading, setLoading] = useState(true);
 
   const [analytics, setAnalytics] = useState({
     totalVisits: 0,
@@ -40,32 +42,33 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
-    // Load content stats
     const loadStats = async () => {
       try {
         const base = (import.meta as any).env.BASE_URL || '/';
-        const [contentRes, messagesRes, analyticsRes] = await Promise.all([
-          fetch(`${base}data/content.json`),
+        const [siteContentRes, messagesRes, analyticsRes] = await Promise.all([
+          fetch(`${base}data/site-content.json`),
           fetch(`${base}data/messages.json`),
           fetch(`${base}data/analytics.json`)
         ]);
 
-        const content = await contentRes.json();
+        const siteContent = await siteContentRes.json();
         const messages = await messagesRes.json();
         const analyticsData = await analyticsRes.json();
 
         setStats({
-          projects: content.projects?.length || 0,
-          research: content.research?.length || 0,
-          blog: content.blog?.length || 0,
-          testimonials: content.testimonials?.length || 0,
+          projects: siteContent.projectsPage?.projects?.length || 0,
+          research: siteContent.researchPage?.research?.length || 0,
+          blog: siteContent.blogPage?.posts?.length || 0,
+          testimonials: siteContent.testimonials?.items?.length || 0,
           messages: messages.messages?.length || 0,
           unreadMessages: messages.messages?.filter((m: any) => !m.read).length || 0
         });
 
-        setAnalytics(analyticsData.overview);
+        setAnalytics(analyticsData.overview || { totalVisits: 0, uniqueVisitors: 0, bounceRate: 0 });
       } catch (error) {
         console.error('Error loading dashboard data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -73,9 +76,7 @@ const AdminDashboard = () => {
   }, []);
 
   const quickActions = [
-    { icon: Plus, label: 'New Project', href: '/admin/projects/new', color: 'bg-blue-500' },
-    { icon: Plus, label: 'New Research', href: '/admin/research/new', color: 'bg-green-500' },
-    { icon: Plus, label: 'New Blog Post', href: '/admin/blog/new', color: 'bg-purple-500' },
+    { icon: Edit, label: 'Edit Content', href: '/admin/content', color: 'bg-blue-500' },
     { icon: MessageSquare, label: 'View Messages', href: '/admin/messages', color: 'bg-orange-500' }
   ];
 
@@ -87,12 +88,20 @@ const AdminDashboard = () => {
     { icon: MessageSquare, label: 'Messages', value: stats.messages, href: '/admin/messages', color: 'text-orange-600', badge: stats.unreadMessages }
   ];
 
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back! Here's what's happening.</p>
+          <p className="text-muted-foreground">Welcome back! Here's your content overview.</p>
         </div>
       </div>
 
@@ -107,7 +116,7 @@ const AdminDashboard = () => {
             <div className="text-2xl font-bold">{analytics.totalVisits.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 inline mr-1" />
-              +12% from last month
+              From analytics.json
             </p>
           </CardContent>
         </Card>
@@ -121,7 +130,7 @@ const AdminDashboard = () => {
             <div className="text-2xl font-bold">{analytics.uniqueVisitors.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               <TrendingUp className="h-3 w-3 inline mr-1" />
-              +8% from last month
+              From analytics.json
             </p>
           </CardContent>
         </Card>
@@ -134,7 +143,7 @@ const AdminDashboard = () => {
           <CardContent>
             <div className="text-2xl font-bold">{analytics.bounceRate}%</div>
             <p className="text-xs text-muted-foreground">
-              -3% from last month
+              From analytics.json
             </p>
           </CardContent>
         </Card>
@@ -174,7 +183,7 @@ const AdminDashboard = () => {
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {quickActions.map((action) => {
               const Icon = action.icon;
               return (
