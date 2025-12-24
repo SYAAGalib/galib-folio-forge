@@ -6,108 +6,21 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ExternalLink, Github, Search, Filter, X } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
-import projectHero from '@/assets/project-hero.jpg';
+import { useProjectsPageContent, ProjectItem } from '@/hooks/useContent';
 
 const Projects = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [showMore, setShowMore] = useState(false);
 
-  const filters = ['All', 'Projects', 'Case Studies', 'AI/ML', 'Web Dev', 'Mobile'];
+  const { projectsPage, loading } = useProjectsPageContent();
 
-  const projects = [
-    {
-      id: 1,
-      title: 'AIELTS - AI-Powered IELTS Platform',
-      description: 'Revolutionary AI platform for IELTS preparation with 95% accuracy in score prediction. Winner of UIHP National Award.',
-      image: projectHero,
-      type: 'Projects',
-      category: 'AI/ML',
-      techStack: ['React', 'Python', 'TensorFlow', 'FastAPI', 'PostgreSQL'],
-      metrics: ['+10K Users', '95% Accuracy', 'Award Winner'],
-      links: {
-        live: 'https://aielts.com',
-        github: 'https://github.com/galib/aielts'
-      },
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Intelleeo Analytics Dashboard',
-      description: 'Comprehensive analytics platform for startup metrics and KPI tracking with real-time insights.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-      type: 'Projects',
-      category: 'Web Dev',
-      techStack: ['Vue.js', 'Node.js', 'MongoDB', 'D3.js'],
-      metrics: ['Real-time Analytics', '50+ KPIs', 'Multi-tenant'],
-      links: {
-        live: 'https://intelleeo.com',
-        github: 'https://github.com/galib/intelleeo'
-      },
-      featured: false
-    },
-    {
-      id: 3,
-      title: 'Smart Contract Security Analyzer',
-      description: 'AI-powered tool for detecting vulnerabilities in smart contracts with advanced pattern recognition.',
-      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop',
-      type: 'Case Studies',
-      category: 'AI/ML',
-      techStack: ['Python', 'Solidity', 'PyTorch', 'Web3.js'],
-      metrics: ['99.2% Accuracy', '1M+ Contracts Analyzed', 'Zero False Positives'],
-      links: {
-        live: 'https://smartaudit.ai',
-        github: 'https://github.com/galib/smart-audit'
-      },
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'Bangladesh Tourism Mobile App',
-      description: 'Flutter-based mobile application promoting tourism in Bangladesh with AR features and local guides.',
-      image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73a0e?w=600&h=400&fit=crop',
-      type: 'Projects',
-      category: 'Mobile',
-      techStack: ['Flutter', 'Firebase', 'ARCore', 'Google Maps'],
-      metrics: ['100K+ Downloads', '4.8★ Rating', 'Featured by Google'],
-      links: {
-        live: 'https://play.google.com/store/apps/details?id=bd.tourism',
-        github: 'https://github.com/galib/bd-tourism'
-      },
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Real-time Collaboration Platform',
-      description: 'Google Docs-like collaborative platform built from scratch with operational transformation.',
-      image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop',
-      type: 'Case Studies',
-      category: 'Web Dev',
-      techStack: ['React', 'Socket.io', 'OT.js', 'Redis'],
-      metrics: ['Sub-100ms Latency', '1000+ Concurrent Users', 'Conflict-free'],
-      links: {
-        live: 'https://collab.tech',
-        github: 'https://github.com/galib/realtime-collab'
-      },
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'AI-Powered Content Generator',
-      description: 'Advanced content generation platform using fine-tuned GPT models for Bengali and English content.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-      type: 'Projects',
-      category: 'AI/ML',
-      techStack: ['Python', 'Transformers', 'FastAPI', 'Docker'],
-      metrics: ['10M+ Words Generated', '98% Quality Score', '40+ Languages'],
-      links: {
-        live: 'https://contentai.co',
-        github: 'https://github.com/galib/content-ai'
-      },
-      featured: false
-    }
-  ];
+  const title = projectsPage?.title ?? 'Projects &';
+  const titleHighlight = projectsPage?.titleHighlight ?? 'Case Studies';
+  const subtitle = projectsPage?.subtitle ?? "From AI-powered platforms to scalable business solutions — here's what I've built";
+  const filters = projectsPage?.filters ?? ['All', 'Projects', 'Case Studies', 'AI/ML', 'Web Dev', 'Mobile'];
+  const projects = projectsPage?.projects ?? [];
 
   const filteredProjects = projects.filter(project => {
     const matchesFilter = selectedFilter === 'All' || project.category === selectedFilter || project.type === selectedFilter;
@@ -121,7 +34,7 @@ const Projects = () => {
   const regularProjects = filteredProjects.filter(p => !p.featured);
   const visibleProjects = showMore ? regularProjects : regularProjects.slice(0, 6);
 
-  const openProjectModal = (project) => {
+  const openProjectModal = (project: ProjectItem) => {
     setSelectedProject(project);
   };
 
@@ -137,10 +50,10 @@ const Projects = () => {
           <div className="container mx-auto px-4">
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold">
-                Projects & <span className="hero-text-gradient">Case Studies</span>
+                {title} <span className="hero-text-gradient">{titleHighlight}</span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                From AI-powered platforms to scalable business solutions — here's what I've built
+                {subtitle}
               </p>
             </div>
           </div>
@@ -198,18 +111,13 @@ const Projects = () => {
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
-                          View Details
-                        </Button>
-                      </div>
                     </div>
                     <CardContent className="p-8 flex flex-col justify-center">
                       <div className="space-y-6">
                         <div>
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{project.type}</Badge>
-                            <Badge variant="outline" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">{project.category}</Badge>
+                            <Badge variant="secondary" className="bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">{project.type}</Badge>
+                            <Badge variant="outline">{project.category}</Badge>
                           </div>
                           <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
                           <p className="text-muted-foreground mb-4">{project.description}</p>
@@ -217,7 +125,7 @@ const Projects = () => {
 
                         <div className="flex flex-wrap gap-2">
                           {project.metrics.map((metric) => (
-                            <Badge key={metric} variant="secondary" className="px-3 py-1 bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
+                            <Badge key={metric} variant="secondary" className="px-3 py-1 bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">
                               {metric}
                             </Badge>
                           ))}
@@ -285,17 +193,11 @@ const Projects = () => {
                         alt={project.title}
                         className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Button size="sm" className="bg-white/90 text-black hover:bg-white">
-                          View Details
-                        </Button>
-                      </div>
                       <div className="absolute top-4 left-4 flex gap-2">
-                        <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200">
+                        <Badge variant="secondary" className="bg-gray-100 text-gray-800">
                           {project.type}
                         </Badge>
-                        <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-300">
+                        <Badge variant="outline" className="bg-gray-100 text-gray-800">
                           {project.category}
                         </Badge>
                       </div>
@@ -313,7 +215,7 @@ const Projects = () => {
 
                         <div className="flex flex-wrap gap-1">
                           {project.metrics.slice(0, 2).map((metric) => (
-                            <Badge key={metric} variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))] hover:bg-[hsl(var(--metric-badge))] border-[hsl(var(--metric-badge))]">
+                            <Badge key={metric} variant="secondary" className="text-xs bg-[hsl(var(--metric-badge))] text-[hsl(var(--metric-badge-foreground))]">
                               {metric}
                             </Badge>
                           ))}
@@ -363,7 +265,6 @@ const Projects = () => {
                   ))}
                 </div>
 
-                {/* Load More Button */}
                 {regularProjects.length > 6 && (
                   <div className="text-center mt-12">
                     <Button 
@@ -395,61 +296,41 @@ const Projects = () => {
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold">{selectedProject.title}</DialogTitle>
                 </DialogHeader>
-                
                 <div className="space-y-6">
-                  <div className="relative h-64 rounded-lg overflow-hidden">
-                    <img
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  </div>
-
-                  <div className="flex gap-2">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-64 object-cover rounded-lg"
+                  />
+                  <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary">{selectedProject.type}</Badge>
                     <Badge variant="outline">{selectedProject.category}</Badge>
                   </div>
-
+                  <p className="text-muted-foreground">{selectedProject.description}</p>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Overview</h3>
-                    <p className="text-muted-foreground">{selectedProject.description}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Key Metrics</h3>
+                    <h4 className="font-semibold mb-2">Key Metrics</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.metrics.map((metric) => (
-                        <Badge key={metric} variant="secondary" className="px-3 py-1">
-                          {metric}
-                        </Badge>
+                        <Badge key={metric} variant="secondary">{metric}</Badge>
                       ))}
                     </div>
                   </div>
-
                   <div>
-                    <h3 className="text-lg font-semibold mb-3">Tech Stack</h3>
+                    <h4 className="font-semibold mb-2">Tech Stack</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.techStack.map((tech) => (
-                        <Badge key={tech} variant="outline">
-                          {tech}
-                        </Badge>
+                        <Badge key={tech} variant="outline">{tech}</Badge>
                       ))}
                     </div>
                   </div>
-
-                  <div className="flex space-x-4 pt-4">
-                    <Button asChild className="btn-hero">
-                      <a href={selectedProject.links.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        View Live Project
-                      </a>
+                  <div className="flex space-x-4">
+                    <Button className="btn-hero" onClick={() => window.open(selectedProject.links.live, '_blank')}>
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Live
                     </Button>
-                    <Button asChild variant="outline" className="btn-ghost-glow">
-                      <a href={selectedProject.links.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-2" />
-                        View Code
-                      </a>
+                    <Button variant="outline" className="btn-ghost-glow" onClick={() => window.open(selectedProject.links.github, '_blank')}>
+                      <Github className="w-4 h-4 mr-2" />
+                      View Code
                     </Button>
                   </div>
                 </div>

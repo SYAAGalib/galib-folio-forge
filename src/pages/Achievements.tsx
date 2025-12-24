@@ -4,148 +4,24 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Trophy, Award, Users, Calendar, MapPin, ExternalLink } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import { useAchievementsPageContent, AchievementItem } from '@/hooks/useContent';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  GraduationCap,
+  Trophy,
+  Award,
+  Users,
+};
 
 const Achievements = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const { achievementsPage, loading } = useAchievementsPageContent();
 
-  const filters = ['All', 'Education', 'Awards', 'Certifications', 'Leadership'];
-
-  const milestones = [
-    {
-      id: 1,
-      year: '2024',
-      date: 'January 2024',
-      title: 'UIHP National Award Winner',
-      subtitle: 'Outstanding Innovation in AI Technology',
-      type: 'Awards',
-      icon: Trophy,
-      description: 'Recognized nationally for groundbreaking work on AIELTS platform, achieving 95% accuracy in IELTS score prediction and helping 10,000+ students.',
-      organization: 'University Industry Hub Program, Bangladesh',
-      location: 'Dhaka, Bangladesh',
-      image: 'https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=600&h=400&fit=crop',
-      links: {
-        certificate: '#',
-        news: '#'
-      }
-    },
-    {
-      id: 2,
-      year: '2023',
-      date: 'June 2023',
-      title: 'Chairman - Intelleeo',
-      subtitle: 'Leading Technology Innovation Initiative',
-      type: 'Leadership',
-      icon: Users,
-      description: 'Appointed as Chairman of Intelleeo, spearheading technology initiatives and strategic partnerships in AI and software development.',
-      organization: 'Intelleeo Technology Initiative',
-      location: 'Khulna, Bangladesh',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop',
-      links: {
-        website: 'https://intelleeo.com'
-      }
-    },
-    {
-      id: 3,
-      year: '2023',
-      date: 'March 2023',
-      title: 'TensorFlow Developer Certification',
-      subtitle: 'Advanced Machine Learning Specialization',
-      type: 'Certifications',
-      icon: Award,
-      description: 'Achieved professional certification in TensorFlow development with specialization in deep learning and neural network architectures.',
-      organization: 'Google Cloud Platform',
-      location: 'Online',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
-      links: {
-        certificate: 'https://certificates.google.com/tensorflow-dev',
-        verify: '#'
-      }
-    },
-    {
-      id: 4,
-      year: '2022',
-      date: 'December 2022',
-      title: 'Best Paper Award - EMNLP 2022',
-      subtitle: 'Excellence in NLP Research',
-      type: 'Awards',
-      icon: Trophy,
-      description: 'Awarded Best Paper for research on "Bengali Language Processing with Large Language Models" at the premier NLP conference.',
-      organization: 'Association for Computational Linguistics',
-      location: 'Abu Dhabi, UAE',
-      image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop',
-      links: {
-        paper: 'https://aclanthology.org/2022.emnlp-main.bengali',
-        award: '#'
-      }
-    },
-    {
-      id: 5,
-      year: '2021',
-      date: 'July 2021',
-      title: 'B.Sc. in Computer Science & Engineering',
-      subtitle: 'Northern University of Business & Technology',
-      type: 'Education',
-      icon: GraduationCap,
-      description: 'Graduated with First Class Honors. Class Representative for 2 years. Led multiple student innovation projects and research initiatives.',
-      organization: 'NUBT Khulna',
-      location: 'Khulna, Bangladesh',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop',
-      links: {
-        transcript: '#',
-        university: 'https://nubtkhulna.ac.bd'
-      }
-    },
-    {
-      id: 6,
-      year: '2021',
-      date: 'May 2021',
-      title: 'Class Representative Excellence Award',
-      subtitle: 'Outstanding Leadership in Student Affairs',
-      type: 'Leadership',
-      icon: Users,
-      description: 'Recognized for exceptional leadership as Class Representative, organizing academic events and representing student interests.',
-      organization: 'NUBT Khulna',
-      location: 'Khulna, Bangladesh',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop',
-      links: {
-        certificate: '#'
-      }
-    },
-    {
-      id: 7,
-      year: '2023',
-      date: 'September 2023',
-      title: 'AWS Solutions Architect Professional',
-      subtitle: 'Cloud Architecture Certification',
-      type: 'Certifications',
-      icon: Award,
-      description: 'Advanced certification in designing distributed systems and scalable applications on Amazon Web Services platform.',
-      organization: 'Amazon Web Services',
-      location: 'Online',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop',
-      links: {
-        certificate: 'https://aws.amazon.com/certification/certified-solutions-architect-professional',
-        verify: '#'
-      }
-    },
-    {
-      id: 8,
-      year: '2024',
-      date: 'March 2024',
-      title: 'Tech Innovation Award',
-      subtitle: 'Startup Excellence Recognition',
-      type: 'Awards',
-      icon: Trophy,
-      description: 'Recognized for innovative contributions to AI education technology and successful scaling of AIELTS platform.',
-      organization: 'Bangladesh Startup Summit',
-      location: 'Dhaka, Bangladesh',
-      image: 'https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&h=400&fit=crop',
-      links: {
-        award: '#',
-        summit: '#'
-      }
-    }
-  ];
+  const title = achievementsPage?.title ?? 'Milestones &';
+  const titleHighlight = achievementsPage?.titleHighlight ?? 'Recognitions';
+  const subtitle = achievementsPage?.subtitle ?? 'A journey of learning, leadership, and innovation';
+  const filters = achievementsPage?.filters ?? ['All', 'Education', 'Awards', 'Certifications', 'Leadership'];
+  const milestones = achievementsPage?.milestones ?? [];
 
   const filteredMilestones = milestones.filter(milestone => 
     selectedFilter === 'All' || milestone.type === selectedFilter
@@ -179,10 +55,10 @@ const Achievements = () => {
           <div className="container mx-auto px-4">
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h1 className="text-4xl md:text-6xl font-bold">
-                Milestones & <span className="hero-text-gradient">Recognitions</span>
+                {title} <span className="hero-text-gradient">{titleHighlight}</span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                A journey of learning, leadership, and innovation
+                {subtitle}
               </p>
             </div>
           </div>
@@ -216,7 +92,7 @@ const Achievements = () => {
 
               <div className="space-y-12">
                 {filteredMilestones.map((milestone, index) => {
-                  const Icon = milestone.icon;
+                  const Icon = iconMap[milestone.icon] || Trophy;
                   const isEven = index % 2 === 0;
                   
                   return (
@@ -294,6 +170,7 @@ const Achievements = () => {
                                         variant="outline"
                                         size="sm"
                                         className="text-xs capitalize"
+                                        onClick={() => window.open(url, '_blank')}
                                       >
                                         <ExternalLink className="w-3 h-3 mr-1" />
                                         {key}
