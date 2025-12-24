@@ -136,25 +136,46 @@ END:VCARD`;
         }`}
       >
         {/* Main Card */}
-        <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
-          {/* Gradient Header */}
-          <div className="h-32 bg-gradient-primary relative">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyek0zMCAzNGgtMnYtNGgydjR6bTAtNnYtNGgtMnY0aDJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+        <Card className="relative overflow-hidden border-0 shadow-2xl bg-gradient-to-b from-card to-card/95 backdrop-blur-xl">
+          {/* Gradient Header with Banner */}
+          <div className="h-36 bg-gradient-primary relative overflow-hidden">
+            {/* Animated mesh gradient */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-black/10 via-transparent to-transparent"></div>
             
-            {/* Decorative circles */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+            {/* Geometric patterns */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-4 left-4 w-20 h-20 border border-white/30 rounded-full"></div>
+              <div className="absolute top-8 left-8 w-12 h-12 border border-white/20 rounded-full"></div>
+              <div className="absolute bottom-4 right-4 w-16 h-16 border border-white/30 rotate-45"></div>
+              <div className="absolute top-1/2 right-1/4 w-8 h-8 bg-white/10 rounded-full blur-sm"></div>
+            </div>
+            
+            {/* Decorative blurs */}
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/15 rounded-full blur-2xl"></div>
+            
+            {/* Subtle grid overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
           </div>
 
-          {/* Profile Image */}
-          <div className="relative -mt-16 flex justify-center">
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-primary rounded-full animate-[spin_8s_linear_infinite] opacity-70"></div>
+          {/* Profile Image with Banner Effect */}
+          <div className="relative -mt-20 flex justify-center">
+            <div className="relative group">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-3 bg-gradient-primary rounded-full opacity-40 blur-md group-hover:opacity-60 transition-opacity duration-300"></div>
+              {/* Spinning border */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-primary via-secondary to-primary rounded-full animate-[spin_6s_linear_infinite] opacity-80"></div>
+              {/* Inner background */}
+              <div className="absolute -inset-1 bg-background rounded-full"></div>
+              {/* Profile image */}
               <img
                 src={heroPortrait}
                 alt={contactInfo.name}
-                className="relative w-28 h-28 rounded-full object-cover border-4 border-background shadow-xl"
+                className="relative w-32 h-32 rounded-full object-cover border-4 border-background shadow-2xl group-hover:scale-105 transition-transform duration-300"
               />
+              {/* Status indicator */}
+              <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-3 border-background shadow-lg animate-pulse"></div>
             </div>
           </div>
 
@@ -181,9 +202,14 @@ END:VCARD`;
               {highlights.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.label} className="text-center p-3 bg-muted/50 rounded-lg">
-                    <Icon className="w-5 h-5 mx-auto mb-1 text-primary" />
-                    <div className="text-sm font-semibold">{item.label}</div>
+                  <div 
+                    key={item.label} 
+                    className="text-center p-4 bg-gradient-to-br from-muted/60 to-muted/30 rounded-xl border border-border/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-default"
+                  >
+                    <div className="w-10 h-10 mx-auto mb-2 bg-primary/10 rounded-xl flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="text-sm font-bold">{item.label}</div>
                     <div className="text-xs text-muted-foreground">{item.desc}</div>
                   </div>
                 );
@@ -199,39 +225,39 @@ END:VCARD`;
             >
               <a 
                 href={`mailto:${contactInfo.email}`}
-                className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border border-border/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">Email</div>
-                  <div className="text-sm font-medium">{contactInfo.email}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Email</div>
+                  <div className="text-sm font-semibold truncate">{contactInfo.email}</div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground" />
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </a>
 
               <a 
                 href={`tel:${contactInfo.phone}`}
-                className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border border-border/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                   <Phone className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">Phone</div>
-                  <div className="text-sm font-medium">{contactInfo.phone}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Phone</div>
+                  <div className="text-sm font-semibold">{contactInfo.phone}</div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground" />
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </a>
 
-              <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+              <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border border-border/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group cursor-default">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center shadow-sm">
                   <MapPin className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">Location</div>
-                  <div className="text-sm font-medium">{contactInfo.location}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Location</div>
+                  <div className="text-sm font-semibold">{contactInfo.location}</div>
                 </div>
               </div>
 
@@ -239,16 +265,16 @@ END:VCARD`;
                 href={contactInfo.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors group"
+                className="flex items-center gap-4 p-4 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border border-border/50 hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                   <Globe className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">Website</div>
-                  <div className="text-sm font-medium">{contactInfo.website}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Website</div>
+                  <div className="text-sm font-semibold">{contactInfo.website}</div>
                 </div>
-                <ExternalLink className="w-4 h-4 ml-auto text-muted-foreground" />
+                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </a>
             </div>
 
@@ -261,10 +287,11 @@ END:VCARD`;
             >
               <h3 className="text-sm font-semibold text-muted-foreground">Expertise</h3>
               <div className="flex flex-wrap gap-2">
-                {expertise.map((skill) => (
+                {expertise.map((skill, index) => (
                   <span 
                     key={skill} 
-                    className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium"
+                    className="px-4 py-1.5 bg-gradient-to-r from-primary/15 to-primary/5 text-primary text-xs rounded-full font-semibold border border-primary/20 hover:border-primary/40 hover:from-primary/25 hover:to-primary/10 transition-all duration-300 cursor-default"
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {skill}
                   </span>
