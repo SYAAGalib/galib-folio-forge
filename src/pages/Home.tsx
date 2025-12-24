@@ -9,11 +9,13 @@ import StatsSection from '@/components/home/StatsSection';
 import Layout from '@/components/layout/Layout';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import MorphingBackground from '@/components/ui/MorphingBackground';
+import ScrollParticles from '@/components/ui/ScrollParticles';
 
 const Home = () => {
   return (
     <Layout>
       <MorphingBackground shapeCount={6} opacity={0.12} />
+      <ScrollParticles particleCount={40} maxOpacity={0.5} />
       <div className="min-h-screen relative z-10">
         <HeroSection />
         
