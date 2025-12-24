@@ -2,12 +2,18 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
   Mail, Phone, MapPin, Globe, Github, Linkedin, 
-  MessageCircle, Send, Download, ExternalLink, Briefcase, GraduationCap, Award
+  MessageCircle, Send, Download, ExternalLink, Briefcase, GraduationCap, Award, Share2, Copy, Check
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import { useTheme } from 'next-themes';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
 
 const BusinessCard = () => {
+  const { resolvedTheme } = useTheme();
+  const [copied, setCopied] = useState(false);
+  const isDark = resolvedTheme === 'dark';
   const contactInfo = {
     name: 'Sheikh Yeasin Ahsanullah Al‑Galib',
     title: 'AI Innovator • Software Engineer • Startup Founder',
@@ -57,6 +63,34 @@ END:VCARD`;
     a.download = 'galib-contact.vcf';
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: contactInfo.name,
+      text: `${contactInfo.title} - Digital Business Card`,
+      url: window.location.href,
+    };
+
+    if (navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData);
+        toast.success('Shared successfully!');
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          handleCopyLink();
+        }
+      }
+    } else {
+      handleCopyLink();
+    }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    toast.success('Link copied to clipboard!');
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -198,25 +232,47 @@ END:VCARD`;
               })}
             </div>
 
-            {/* Download vCard Button */}
-            <Button 
-              onClick={handleDownloadVCard}
-              className="w-full btn-hero"
-              size="lg"
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Save Contact
-            </Button>
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-3">
+              <Button 
+                onClick={handleDownloadVCard}
+                className="btn-hero"
+                size="lg"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Save Contact
+              </Button>
+              <Button 
+                onClick={handleShare}
+                variant="outline"
+                className="btn-ghost-glow"
+                size="lg"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-5 h-5 mr-2" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Share2 className="w-5 h-5 mr-2" />
+                    Share
+                  </>
+                )}
+              </Button>
+            </div>
 
             {/* QR Code for sharing */}
             <div className="flex flex-col items-center pt-4 border-t border-border space-y-2">
               <p className="text-xs text-muted-foreground">Share this card</p>
-              <div className="p-3 bg-white rounded-xl shadow-inner">
+              <div className={`p-3 rounded-xl shadow-inner ${isDark ? 'bg-muted' : 'bg-white'}`}>
                 <QRCodeSVG 
                   value={typeof window !== 'undefined' ? window.location.href : 'https://galib.dev/card'}
                   size={80}
                   level="M"
                   includeMargin={false}
+                  bgColor={isDark ? 'hsl(240 10% 10%)' : '#ffffff'}
+                  fgColor={isDark ? '#ffffff' : '#000000'}
                 />
               </div>
             </div>
