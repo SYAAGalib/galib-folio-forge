@@ -5,6 +5,7 @@ import AboutSnapshot from '@/components/home/AboutSnapshot';
 import TestimonialsPreview from '@/components/home/TestimonialsPreview';
 import BlogPreview from '@/components/home/BlogPreview';
 import CallToAction from '@/components/home/CallToAction';
+import StatsSection from '@/components/home/StatsSection';
 import Layout from '@/components/layout/Layout';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
@@ -13,6 +14,9 @@ const Home = () => {
     <Layout>
       <div className="min-h-screen">
         <HeroSection />
+        <ScrollReveal direction="up" delay={100}>
+          <StatsSection />
+        </ScrollReveal>
         <ScrollReveal direction="up" delay={100}>
           <FeaturedProjects />
         </ScrollReveal>

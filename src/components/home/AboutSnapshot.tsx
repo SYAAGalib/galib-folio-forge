@@ -20,7 +20,7 @@ const AboutSnapshot = () => {
   ];
 
   return (
-    <section className="py-20 bg-accent/30">
+    <section id="about" className="py-20 bg-accent/30">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Bio */}

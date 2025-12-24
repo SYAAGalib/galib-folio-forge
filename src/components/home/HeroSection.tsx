@@ -142,7 +142,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
       {/* Background Animation with Parallax */}
       <div 
         className="absolute inset-0 opacity-30 parallax-element"
