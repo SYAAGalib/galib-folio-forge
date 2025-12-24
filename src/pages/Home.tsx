@@ -8,11 +8,13 @@ import CallToAction from '@/components/home/CallToAction';
 import StatsSection from '@/components/home/StatsSection';
 import Layout from '@/components/layout/Layout';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import MorphingBackground from '@/components/ui/MorphingBackground';
 
 const Home = () => {
   return (
     <Layout>
-      <div className="min-h-screen">
+      <MorphingBackground shapeCount={6} opacity={0.12} />
+      <div className="min-h-screen relative z-10">
         <HeroSection />
         
         {/* Stats - zoom in with slight delay for impact */}
