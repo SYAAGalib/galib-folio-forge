@@ -7,7 +7,6 @@ import CursorFollower from './CursorFollower';
 import PageTransition from './PageTransition';
 import ScrollProgressIndicator from './ScrollProgressIndicator';
 import PagePreloader from './PagePreloader';
-import StickyNavSidebar from './StickyNavSidebar';
 import ScrollToTopButton from './ScrollToTopButton';
 
 interface LayoutProps {
@@ -21,7 +20,6 @@ const Layout = ({ children }: LayoutProps) => {
       <ScrollProgressIndicator />
       <CursorFollower />
       <Navbar />
-      <StickyNavSidebar />
       <main className="flex-1 pt-16">
         <PageTransition>
           {children}
