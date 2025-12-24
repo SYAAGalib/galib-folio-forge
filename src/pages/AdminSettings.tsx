@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +28,7 @@ import { toast } from 'sonner';
 
 const AdminSettings = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [sendingTestEmail, setSendingTestEmail] = useState(false);
   const [settings, setSettings] = useState({
     // Site Settings
     siteTitle: 'Syaagalib - AI Researcher & Developer',
@@ -361,12 +363,43 @@ const AdminSettings = () => {
               <div className="flex gap-2 pt-4">
                 <Button 
                   variant="outline"
-                  onClick={() => {
-                    toast.info('Test email feature will be implemented with backend API');
+                  disabled={sendingTestEmail || !settings.smtpEmail || !settings.smtpAppPassword}
+                  onClick={async () => {
+                    setSendingTestEmail(true);
+                    try {
+                      const { data, error } = await supabase.functions.invoke('send-email', {
+                        body: {
+                          to: settings.smtpEmail,
+                          subject: 'Test Email from Admin Panel',
+                          html: `
+                            <h1>Test Email</h1>
+                            <p>This is a test email from your website admin panel.</p>
+                            <p>If you received this email, your SMTP configuration is working correctly!</p>
+                            <p>Sent at: ${new Date().toLocaleString()}</p>
+                          `,
+                          smtp: {
+                            host: settings.smtpHost,
+                            port: parseInt(settings.smtpPort),
+                            email: settings.smtpEmail,
+                            password: settings.smtpAppPassword,
+                            fromName: settings.smtpFromName,
+                            secure: settings.smtpSecure,
+                          }
+                        }
+                      });
+                      
+                      if (error) throw error;
+                      toast.success('Test email sent successfully!');
+                    } catch (error: any) {
+                      console.error('Failed to send test email:', error);
+                      toast.error(error.message || 'Failed to send test email');
+                    } finally {
+                      setSendingTestEmail(false);
+                    }
                   }}
                 >
                   <Send className="h-4 w-4 mr-2" />
-                  Send Test Email
+                  {sendingTestEmail ? 'Sending...' : 'Send Test Email'}
                 </Button>
               </div>
             </CardContent>
