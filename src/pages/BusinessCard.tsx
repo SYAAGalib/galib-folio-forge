@@ -11,47 +11,44 @@ import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
 import cardBanner from '@/assets/card-banner.jpg';
+import { useBusinessCardContent } from '@/hooks/useContent';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Mail,
+  MessageCircle,
+  Send,
+  Linkedin,
+  Github,
+  Briefcase,
+  GraduationCap,
+  Award,
+};
 
 const BusinessCard = () => {
   const { resolvedTheme } = useTheme();
   const [copied, setCopied] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const isDark = resolvedTheme === 'dark';
+  const { businessCard, loading } = useBusinessCardContent();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  // Default values while loading
   const contactInfo = {
-    name: 'Sheikh Yeasin Ahsanullah Al‑Galib',
-    title: 'AI Innovator • Software Engineer • Startup Founder',
-    email: 'syaagalib@gmail.com',
-    phone: '+880 1946 303 020',
-    location: 'Dhaka, Bangladesh',
-    website: 'https://galib.dev',
+    name: businessCard?.name || 'Loading...',
+    title: businessCard?.title || '',
+    email: businessCard?.email || '',
+    phone: businessCard?.phone || '',
+    location: businessCard?.location || '',
+    website: businessCard?.website || '',
   };
 
-  const socialLinks = [
-    { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email', color: 'bg-red-500/10 text-red-500 hover:bg-red-500' },
-    { icon: MessageCircle, href: 'https://wa.me/8801946303020', label: 'WhatsApp', color: 'bg-green-500/10 text-green-500 hover:bg-green-500' },
-    { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram', color: 'bg-blue-400/10 text-blue-400 hover:bg-blue-400' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn', color: 'bg-blue-600/10 text-blue-600 hover:bg-blue-600' },
-    { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub', color: 'bg-gray-500/10 text-gray-500 hover:bg-gray-500' },
-  ];
-
-  const expertise = [
-    'Artificial Intelligence',
-    'Machine Learning',
-    'Full-Stack Development',
-    'Startup Strategy',
-    'Research & Innovation',
-  ];
-
-  const highlights = [
-    { icon: Briefcase, label: '15+ Projects', desc: 'Delivered' },
-    { icon: GraduationCap, label: '5+ Papers', desc: 'Published' },
-    { icon: Award, label: '3+ Awards', desc: 'Won' },
-  ];
+  const socialLinks = businessCard?.socialLinks || [];
+  const expertise = businessCard?.expertise || [];
+  const highlights = businessCard?.highlights || [];
 
   const triggerConfetti = () => {
     const count = 200;
@@ -231,7 +228,7 @@ END:VCARD`;
               style={{ transitionDelay: '300ms' }}
             >
               {highlights.map((item) => {
-                const Icon = item.icon;
+                const Icon = iconMap[item.icon] || Briefcase;
                 return (
                   <div 
                     key={item.label} 
@@ -338,7 +335,7 @@ END:VCARD`;
               style={{ transitionDelay: '600ms' }}
             >
               {socialLinks.map((social) => {
-                const Icon = social.icon;
+                const Icon = iconMap[social.icon] || Mail;
                 return (
                   <a
                     key={social.href}

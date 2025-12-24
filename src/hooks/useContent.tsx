@@ -123,6 +123,13 @@ export interface FooterContent {
   madeIn: string;
 }
 
+export interface BusinessCardSocialLink {
+  icon: string;
+  href: string;
+  label: string;
+  color: string;
+}
+
 export interface BusinessCardContent {
   name: string;
   title: string;
@@ -132,6 +139,7 @@ export interface BusinessCardContent {
   website: string;
   expertise: string[];
   highlights: { icon: string; label: string; desc: string }[];
+  socialLinks: BusinessCardSocialLink[];
 }
 
 export interface SEOContent {
