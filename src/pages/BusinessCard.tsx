@@ -6,14 +6,20 @@ import {
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useTheme } from 'next-themes';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
 
 const BusinessCard = () => {
   const { resolvedTheme } = useTheme();
   const [copied, setCopied] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const isDark = resolvedTheme === 'dark';
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
   const contactInfo = {
     name: 'Sheikh Yeasin Ahsanullah Al‑Galib',
     title: 'AI Innovator • Software Engineer • Startup Founder',
@@ -95,7 +101,13 @@ END:VCARD`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30 flex items-center justify-center p-4 py-12">
-      <div className="w-full max-w-md">
+      <div 
+        className={`w-full max-w-md transition-all duration-700 ease-out ${
+          isLoaded 
+            ? 'opacity-100 scale-100 translate-y-0' 
+            : 'opacity-0 scale-95 translate-y-4'
+        }`}
+      >
         {/* Main Card */}
         <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl">
           {/* Gradient Header */}
