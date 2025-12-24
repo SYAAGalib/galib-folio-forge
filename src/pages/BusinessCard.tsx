@@ -127,16 +127,21 @@ END:VCARD`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30 flex items-center justify-center p-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex items-center justify-center p-4 py-12 relative overflow-hidden">
+      {/* Background decorative elements for glassmorphism effect */}
+      <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/30 rounded-full blur-[100px] animate-pulse"></div>
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary/30 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[150px]"></div>
+      
       <div 
-        className={`w-full max-w-md transition-all duration-700 ease-out ${
+        className={`w-full max-w-md transition-all duration-700 ease-out relative z-10 ${
           isLoaded 
             ? 'opacity-100 scale-100 translate-y-0' 
             : 'opacity-0 scale-95 translate-y-4'
         }`}
       >
-        {/* Main Card */}
-        <Card className="relative overflow-hidden border-0 shadow-2xl bg-gradient-to-b from-card to-card/95 backdrop-blur-xl">
+        {/* Main Card with Glassmorphism */}
+        <Card className="relative overflow-hidden border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-background/70 dark:bg-background/60 backdrop-blur-2xl backdrop-saturate-150">
           {/* Gradient Header with Banner */}
           <div className="h-36 bg-gradient-primary relative overflow-hidden">
             {/* Animated mesh gradient */}
