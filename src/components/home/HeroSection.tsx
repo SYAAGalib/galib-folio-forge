@@ -218,14 +218,14 @@ const HeroSection = () => {
                   skeletonClassName="rounded-lg"
                 />
               </div>
-              {/* Floating elements with enhanced parallax */}
+              {/* Corner accent lines */}
               <div 
-                className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full animate-float parallax-element"
-                style={{ transform: `translateY(${parallaxY(-0.4)}px)` }}
+                className="absolute -top-6 -right-6 w-12 h-12 border-t-2 border-r-2 border-primary/40 rounded-tr-lg parallax-element"
+                style={{ transform: `translateY(${parallaxY(-0.3)}px)` }}
               ></div>
               <div 
-                className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary rounded-full animate-float parallax-element" 
-                style={{ animationDelay: '0.5s', transform: `translateY(${parallaxY(-0.2)}px)` }}
+                className="absolute -bottom-6 -left-6 w-12 h-12 border-b-2 border-l-2 border-secondary/40 rounded-bl-lg parallax-element"
+                style={{ transform: `translateY(${parallaxY(-0.2)}px)` }}
               ></div>
             </div>
           </div>
