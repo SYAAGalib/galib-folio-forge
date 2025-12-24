@@ -202,13 +202,16 @@ export interface ResearchPageContent {
 }
 
 export interface BlogItem {
-  id: number;
+  id: number | string;
   title: string;
-  excerpt: string;
+  excerpt?: string;
+  description?: string;
   image: string;
-  date: string;
-  readTime: string;
-  tags: string[];
+  date?: string;
+  createdAt?: string;
+  readTime?: string;
+  tags?: string[];
+  category?: string;
   featured: boolean;
 }
 
