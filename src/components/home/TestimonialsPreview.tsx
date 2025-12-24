@@ -3,6 +3,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import TextReveal from '@/components/ui/TextReveal';
+import GradientTextReveal from '@/components/ui/GradientTextReveal';
 
 const TestimonialsPreview = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,7 +16,7 @@ const TestimonialsPreview = () => {
       role: 'Professor of Computer Science',
       organization: 'University of Dhaka',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-      content: 'Sheikh Yeasin\'s work on Bengali language processing has been groundbreaking. His approach to fine-tuning LLMs shows exceptional understanding of both technical depth and cultural context.',
+      content: "Sheikh Yeasin's work on Bengali language processing has been groundbreaking. His approach to fine-tuning LLMs shows exceptional understanding of both technical depth and cultural context.",
     },
     {
       id: 2,
@@ -61,11 +63,18 @@ const TestimonialsPreview = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            What People <span className="hero-text-gradient">Say</span>
+            <TextReveal as="span" mode="words" staggerDelay={60}>What People</TextReveal>{' '}
+            <GradientTextReveal delay={250}>Say</GradientTextReveal>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <TextReveal 
+            as="p" 
+            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            mode="words"
+            delay={400}
+            staggerDelay={30}
+          >
             Testimonials from colleagues, collaborators, and industry leaders
-          </p>
+          </TextReveal>
         </div>
 
         <div className="max-w-4xl mx-auto">

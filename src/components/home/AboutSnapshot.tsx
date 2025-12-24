@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
+import TextReveal from '@/components/ui/TextReveal';
+import GradientTextReveal from '@/components/ui/GradientTextReveal';
 import { 
   Brain, 
   Code, 
@@ -28,22 +30,19 @@ const AboutSnapshot = () => {
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                About <span className="hero-text-gradient">Me</span>
+                <TextReveal as="span" mode="words" staggerDelay={60}>About</TextReveal>{' '}
+                <GradientTextReveal delay={150}>Me</GradientTextReveal>
               </h2>
               <div className="space-y-4 text-muted-foreground">
-                <p>
-                  I'm a passionate AI engineer and startup founder from Bangladesh, driven by the 
-                  vision of creating intelligent solutions that bridge technology with real-world impact.
-                </p>
-                <p>
-                  From founding AIELTS and winning the UIHP National Award to leading Intelleeo as 
-                  Chairman, I've dedicated my career to pushing the boundaries of what's possible 
-                  with AI and machine learning.
-                </p>
-                <p>
-                  My journey combines deep technical expertise with entrepreneurial vision, 
-                  always focusing on solutions that matter to people and communities.
-                </p>
+                <TextReveal as="p" mode="words" delay={300} staggerDelay={20}>
+                  I'm a passionate AI engineer and startup founder from Bangladesh, driven by the vision of creating intelligent solutions that bridge technology with real-world impact.
+                </TextReveal>
+                <TextReveal as="p" mode="words" delay={600} staggerDelay={20}>
+                  From founding AIELTS and winning the UIHP National Award to leading Intelleeo as Chairman, I've dedicated my career to pushing the boundaries of what's possible with AI and machine learning.
+                </TextReveal>
+                <TextReveal as="p" mode="words" delay={900} staggerDelay={20}>
+                  My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities.
+                </TextReveal>
               </div>
             </div>
             

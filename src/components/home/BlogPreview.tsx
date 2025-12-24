@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
+import TextReveal from '@/components/ui/TextReveal';
+import GradientTextReveal from '@/components/ui/GradientTextReveal';
 
 const BlogPreview = () => {
   const blogPosts = [
@@ -49,11 +51,18 @@ const BlogPreview = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Latest <span className="hero-text-gradient">Insights</span>
+            <TextReveal as="span" mode="words" staggerDelay={60}>Latest</TextReveal>{' '}
+            <GradientTextReveal delay={200}>Insights</GradientTextReveal>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <TextReveal 
+            as="p" 
+            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            mode="words"
+            delay={400}
+            staggerDelay={30}
+          >
             Thoughts on AI, technology, and building the future
-          </p>
+          </TextReveal>
         </div>
 
         <StaggeredReveal 
