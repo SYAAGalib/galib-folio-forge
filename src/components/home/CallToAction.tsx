@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Download, MessageCircle, QrCode } from 'lucide-react';
+import { Download, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { QRCodeSVG } from 'qrcode.react';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
 
@@ -44,14 +46,19 @@ const CallToAction = () => {
                 </div>
 
                 {/* QR Code */}
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="w-32 h-32 bg-muted rounded-lg flex items-center justify-center animate-pulse-glow">
-                    <QrCode className="w-16 h-16 text-muted-foreground" />
+                <Link to="/card" className="flex flex-col items-center space-y-4 group">
+                  <div className="w-32 h-32 bg-white rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300 p-3">
+                    <QRCodeSVG 
+                      value={typeof window !== 'undefined' ? `${window.location.origin}/card` : 'https://galib.dev/card'}
+                      size={100}
+                      level="M"
+                      includeMargin={false}
+                    />
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground group-hover:text-primary transition-colors">
                     Scan for digital business card
                   </p>
-                </div>
+                </Link>
               </div>
 
               {/* Stats */}
