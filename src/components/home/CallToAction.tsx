@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Download, MessageCircle, QrCode } from 'lucide-react';
+import TextReveal from '@/components/ui/TextReveal';
+import GradientTextReveal from '@/components/ui/GradientTextReveal';
 
 const CallToAction = () => {
   return (
@@ -14,12 +16,18 @@ const CallToAction = () => {
             <div className="relative p-8 md:p-12 text-center space-y-8">
               <div className="space-y-4">
                 <h2 className="text-3xl md:text-4xl font-bold">
-                  Let's Build Something <span className="hero-text-gradient">Extraordinary</span>
+                  <TextReveal as="span" mode="words" staggerDelay={60}>Let's Build Something</TextReveal>{' '}
+                  <GradientTextReveal delay={300}>Extraordinary</GradientTextReveal>
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Whether you have a project in mind, want to collaborate on research, 
-                  or just want to connect, I'd love to hear from you.
-                </p>
+                <TextReveal 
+                  as="p" 
+                  className="text-xl text-muted-foreground max-w-2xl mx-auto"
+                  mode="words"
+                  delay={500}
+                  staggerDelay={25}
+                >
+                  Whether you have a project in mind, want to collaborate on research, or just want to connect, I'd love to hear from you.
+                </TextReveal>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8 items-center max-w-2xl mx-auto">

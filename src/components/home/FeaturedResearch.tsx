@@ -5,6 +5,8 @@ import { FileText, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import researchHero from '@/assets/research-hero.jpg';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
+import TextReveal from '@/components/ui/TextReveal';
+import GradientTextReveal from '@/components/ui/GradientTextReveal';
 
 const FeaturedResearch = () => {
   const heroResearch = {
@@ -37,11 +39,18 @@ const FeaturedResearch = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Featured <span className="hero-text-gradient">Research</span>
+            <TextReveal as="span" mode="words" staggerDelay={60}>Featured</TextReveal>{' '}
+            <GradientTextReveal delay={200}>Research</GradientTextReveal>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <TextReveal 
+            as="p" 
+            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            mode="words"
+            delay={400}
+            staggerDelay={30}
+          >
             Pushing the boundaries of AI and machine learning through innovative research
-          </p>
+          </TextReveal>
         </div>
 
         {/* Hero Research */}
