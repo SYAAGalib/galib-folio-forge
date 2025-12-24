@@ -20,17 +20,56 @@ import {
   FooterContent,
   BusinessCardContent
 } from '@/hooks/useContent';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import SortableItem from '@/components/admin/SortableItem';
+import ImageUploadField from '@/components/admin/ImageUploadField';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 const AdminContent = () => {
   const { content, loading, error, updateContent, refetch } = useSiteContent();
   const [editedContent, setEditedContent] = useState<SiteContent | null>(null);
   const [saving, setSaving] = useState(false);
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   useEffect(() => {
     if (content) {
       setEditedContent(content);
     }
   }, [content]);
+
+  const handleDragEnd = (section: keyof SiteContent, field: string) => (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id || !editedContent) return;
+
+    const items = (editedContent[section] as any)?.[field] || [];
+    const oldIndex = items.findIndex((item: any) => item.id === active.id);
+    const newIndex = items.findIndex((item: any) => item.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const newItems = arrayMove(items, oldIndex, newIndex);
+      updateField(section, field, newItems);
+    }
+  };
 
   const handleSave = async () => {
     if (!editedContent) return;
@@ -1149,85 +1188,107 @@ const AdminContent = () => {
                         <Plus className="w-4 h-4 mr-2" /> Add Project
                       </Button>
                     </div>
-                    {editedContent.projectsPage.projects.map((project, index) => (
-                      <div key={project.id} className="border rounded-lg p-4 mb-4 space-y-3">
-                        <div className="flex justify-between items-center">
-                          <h5 className="font-medium">Project #{index + 1}</h5>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => {
-                              const newProjects = editedContent.projectsPage!.projects.filter((_, i) => i !== index);
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <Input
-                            placeholder="Title"
-                            value={project.title}
-                            onChange={(e) => {
-                              const newProjects = [...editedContent.projectsPage!.projects];
-                              newProjects[index] = { ...newProjects[index], title: e.target.value };
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          />
-                          <Input
-                            placeholder="Category"
-                            value={project.category}
-                            onChange={(e) => {
-                              const newProjects = [...editedContent.projectsPage!.projects];
-                              newProjects[index] = { ...newProjects[index], category: e.target.value };
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          />
-                        </div>
-                        <Textarea
-                          placeholder="Description"
-                          value={project.description}
-                          onChange={(e) => {
-                            const newProjects = [...editedContent.projectsPage!.projects];
-                            newProjects[index] = { ...newProjects[index], description: e.target.value };
-                            updateField('projectsPage', 'projects', newProjects);
-                          }}
-                          rows={2}
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          <Input
-                            placeholder="Live URL"
-                            value={project.links.live}
-                            onChange={(e) => {
-                              const newProjects = [...editedContent.projectsPage!.projects];
-                              newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, live: e.target.value } };
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          />
-                          <Input
-                            placeholder="GitHub URL"
-                            value={project.links.github}
-                            onChange={(e) => {
-                              const newProjects = [...editedContent.projectsPage!.projects];
-                              newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, github: e.target.value } };
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          />
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={project.featured}
-                            onChange={(e) => {
-                              const newProjects = [...editedContent.projectsPage!.projects];
-                              newProjects[index] = { ...newProjects[index], featured: e.target.checked };
-                              updateField('projectsPage', 'projects', newProjects);
-                            }}
-                          />
-                          <Label>Featured</Label>
-                        </div>
-                      </div>
-                    ))}
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd('projectsPage', 'projects')}
+                    >
+                      <SortableContext
+                        items={editedContent.projectsPage.projects.map(p => p.id)}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {editedContent.projectsPage.projects.map((project, index) => (
+                          <SortableItem key={project.id} id={project.id}>
+                            <div className="border rounded-lg p-4 mb-4 space-y-3">
+                              <div className="flex justify-between items-center">
+                                <h5 className="font-medium">Project #{index + 1}</h5>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() => {
+                                    const newProjects = editedContent.projectsPage!.projects.filter((_, i) => i !== index);
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <Input
+                                  placeholder="Title"
+                                  value={project.title}
+                                  onChange={(e) => {
+                                    const newProjects = [...editedContent.projectsPage!.projects];
+                                    newProjects[index] = { ...newProjects[index], title: e.target.value };
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="Category"
+                                  value={project.category}
+                                  onChange={(e) => {
+                                    const newProjects = [...editedContent.projectsPage!.projects];
+                                    newProjects[index] = { ...newProjects[index], category: e.target.value };
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                />
+                              </div>
+                              <Textarea
+                                placeholder="Description"
+                                value={project.description}
+                                onChange={(e) => {
+                                  const newProjects = [...editedContent.projectsPage!.projects];
+                                  newProjects[index] = { ...newProjects[index], description: e.target.value };
+                                  updateField('projectsPage', 'projects', newProjects);
+                                }}
+                                rows={2}
+                              />
+                              <ImageUploadField
+                                label="Project Image"
+                                value={project.image || ''}
+                                onChange={(url) => {
+                                  const newProjects = [...editedContent.projectsPage!.projects];
+                                  newProjects[index] = { ...newProjects[index], image: url };
+                                  updateField('projectsPage', 'projects', newProjects);
+                                }}
+                              />
+                              <div className="grid grid-cols-2 gap-2">
+                                <Input
+                                  placeholder="Live URL"
+                                  value={project.links.live}
+                                  onChange={(e) => {
+                                    const newProjects = [...editedContent.projectsPage!.projects];
+                                    newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, live: e.target.value } };
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="GitHub URL"
+                                  value={project.links.github}
+                                  onChange={(e) => {
+                                    const newProjects = [...editedContent.projectsPage!.projects];
+                                    newProjects[index] = { ...newProjects[index], links: { ...newProjects[index].links, github: e.target.value } };
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={project.featured}
+                                  onChange={(e) => {
+                                    const newProjects = [...editedContent.projectsPage!.projects];
+                                    newProjects[index] = { ...newProjects[index], featured: e.target.checked };
+                                    updateField('projectsPage', 'projects', newProjects);
+                                  }}
+                                />
+                                <Label>Featured</Label>
+                              </div>
+                            </div>
+                          </SortableItem>
+                        ))}
+                      </SortableContext>
+                    </DndContext>
                   </div>
                 </>
               )}
@@ -1421,62 +1482,93 @@ const AdminContent = () => {
                         <Plus className="w-4 h-4 mr-2" /> Add Post
                       </Button>
                     </div>
-                    {editedContent.blogPage.posts.map((post, index) => (
-                      <div key={post.id} className="border rounded-lg p-4 mb-4 space-y-3">
-                        <div className="flex justify-between items-center">
-                          <h5 className="font-medium">Post #{index + 1}</h5>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => {
-                              const newPosts = editedContent.blogPage!.posts.filter((_, i) => i !== index);
-                              updateField('blogPage', 'posts', newPosts);
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                        <Input
-                          placeholder="Title"
-                          value={post.title}
-                          onChange={(e) => {
-                            const newPosts = [...editedContent.blogPage!.posts];
-                            newPosts[index] = { ...newPosts[index], title: e.target.value };
-                            updateField('blogPage', 'posts', newPosts);
-                          }}
-                        />
-                        <Textarea
-                          placeholder="Excerpt"
-                          value={post.excerpt}
-                          onChange={(e) => {
-                            const newPosts = [...editedContent.blogPage!.posts];
-                            newPosts[index] = { ...newPosts[index], excerpt: e.target.value };
-                            updateField('blogPage', 'posts', newPosts);
-                          }}
-                          rows={2}
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          <Input
-                            placeholder="Date"
-                            value={post.date}
-                            onChange={(e) => {
-                              const newPosts = [...editedContent.blogPage!.posts];
-                              newPosts[index] = { ...newPosts[index], date: e.target.value };
-                              updateField('blogPage', 'posts', newPosts);
-                            }}
-                          />
-                          <Input
-                            placeholder="Read Time"
-                            value={post.readTime}
-                            onChange={(e) => {
-                              const newPosts = [...editedContent.blogPage!.posts];
-                              newPosts[index] = { ...newPosts[index], readTime: e.target.value };
-                              updateField('blogPage', 'posts', newPosts);
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd('blogPage', 'posts')}
+                    >
+                      <SortableContext
+                        items={editedContent.blogPage.posts.map(p => p.id)}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {editedContent.blogPage.posts.map((post, index) => (
+                          <SortableItem key={post.id} id={post.id}>
+                            <div className="border rounded-lg p-4 mb-4 space-y-3">
+                              <div className="flex justify-between items-center">
+                                <h5 className="font-medium">Post #{index + 1}</h5>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() => {
+                                    const newPosts = editedContent.blogPage!.posts.filter((_, i) => i !== index);
+                                    updateField('blogPage', 'posts', newPosts);
+                                  }}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              <Input
+                                placeholder="Title"
+                                value={post.title}
+                                onChange={(e) => {
+                                  const newPosts = [...editedContent.blogPage!.posts];
+                                  newPosts[index] = { ...newPosts[index], title: e.target.value };
+                                  updateField('blogPage', 'posts', newPosts);
+                                }}
+                              />
+                              <Textarea
+                                placeholder="Excerpt"
+                                value={post.excerpt}
+                                onChange={(e) => {
+                                  const newPosts = [...editedContent.blogPage!.posts];
+                                  newPosts[index] = { ...newPosts[index], excerpt: e.target.value };
+                                  updateField('blogPage', 'posts', newPosts);
+                                }}
+                                rows={2}
+                              />
+                              <ImageUploadField
+                                label="Featured Image"
+                                value={post.image || ''}
+                                onChange={(url) => {
+                                  const newPosts = [...editedContent.blogPage!.posts];
+                                  newPosts[index] = { ...newPosts[index], image: url };
+                                  updateField('blogPage', 'posts', newPosts);
+                                }}
+                              />
+                              <RichTextEditor
+                                label="Content"
+                                value={(post as any).content || ''}
+                                onChange={(value) => {
+                                  const newPosts = [...editedContent.blogPage!.posts];
+                                  newPosts[index] = { ...newPosts[index], content: value } as any;
+                                  updateField('blogPage', 'posts', newPosts);
+                                }}
+                              />
+                              <div className="grid grid-cols-2 gap-2">
+                                <Input
+                                  placeholder="Date"
+                                  value={post.date}
+                                  onChange={(e) => {
+                                    const newPosts = [...editedContent.blogPage!.posts];
+                                    newPosts[index] = { ...newPosts[index], date: e.target.value };
+                                    updateField('blogPage', 'posts', newPosts);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="Read Time"
+                                  value={post.readTime}
+                                  onChange={(e) => {
+                                    const newPosts = [...editedContent.blogPage!.posts];
+                                    newPosts[index] = { ...newPosts[index], readTime: e.target.value };
+                                    updateField('blogPage', 'posts', newPosts);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </SortableItem>
+                        ))}
+                      </SortableContext>
+                    </DndContext>
                   </div>
                 </>
               )}
@@ -1775,94 +1867,116 @@ const AdminContent = () => {
                         <Plus className="w-4 h-4 mr-2" /> Add Gallery Item
                       </Button>
                     </div>
-                    {editedContent.galleryPage.items.map((item, index) => (
-                      <div key={item.id} className="border rounded-lg p-4 mb-4 space-y-3">
-                        <div className="flex justify-between items-center">
-                          <h5 className="font-medium">Item #{index + 1}</h5>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => {
-                              const newItems = editedContent.galleryPage!.items.filter((_, i) => i !== index);
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <Input
-                            placeholder="Title"
-                            value={item.title}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], title: e.target.value };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                          <Input
-                            placeholder="Category"
-                            value={item.category}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], category: e.target.value };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                        </div>
-                        <div className="grid grid-cols-3 gap-2">
-                          <Input
-                            placeholder="Type (image/video/article)"
-                            value={item.type}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], type: e.target.value };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                          <Input
-                            placeholder="Date"
-                            value={item.date}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], date: e.target.value };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                          <Input
-                            placeholder="Location"
-                            value={item.location}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], location: e.target.value };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                        </div>
-                        <Textarea
-                          placeholder="Description"
-                          value={item.description}
-                          onChange={(e) => {
-                            const newItems = [...editedContent.galleryPage!.items];
-                            newItems[index] = { ...newItems[index], description: e.target.value };
-                            updateField('galleryPage', 'items', newItems);
-                          }}
-                          rows={2}
-                        />
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={item.featured}
-                            onChange={(e) => {
-                              const newItems = [...editedContent.galleryPage!.items];
-                              newItems[index] = { ...newItems[index], featured: e.target.checked };
-                              updateField('galleryPage', 'items', newItems);
-                            }}
-                          />
-                          <Label>Featured</Label>
-                        </div>
-                      </div>
-                    ))}
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd('galleryPage', 'items')}
+                    >
+                      <SortableContext
+                        items={editedContent.galleryPage.items.map(i => i.id)}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {editedContent.galleryPage.items.map((item, index) => (
+                          <SortableItem key={item.id} id={item.id}>
+                            <div className="border rounded-lg p-4 mb-4 space-y-3">
+                              <div className="flex justify-between items-center">
+                                <h5 className="font-medium">Item #{index + 1}</h5>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() => {
+                                    const newItems = editedContent.galleryPage!.items.filter((_, i) => i !== index);
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <Input
+                                  placeholder="Title"
+                                  value={item.title}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], title: e.target.value };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="Category"
+                                  value={item.category}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], category: e.target.value };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                              </div>
+                              <ImageUploadField
+                                label="Gallery Image"
+                                value={item.thumbnail || ''}
+                                onChange={(url) => {
+                                  const newItems = [...editedContent.galleryPage!.items];
+                                  newItems[index] = { ...newItems[index], thumbnail: url };
+                                  updateField('galleryPage', 'items', newItems);
+                                }}
+                              />
+                              <div className="grid grid-cols-3 gap-2">
+                                <Input
+                                  placeholder="Type (image/video/article)"
+                                  value={item.type}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], type: e.target.value };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="Date"
+                                  value={item.date}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], date: e.target.value };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                                <Input
+                                  placeholder="Location"
+                                  value={item.location}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], location: e.target.value };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                              </div>
+                              <Textarea
+                                placeholder="Description"
+                                value={item.description}
+                                onChange={(e) => {
+                                  const newItems = [...editedContent.galleryPage!.items];
+                                  newItems[index] = { ...newItems[index], description: e.target.value };
+                                  updateField('galleryPage', 'items', newItems);
+                                }}
+                                rows={2}
+                              />
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={item.featured}
+                                  onChange={(e) => {
+                                    const newItems = [...editedContent.galleryPage!.items];
+                                    newItems[index] = { ...newItems[index], featured: e.target.checked };
+                                    updateField('galleryPage', 'items', newItems);
+                                  }}
+                                />
+                                <Label>Featured</Label>
+                              </div>
+                            </div>
+                          </SortableItem>
+                        ))}
+                      </SortableContext>
+                    </DndContext>
                   </div>
                 </>
               )}
