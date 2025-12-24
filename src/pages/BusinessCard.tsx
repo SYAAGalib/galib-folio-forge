@@ -142,6 +142,16 @@ END:VCARD`;
       >
         {/* Main Card with Glassmorphism */}
         <Card className="relative overflow-hidden border border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-background/70 dark:bg-background/60 backdrop-blur-2xl backdrop-saturate-150">
+          {/* Shimmer effect */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-40 overflow-hidden"
+          >
+            <div 
+              className="absolute -inset-full w-[200%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 animate-[shimmer-sweep_4s_ease-in-out_infinite]"
+              style={{ animationDelay: '2s' }}
+            ></div>
+          </div>
+          
           {/* Noise texture overlay */}
           <div 
             className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none z-50 mix-blend-overlay"
