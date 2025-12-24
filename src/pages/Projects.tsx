@@ -8,6 +8,7 @@ import { ExternalLink, Github, Search, Filter, X } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { useProjectsPageContent, ProjectItem } from '@/hooks/useContent';
 import SEO from '@/components/SEO';
+import LazyImage from '@/components/ui/LazyImage';
 
 const Projects = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -111,12 +112,12 @@ const Projects = () => {
                 >
                   <div className="grid lg:grid-cols-2 gap-0">
                     <div className="relative h-64 lg:h-auto overflow-hidden">
-                      <img
+                      <LazyImage
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 pointer-events-none"></div>
                     </div>
                     <CardContent className="p-8 flex flex-col justify-center">
                       <div className="space-y-6">
@@ -194,10 +195,10 @@ const Projects = () => {
                       onClick={() => openProjectModal(project)}
                     >
                     <div className="relative overflow-hidden">
-                      <img
+                      <LazyImage
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-48 transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800">
@@ -303,10 +304,10 @@ const Projects = () => {
                   <DialogTitle className="text-2xl font-bold">{selectedProject.title}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-6">
-                  <img
+                  <LazyImage
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-64 rounded-lg"
                   />
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary">{selectedProject.type}</Badge>
