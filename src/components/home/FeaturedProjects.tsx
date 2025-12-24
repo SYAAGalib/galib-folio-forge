@@ -7,27 +7,34 @@ import projectHero from '@/assets/project-hero.jpg';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
+import { useFeaturedProjectsContent } from '@/hooks/useContent';
 
 const FeaturedProjects = () => {
-  const heroProject = {
+  const { featuredProjects, loading } = useFeaturedProjectsContent();
+
+  const title = featuredProjects?.title ?? 'Featured';
+  const titleHighlight = featuredProjects?.titleHighlight ?? 'Projects';
+  const subtitle = featuredProjects?.subtitle ?? 'Building innovative solutions that make a real impact in the world';
+  
+  const heroProject = featuredProjects?.heroProject ?? {
     title: 'AIELTS - AI-Powered IELTS Preparation Platform',
     description: 'Revolutionary AI platform that achieved 95% accuracy in IELTS score prediction and helped 10,000+ students improve their scores.',
     image: projectHero,
     metrics: ['+10K Users', '95% Accuracy', 'UIHP Award Winner'],
     techStack: ['React', 'Python', 'TensorFlow', 'FastAPI', 'PostgreSQL'],
-    links: {
-      live: 'https://aielts.com',
-      github: 'https://github.com/galib/aielts'
-    }
+    liveUrl: 'https://aielts.com',
+    githubUrl: 'https://github.com/galib/aielts'
   };
 
-  const secondaryProjects = [
+  const secondaryProjects = featuredProjects?.secondaryProjects ?? [
     {
+      id: '1',
       title: 'Intelleeo Platform',
       description: 'Advanced analytics dashboard for startup metrics and KPI tracking.',
       techStack: ['Vue.js', 'Node.js', 'MongoDB'],
     },
     {
+      id: '2',
       title: 'Smart Contract Analyzer',
       description: 'AI-powered tool for smart contract vulnerability detection.',
       techStack: ['Python', 'Solidity', 'ML'],
@@ -39,8 +46,8 @@ const FeaturedProjects = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <TextReveal as="span" mode="words" staggerDelay={60}>Featured</TextReveal>{' '}
-            <GradientTextReveal delay={200}>Projects</GradientTextReveal>
+            <TextReveal as="span" mode="words" staggerDelay={60}>{title}</TextReveal>{' '}
+            <GradientTextReveal delay={200}>{titleHighlight}</GradientTextReveal>
           </h2>
           <TextReveal 
             as="p" 
@@ -49,7 +56,7 @@ const FeaturedProjects = () => {
             delay={400}
             staggerDelay={30}
           >
-            Building innovative solutions that make a real impact in the world
+            {subtitle}
           </TextReveal>
         </div>
 
@@ -59,7 +66,7 @@ const FeaturedProjects = () => {
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="relative h-64 lg:h-auto">
                 <img
-                  src={heroProject.image}
+                  src={heroProject.image || projectHero}
                   alt={heroProject.title}
                   className="w-full h-full object-cover"
                 />
@@ -96,13 +103,13 @@ const FeaturedProjects = () => {
                   {/* Action Buttons */}
                   <div className="flex space-x-4 pt-4">
                     <Button asChild className="btn-hero">
-                      <a href={heroProject.links.live} target="_blank" rel="noopener noreferrer">
+                      <a href={heroProject.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         View Live
                       </a>
                     </Button>
                     <Button asChild variant="outline" className="btn-ghost-glow">
-                      <a href={heroProject.links.github} target="_blank" rel="noopener noreferrer">
+                      <a href={heroProject.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4 mr-2" />
                         Code
                       </a>
@@ -122,7 +129,7 @@ const FeaturedProjects = () => {
           duration={600}
         >
           {secondaryProjects.map((project) => (
-            <Link key={project.title} to="/projects">
+            <Link key={project.id || project.title} to="/projects">
               <Card className="card-elevated p-6 cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
                 <div className="space-y-4">
                   <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">{project.title}</h4>

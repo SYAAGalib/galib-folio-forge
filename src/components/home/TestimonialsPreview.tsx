@@ -5,13 +5,19 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
+import { useTestimonialsContent } from '@/hooks/useContent';
 
 const TestimonialsPreview = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { testimonials: testimonialsContent, loading } = useTestimonialsContent();
 
-  const testimonials = [
+  const title = testimonialsContent?.title ?? 'What People';
+  const titleHighlight = testimonialsContent?.titleHighlight ?? 'Say';
+  const subtitle = testimonialsContent?.subtitle ?? 'Testimonials from colleagues, collaborators, and industry leaders';
+
+  const testimonials = testimonialsContent?.items ?? [
     {
-      id: 1,
+      id: '1',
       name: 'Dr. Sarah Ahmed',
       role: 'Professor of Computer Science',
       organization: 'University of Dhaka',
@@ -19,7 +25,7 @@ const TestimonialsPreview = () => {
       content: "Sheikh Yeasin's work on Bengali language processing has been groundbreaking. His approach to fine-tuning LLMs shows exceptional understanding of both technical depth and cultural context.",
     },
     {
-      id: 2,
+      id: '2',
       name: 'Rajesh Kumar',
       role: 'CEO',
       organization: 'TechVenture Partners',
@@ -27,7 +33,7 @@ const TestimonialsPreview = () => {
       content: 'AIELTS has revolutionized how students prepare for language proficiency tests. The AI accuracy and user experience Galib created is truly remarkable.',
     },
     {
-      id: 3,
+      id: '3',
       name: 'Maria Rodriguez',
       role: 'Lead Data Scientist',
       organization: 'Google Research',
@@ -58,13 +64,15 @@ const TestimonialsPreview = () => {
     );
   };
 
+  if (testimonials.length === 0) return null;
+
   return (
     <section id="testimonials" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <TextReveal as="span" mode="words" staggerDelay={60}>What People</TextReveal>{' '}
-            <GradientTextReveal delay={250}>Say</GradientTextReveal>
+            <TextReveal as="span" mode="words" staggerDelay={60}>{title}</TextReveal>{' '}
+            <GradientTextReveal delay={250}>{titleHighlight}</GradientTextReveal>
           </h2>
           <TextReveal 
             as="p" 
@@ -73,7 +81,7 @@ const TestimonialsPreview = () => {
             delay={400}
             staggerDelay={30}
           >
-            Testimonials from colleagues, collaborators, and industry leaders
+            {subtitle}
           </TextReveal>
         </div>
 

@@ -7,27 +7,34 @@ import researchHero from '@/assets/research-hero.jpg';
 import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
+import { useFeaturedResearchContent } from '@/hooks/useContent';
 
 const FeaturedResearch = () => {
-  const heroResearch = {
+  const { featuredResearch, loading } = useFeaturedResearchContent();
+
+  const title = featuredResearch?.title ?? 'Featured';
+  const titleHighlight = featuredResearch?.titleHighlight ?? 'Research';
+  const subtitle = featuredResearch?.subtitle ?? 'Pushing the boundaries of AI and machine learning through innovative research';
+
+  const heroResearch = featuredResearch?.heroResearch ?? {
     title: 'Large Language Models for Bangladeshi Language Processing',
     description: 'Groundbreaking research on fine-tuning LLMs for Bengali language understanding, achieving state-of-the-art results in sentiment analysis and machine translation.',
     image: researchHero,
     tags: ['LLM', 'NLP', 'Bengali', 'Transformer'],
     publication: 'Accepted at EMNLP 2024',
-    links: {
-      paper: 'https://arxiv.org/paper/bengali-llm',
-      code: 'https://github.com/galib/bengali-llm'
-    }
+    paperUrl: 'https://arxiv.org/paper/bengali-llm',
+    codeUrl: 'https://github.com/galib/bengali-llm'
   };
 
-  const secondaryResearch = [
+  const secondaryResearch = featuredResearch?.secondaryResearch ?? [
     {
+      id: '1',
       title: 'AI-Driven Code Generation for Low-Resource Languages',
       description: 'Novel approach to automated code generation using multi-modal transformers.',
       tags: ['AI', 'Code Generation', 'Multimodal'],
     },
     {
+      id: '2',
       title: 'Federated Learning in Edge Computing',
       description: 'Privacy-preserving machine learning framework for distributed systems.',
       tags: ['Federated Learning', 'Edge Computing', 'Privacy'],
@@ -39,8 +46,8 @@ const FeaturedResearch = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <TextReveal as="span" mode="words" staggerDelay={60}>Featured</TextReveal>{' '}
-            <GradientTextReveal delay={200}>Research</GradientTextReveal>
+            <TextReveal as="span" mode="words" staggerDelay={60}>{title}</TextReveal>{' '}
+            <GradientTextReveal delay={200}>{titleHighlight}</GradientTextReveal>
           </h2>
           <TextReveal 
             as="p" 
@@ -49,7 +56,7 @@ const FeaturedResearch = () => {
             delay={400}
             staggerDelay={30}
           >
-            Pushing the boundaries of AI and machine learning through innovative research
+            {subtitle}
           </TextReveal>
         </div>
 
@@ -83,13 +90,13 @@ const FeaturedResearch = () => {
                   {/* Action Buttons */}
                   <div className="flex space-x-4 pt-4">
                     <Button asChild className="btn-hero">
-                      <a href={heroResearch.links.paper} target="_blank" rel="noopener noreferrer">
+                      <a href={heroResearch.paperUrl} target="_blank" rel="noopener noreferrer">
                         <FileText className="w-4 h-4 mr-2" />
                         Read Paper
                       </a>
                     </Button>
                     <Button asChild variant="outline" className="btn-ghost-glow">
-                      <a href={heroResearch.links.code} target="_blank" rel="noopener noreferrer">
+                      <a href={heroResearch.codeUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-4 h-4 mr-2" />
                         View Code
                       </a>
@@ -99,7 +106,7 @@ const FeaturedResearch = () => {
               </CardContent>
               <div className="relative h-64 lg:h-auto">
                 <img
-                  src={heroResearch.image}
+                  src={heroResearch.image || researchHero}
                   alt={heroResearch.title}
                   className="w-full h-full object-cover"
                 />
@@ -117,7 +124,7 @@ const FeaturedResearch = () => {
           duration={550}
         >
           {secondaryResearch.map((research) => (
-            <Link key={research.title} to="/research">
+            <Link key={research.id || research.title} to="/research">
               <Card className="card-elevated p-6 cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
                 <div className="space-y-4">
                   <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">{research.title}</h4>

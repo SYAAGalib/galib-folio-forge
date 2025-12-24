@@ -1,8 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
+import { useFooterContent } from '@/hooks/useContent';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  email: Mail,
+  linkedin: Linkedin,
+  github: Github,
+  whatsapp: MessageCircle,
+  telegram: Send,
+};
 
 const Footer = () => {
-  const quickLinks = [
+  const { footer, loading } = useFooterContent();
+
+  const brand = footer?.brand ?? {
+    logo: '/logo.svg',
+    tagline: 'AI Innovator • Software Engineer • Startup Founder',
+    description: 'Building the future with intelligent solutions.',
+  };
+
+  const quickLinks = footer?.quickLinks ?? [
     { href: '/projects', label: 'Portfolio' },
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
@@ -10,13 +27,16 @@ const Footer = () => {
     { href: '/card', label: 'Digital Card' },
   ];
 
-  const socialLinks = [
-    { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
-    { icon: MessageCircle, href: 'https://wa.me/8801946303020', label: 'WhatsApp' },
-    { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram' },
+  const socialLinks = footer?.socialLinks ?? [
+    { platform: 'email', url: 'mailto:syaagalib@gmail.com', label: 'Email' },
+    { platform: 'linkedin', url: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
+    { platform: 'github', url: 'https://github.com/syaagalib', label: 'GitHub' },
+    { platform: 'whatsapp', url: 'https://wa.me/8801946303020', label: 'WhatsApp' },
+    { platform: 'telegram', url: 'https://t.me/SYAAGalib', label: 'Telegram' },
   ];
+
+  const copyright = footer?.copyright ?? 'Sheikh Yeasin Ahsanullah Al‑Galib';
+  const madeIn = footer?.madeIn ?? 'Bangladesh';
 
   return (
     <footer className="bg-card border-t border-border">
@@ -25,16 +45,12 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <img className='h-20' src="/logo.svg" alt="logo" />
-              {/* <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">YG</span>
-              </div>
-              <span className="font-semibold text-lg">Sheikh Yeasin</span> */}
+              <img className="h-20" src={brand.logo} alt="logo" />
             </div>
             <p className="text-muted-foreground text-sm max-w-sm">
-              AI Innovator • Software Engineer • Startup Founder
+              {brand.tagline}
               <br />
-              Building the future with intelligent solutions.
+              {brand.description}
             </p>
           </div>
 
@@ -59,11 +75,11 @@ const Footer = () => {
             <h3 className="font-semibold">Connect</h3>
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
-                const Icon = social.icon;
+                const Icon = iconMap[social.platform] || Mail;
                 return (
                   <a
-                    key={social.href}
-                    href={social.href}
+                    key={social.url}
+                    href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-glow"
@@ -79,11 +95,11 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-            <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Sheikh Yeasin Ahsanullah Al‑Galib. All rights reserved.
-            </p>
+          <p className="text-muted-foreground text-sm">
+            © {new Date().getFullYear()} {copyright}. All rights reserved.
+          </p>
           <p className="text-muted-foreground text-sm flex items-center">
-            Made with <span className="text-red-500 mx-1">❤️</span> in Bangladesh
+            Made with <span className="text-red-500 mx-1">❤️</span> in {madeIn}
           </p>
         </div>
       </div>
