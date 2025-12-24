@@ -5,6 +5,8 @@ import FloatingMessageButton from './FloatingMessageButton';
 import FloatingThemeToggle from './FloatingThemeToggle';
 import CursorFollower from './CursorFollower';
 import PageTransition from './PageTransition';
+import ScrollProgressIndicator from './ScrollProgressIndicator';
+import PagePreloader from './PagePreloader';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,6 +15,8 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <PagePreloader />
+      <ScrollProgressIndicator />
       <CursorFollower />
       <Navbar />
       <main className="flex-1 pt-16">

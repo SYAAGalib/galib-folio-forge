@@ -6,18 +6,31 @@ import TestimonialsPreview from '@/components/home/TestimonialsPreview';
 import BlogPreview from '@/components/home/BlogPreview';
 import CallToAction from '@/components/home/CallToAction';
 import Layout from '@/components/layout/Layout';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const Home = () => {
   return (
     <Layout>
       <div className="min-h-screen">
         <HeroSection />
-        <FeaturedProjects />
-        <FeaturedResearch />
-        <AboutSnapshot />
-        <TestimonialsPreview />
-        <BlogPreview />
-        <CallToAction />
+        <ScrollReveal direction="up" delay={100}>
+          <FeaturedProjects />
+        </ScrollReveal>
+        <ScrollReveal direction="up" delay={100}>
+          <FeaturedResearch />
+        </ScrollReveal>
+        <ScrollReveal direction="left" delay={100}>
+          <AboutSnapshot />
+        </ScrollReveal>
+        <ScrollReveal direction="up" delay={100}>
+          <TestimonialsPreview />
+        </ScrollReveal>
+        <ScrollReveal direction="right" delay={100}>
+          <BlogPreview />
+        </ScrollReveal>
+        <ScrollReveal direction="up" delay={100}>
+          <CallToAction />
+        </ScrollReveal>
       </div>
     </Layout>
   );
