@@ -13,7 +13,8 @@ import {
   BarChart3,
   Settings,
   LogOut,
-  User
+  User,
+  PenTool
 } from 'lucide-react';
 
 const AdminSidebar = () => {
@@ -22,6 +23,7 @@ const AdminSidebar = () => {
 
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
+    { icon: PenTool, label: 'Content', href: '/admin/content' },
     { icon: FileText, label: 'Projects', href: '/admin/projects' },
     { icon: Microscope, label: 'Research', href: '/admin/research' },
     { icon: BookOpen, label: 'Blog', href: '/admin/blog' },
