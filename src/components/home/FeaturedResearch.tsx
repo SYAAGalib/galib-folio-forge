@@ -8,6 +8,7 @@ import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
 import { useFeaturedResearchContent } from '@/hooks/useContent';
+import LazyImage from '@/components/ui/LazyImage';
 
 const FeaturedResearch = () => {
   const { featuredResearch, loading } = useFeaturedResearchContent();
@@ -105,12 +106,12 @@ const FeaturedResearch = () => {
                 </div>
               </CardContent>
               <div className="relative h-64 lg:h-auto">
-                <img
+                <LazyImage
                   src={heroResearch.image || researchHero}
                   alt={heroResearch.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20 pointer-events-none"></div>
               </div>
             </div>
           </Card>

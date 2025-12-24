@@ -8,6 +8,7 @@ import StaggeredReveal from '@/components/ui/StaggeredReveal';
 import TextReveal from '@/components/ui/TextReveal';
 import GradientTextReveal from '@/components/ui/GradientTextReveal';
 import { useFeaturedProjectsContent } from '@/hooks/useContent';
+import LazyImage from '@/components/ui/LazyImage';
 
 const FeaturedProjects = () => {
   const { featuredProjects, loading } = useFeaturedProjectsContent();
@@ -65,12 +66,12 @@ const FeaturedProjects = () => {
           <Card className="card-elevated overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="relative h-64 lg:h-auto">
-                <img
+                <LazyImage
                   src={heroProject.image || projectHero}
                   alt={heroProject.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 pointer-events-none"></div>
               </div>
               <CardContent className="p-8 flex flex-col justify-center">
                 <div className="space-y-6">

@@ -8,6 +8,7 @@ import { FileText, ExternalLink, Search, Filter, Calendar, User, Github } from '
 import Layout from '@/components/layout/Layout';
 import { useResearchPageContent, ResearchItem } from '@/hooks/useContent';
 import SEO from '@/components/SEO';
+import LazyImage from '@/components/ui/LazyImage';
 
 const Research = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -170,12 +171,12 @@ const Research = () => {
                       </div>
                     </CardContent>
                     <div className="relative h-64 lg:h-auto overflow-hidden">
-                      <img
+                      <LazyImage
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20"></div>
+                      <div className="absolute inset-0 bg-gradient-to-l from-primary/20 to-secondary/20 pointer-events-none"></div>
                     </div>
                   </div>
                 </Card>
@@ -197,10 +198,10 @@ const Research = () => {
                     onClick={() => openResearchModal(item)}
                   >
                     <div className="relative overflow-hidden">
-                      <img
+                      <LazyImage
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-48 transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge variant="secondary" className="bg-gray-100 text-gray-800">
@@ -290,10 +291,10 @@ const Research = () => {
                   <DialogTitle className="text-2xl font-bold">{selectedResearch.title}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-6">
-                  <img
+                  <LazyImage
                     src={selectedResearch.image}
                     alt={selectedResearch.title}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-64 rounded-lg"
                   />
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary">{selectedResearch.category}</Badge>

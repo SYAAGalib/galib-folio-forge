@@ -244,6 +244,7 @@ const HeroSection = () => {
                   alt={`${firstName} - AI Engineer and Startup Founder`}
                   className="w-80 h-80 md:w-96 md:h-96 rounded-lg hero-portrait-bg"
                   skeletonClassName="rounded-lg"
+                  priority={true}
                 />
               </div>
               {/* Corner accent lines */}
