@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Trophy, Award, Users, Calendar, MapPin, ExternalLink } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { useAchievementsPageContent, AchievementItem } from '@/hooks/useContent';
+import SEO from '@/components/SEO';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GraduationCap,
@@ -49,6 +50,11 @@ const Achievements = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Achievements"
+        description="Explore milestones, awards, certifications, and recognitions of Sheikh Yeasin Ahsanullah Al-Galib in AI and technology."
+        keywords="achievements, awards, certifications, education, leadership, milestones"
+      />
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-bg">

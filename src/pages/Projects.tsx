@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { ExternalLink, Github, Search, Filter, X } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { useProjectsPageContent, ProjectItem } from '@/hooks/useContent';
+import SEO from '@/components/SEO';
 
 const Projects = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -44,6 +45,11 @@ const Projects = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Projects"
+        description="Explore AI-powered platforms, web applications, and innovative software solutions built by Sheikh Yeasin Ahsanullah Al-Galib."
+        keywords="projects, portfolio, AI projects, web development, machine learning, case studies"
+      />
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-bg">

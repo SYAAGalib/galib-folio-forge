@@ -9,10 +9,14 @@ import Layout from '@/components/layout/Layout';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import MorphingBackground from '@/components/ui/MorphingBackground';
 import ScrollParticles from '@/components/ui/ScrollParticles';
+import SEO from '@/components/SEO';
 
 const Home = () => {
   return (
     <Layout>
+      <SEO 
+        keywords="AI engineer, machine learning, startup founder, Bangladesh, Bengali NLP, software engineer"
+      />
       <MorphingBackground shapeCount={6} opacity={0.12} />
       <ScrollParticles particleCount={40} maxOpacity={0.5} />
       <div className="min-h-screen relative z-10">

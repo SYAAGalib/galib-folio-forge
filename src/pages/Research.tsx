@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { FileText, ExternalLink, Search, Filter, Calendar, User, Github } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { useResearchPageContent, ResearchItem } from '@/hooks/useContent';
+import SEO from '@/components/SEO';
 
 const Research = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -42,6 +43,11 @@ const Research = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Research"
+        description="Explore cutting-edge research in AI, machine learning, Bengali NLP, and intelligent systems by Sheikh Yeasin Ahsanullah Al-Galib."
+        keywords="AI research, machine learning, NLP, Bengali NLP, computer vision, published papers"
+      />
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-bg">

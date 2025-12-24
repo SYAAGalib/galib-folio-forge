@@ -4,6 +4,7 @@ import { Brain, Code, Rocket, Users, Award, Globe } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
 import { useAboutPageContent } from '@/hooks/useContent';
+import SEO from '@/components/SEO';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain,
@@ -40,6 +41,12 @@ const About = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="About"
+        description="Learn about Sheikh Yeasin Ahsanullah Al-Galib - AI Innovator, Software Engineer & Startup Founder from Bangladesh with expertise in Machine Learning and Bengali NLP."
+        keywords="about, AI engineer, software engineer, startup founder, Bangladesh, machine learning expert"
+        type="profile"
+      />
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-bg">
