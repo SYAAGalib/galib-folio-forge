@@ -19,8 +19,11 @@ import {
   Eye,
   EyeOff,
   ExternalLink,
-  Trash2
+  Trash2,
+  Server,
+  Send
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const AdminSettings = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -59,6 +62,14 @@ const AdminSettings = () => {
     analyticsEnabled: true,
     showContactForm: true,
     showSocialLinks: true,
+    
+    // SMTP Settings
+    smtpHost: 'smtp.gmail.com',
+    smtpPort: '587',
+    smtpEmail: '',
+    smtpAppPassword: '',
+    smtpFromName: 'Syaagalib',
+    smtpSecure: true,
   });
 
   const handleSave = () => {
@@ -81,9 +92,10 @@ const AdminSettings = () => {
       </div>
 
       <Tabs defaultValue="general" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="seo">SEO</TabsTrigger>
+          <TabsTrigger value="smtp">SMTP</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
@@ -239,6 +251,123 @@ const AdminSettings = () => {
                   <div className="text-green-700 text-sm">{settings.siteUrl}</div>
                   <div className="text-sm text-muted-foreground">{settings.siteDescription}</div>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="smtp" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Server className="h-5 w-5" />
+                SMTP Configuration
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  Configure your email server settings to enable sending emails from the contact form.
+                  For Gmail, use smtp.gmail.com with port 587 and an App Password.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="smtpHost">SMTP Host</Label>
+                  <Input
+                    id="smtpHost"
+                    value={settings.smtpHost}
+                    onChange={(e) => setSettings({...settings, smtpHost: e.target.value})}
+                    placeholder="smtp.gmail.com"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="smtpPort">SMTP Port</Label>
+                  <Input
+                    id="smtpPort"
+                    value={settings.smtpPort}
+                    onChange={(e) => setSettings({...settings, smtpPort: e.target.value})}
+                    placeholder="587"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="smtpEmail">Email Address</Label>
+                <Input
+                  id="smtpEmail"
+                  type="email"
+                  value={settings.smtpEmail}
+                  onChange={(e) => setSettings({...settings, smtpEmail: e.target.value})}
+                  placeholder="your-email@gmail.com"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="smtpAppPassword">App Password</Label>
+                <div className="relative">
+                  <Input
+                    id="smtpAppPassword"
+                    type={showPassword ? "text" : "password"}
+                    value={settings.smtpAppPassword}
+                    onChange={(e) => setSettings({...settings, smtpAppPassword: e.target.value})}
+                    placeholder="Enter your app password"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    type="button"
+                    className="absolute right-2 top-1/2 -translate-y-1/2"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  For Gmail, create an App Password at{' '}
+                  <a 
+                    href="https://myaccount.google.com/apppasswords" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Google Account Settings
+                  </a>
+                </p>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="smtpFromName">From Name</Label>
+                <Input
+                  id="smtpFromName"
+                  value={settings.smtpFromName}
+                  onChange={(e) => setSettings({...settings, smtpFromName: e.target.value})}
+                  placeholder="Your Name or Brand"
+                />
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Use TLS/SSL</Label>
+                  <p className="text-sm text-muted-foreground">Enable secure connection (recommended)</p>
+                </div>
+                <Switch
+                  checked={settings.smtpSecure}
+                  onCheckedChange={(checked) => setSettings({...settings, smtpSecure: checked})}
+                />
+              </div>
+              
+              <div className="flex gap-2 pt-4">
+                <Button 
+                  variant="outline"
+                  onClick={() => {
+                    toast.info('Test email feature will be implemented with backend API');
+                  }}
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  Send Test Email
+                </Button>
               </div>
             </CardContent>
           </Card>
