@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import StaggeredReveal from '@/components/ui/StaggeredReveal';
 
 const BlogPreview = () => {
   const blogPosts = [
@@ -55,64 +56,66 @@ const BlogPreview = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {blogPosts.map((post, index) => (
-            <Link key={post.id} to="/blog" className="block">
-              <Card
-                className="card-elevated group cursor-pointer animate-fade-in-up hover:shadow-lg transition-shadow"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-              <div className="relative overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="bg-background/90">
-                    {post.tags[0]}
-                  </Badge>
-                </div>
-              </div>
-              
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold line-clamp-2 group-hover:text-primary transition-colors">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm line-clamp-3">
-                    {post.excerpt}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.slice(1).map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
+        <StaggeredReveal 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+          staggerDelay={130}
+          animation="fade-right"
+          duration={550}
+        >
+          {blogPosts.map((post) => (
+            <Link key={post.id} to="/blog" className="block h-full">
+              <Card className="card-elevated group cursor-pointer hover:shadow-lg transition-shadow h-full">
+                <div className="relative overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute top-4 left-4">
+                    <Badge variant="secondary" className="bg-background/90">
+                      {post.tags[0]}
+                    </Badge>
                   </div>
+                </div>
+                
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold line-clamp-2 group-hover:text-primary transition-colors">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground text-sm line-clamp-3">
+                      {post.excerpt}
+                    </p>
 
-                  <div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center">
-                        <Calendar className="w-3 h-3 mr-1" />
-                        {formatDate(post.date)}
-                      </div>
-                      <div className="flex items-center">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {post.readTime}
-                      </div>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(1).map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
                     </div>
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                    <div className="flex items-center justify-between text-xs text-muted-foreground pt-4 border-t border-border">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-1" />
+                          {formatDate(post.date)}
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {post.readTime}
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
                   </div>
-                </div>
-              </CardContent>
+                </CardContent>
               </Card>
             </Link>
           ))}
-        </div>
+        </StaggeredReveal>
 
         {/* View All Button */}
         <div className="text-center">

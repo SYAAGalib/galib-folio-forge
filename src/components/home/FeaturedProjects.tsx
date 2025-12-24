@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import projectHero from '@/assets/project-hero.jpg';
+import StaggeredReveal from '@/components/ui/StaggeredReveal';
 
 const FeaturedProjects = () => {
   const heroProject = {
@@ -45,7 +46,7 @@ const FeaturedProjects = () => {
 
         {/* Hero Project */}
         <div className="mb-12">
-          <Card className="card-elevated overflow-hidden animate-fade-in-up">
+          <Card className="card-elevated overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="relative h-64 lg:h-auto">
                 <img
@@ -105,13 +106,15 @@ const FeaturedProjects = () => {
         </div>
 
         {/* Secondary Projects */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {secondaryProjects.map((project, index) => (
+        <StaggeredReveal 
+          className="grid md:grid-cols-2 gap-8 mb-12"
+          staggerDelay={150}
+          animation="fade-up"
+          duration={600}
+        >
+          {secondaryProjects.map((project) => (
             <Link key={project.title} to="/projects">
-              <Card
-                className="card-elevated p-6 animate-fade-in-up cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${(index + 1) * 200}ms` }}
-              >
+              <Card className="card-elevated p-6 cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
                 <div className="space-y-4">
                   <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">{project.title}</h4>
                   <p className="text-muted-foreground">{project.description}</p>
@@ -129,7 +132,7 @@ const FeaturedProjects = () => {
               </Card>
             </Link>
           ))}
-        </div>
+        </StaggeredReveal>
 
         {/* View All Button */}
         <div className="text-center">

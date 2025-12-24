@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { FileText, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import researchHero from '@/assets/research-hero.jpg';
+import StaggeredReveal from '@/components/ui/StaggeredReveal';
 
 const FeaturedResearch = () => {
   const heroResearch = {
@@ -45,7 +46,7 @@ const FeaturedResearch = () => {
 
         {/* Hero Research */}
         <div className="mb-12">
-          <Card className="card-elevated overflow-hidden animate-fade-in-up">
+          <Card className="card-elevated overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               <CardContent className="p-8 flex flex-col justify-center">
                 <div className="space-y-6">
@@ -100,13 +101,15 @@ const FeaturedResearch = () => {
         </div>
 
         {/* Secondary Research */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {secondaryResearch.map((research, index) => (
+        <StaggeredReveal 
+          className="grid md:grid-cols-2 gap-8 mb-12"
+          staggerDelay={180}
+          animation="fade-left"
+          duration={550}
+        >
+          {secondaryResearch.map((research) => (
             <Link key={research.title} to="/research">
-              <Card
-                className="card-elevated p-6 animate-fade-in-up cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${(index + 1) * 200}ms` }}
-              >
+              <Card className="card-elevated p-6 cursor-pointer group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
                 <div className="space-y-4">
                   <h4 className="text-xl font-semibold group-hover:text-primary transition-colors">{research.title}</h4>
                   <p className="text-muted-foreground">{research.description}</p>
@@ -124,7 +127,7 @@ const FeaturedResearch = () => {
               </Card>
             </Link>
           ))}
-        </div>
+        </StaggeredReveal>
 
         {/* View All Button */}
         <div className="text-center">
