@@ -197,5 +197,458 @@
     "title": "Sheikh Yeasin Ahsanullah Al-Galib | AI Engineer & Startup Founder",
     "description": "AI Innovator, Software Engineer, and Startup Founder from Bangladesh. Building intelligent solutions that bridge technology with real-world impact.",
     "keywords": ["AI Engineer", "Startup Founder", "Machine Learning", "Bangladesh", "Full Stack Developer"]
+  },
+  "aboutPage": {
+    "name": "Sheikh Yeasin",
+    "fullName": "Ahsanullah Al‑Galib",
+    "title": "AI Innovator • Software Engineer • Startup Founder",
+    "paragraphs": [
+      "I'm a passionate AI engineer and startup founder from Bangladesh, driven by creating intelligent solutions that bridge technology with real-world impact.",
+      "My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities."
+    ],
+    "skills": [
+      { "icon": "Brain", "label": "AI/ML", "description": "TensorFlow, PyTorch, Hugging Face" },
+      { "icon": "Code", "label": "Development", "description": "React, Python, Node.js, Rust" },
+      { "icon": "Rocket", "label": "Cloud & DevOps", "description": "AWS, Docker, Kubernetes" },
+      { "icon": "Users", "label": "Leadership", "description": "Team Management, Strategy" },
+      { "icon": "Award", "label": "Research", "description": "Published Papers, Patents" },
+      { "icon": "Globe", "label": "Languages", "description": "Bengali, English, Hindi" }
+    ],
+    "workflowPhases": [
+      "Discovery & Research", "Problem Definition", "Solution Design", "Prototyping",
+      "Development", "Testing & Validation", "Deployment", "Monitoring & Iteration",
+      "Documentation", "Knowledge Transfer", "Continuous Improvement", "Impact Assessment"
+    ]
+  },
+  "projectsPage": {
+    "title": "Projects &",
+    "titleHighlight": "Case Studies",
+    "subtitle": "From AI-powered platforms to scalable business solutions — here's what I've built",
+    "filters": ["All", "Projects", "Case Studies", "AI/ML", "Web Dev", "Mobile"],
+    "projects": [
+      {
+        "id": 1,
+        "title": "AIELTS - AI-Powered IELTS Platform",
+        "description": "Revolutionary AI platform for IELTS preparation with 95% accuracy in score prediction. Winner of UIHP National Award.",
+        "image": "/src/assets/project-hero.jpg",
+        "type": "Projects",
+        "category": "AI/ML",
+        "techStack": ["React", "Python", "TensorFlow", "FastAPI", "PostgreSQL"],
+        "metrics": ["+10K Users", "95% Accuracy", "Award Winner"],
+        "links": { "live": "https://aielts.com", "github": "https://github.com/galib/aielts" },
+        "featured": true
+      },
+      {
+        "id": 2,
+        "title": "Intelleeo Analytics Dashboard",
+        "description": "Comprehensive analytics platform for startup metrics and KPI tracking with real-time insights.",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+        "type": "Projects",
+        "category": "Web Dev",
+        "techStack": ["Vue.js", "Node.js", "MongoDB", "D3.js"],
+        "metrics": ["Real-time Analytics", "50+ KPIs", "Multi-tenant"],
+        "links": { "live": "https://intelleeo.com", "github": "https://github.com/galib/intelleeo" },
+        "featured": false
+      },
+      {
+        "id": 3,
+        "title": "Smart Contract Security Analyzer",
+        "description": "AI-powered tool for detecting vulnerabilities in smart contracts with advanced pattern recognition.",
+        "image": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
+        "type": "Case Studies",
+        "category": "AI/ML",
+        "techStack": ["Python", "Solidity", "PyTorch", "Web3.js"],
+        "metrics": ["99.2% Accuracy", "1M+ Contracts Analyzed", "Zero False Positives"],
+        "links": { "live": "https://smartaudit.ai", "github": "https://github.com/galib/smart-audit" },
+        "featured": false
+      },
+      {
+        "id": 4,
+        "title": "Bangladesh Tourism Mobile App",
+        "description": "Flutter-based mobile application promoting tourism in Bangladesh with AR features and local guides.",
+        "image": "https://images.unsplash.com/photo-1539650116574-75c0c6d73a0e?w=600&h=400&fit=crop",
+        "type": "Projects",
+        "category": "Mobile",
+        "techStack": ["Flutter", "Firebase", "ARCore", "Google Maps"],
+        "metrics": ["100K+ Downloads", "4.8★ Rating", "Featured by Google"],
+        "links": { "live": "https://play.google.com/store/apps/details?id=bd.tourism", "github": "https://github.com/galib/bd-tourism" },
+        "featured": false
+      },
+      {
+        "id": 5,
+        "title": "Real-time Collaboration Platform",
+        "description": "Google Docs-like collaborative platform built from scratch with operational transformation.",
+        "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop",
+        "type": "Case Studies",
+        "category": "Web Dev",
+        "techStack": ["React", "Socket.io", "OT.js", "Redis"],
+        "metrics": ["Sub-100ms Latency", "1000+ Concurrent Users", "Conflict-free"],
+        "links": { "live": "https://collab.tech", "github": "https://github.com/galib/realtime-collab" },
+        "featured": false
+      },
+      {
+        "id": 6,
+        "title": "AI-Powered Content Generator",
+        "description": "Advanced content generation platform using fine-tuned GPT models for Bengali and English content.",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+        "type": "Projects",
+        "category": "AI/ML",
+        "techStack": ["Python", "Transformers", "FastAPI", "Docker"],
+        "metrics": ["10M+ Words Generated", "98% Quality Score", "40+ Languages"],
+        "links": { "live": "https://contentai.co", "github": "https://github.com/galib/content-ai" },
+        "featured": false
+      }
+    ]
+  },
+  "researchPage": {
+    "title": "Research &",
+    "titleHighlight": "Innovation",
+    "subtitle": "Exploring the frontiers of AI, machine learning, and intelligent systems",
+    "filters": ["All", "AI/ML", "LLMs", "NLP", "Computer Vision", "Robotics"],
+    "research": [
+      {
+        "id": 1,
+        "title": "Large Language Models for Bangladeshi Language Processing",
+        "abstract": "Comprehensive study on fine-tuning state-of-the-art LLMs for Bengali language understanding, achieving breakthrough results in sentiment analysis, machine translation, and text generation.",
+        "image": "/src/assets/research-hero.jpg",
+        "category": "LLMs",
+        "tags": ["LLM", "NLP", "Bengali", "Transformer", "Fine-tuning"],
+        "publication": "Accepted at EMNLP 2024",
+        "year": "2024",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Sarah Ahmed", "Prof. Rajesh Kumar"],
+        "links": { "paper": "https://arxiv.org/paper/bengali-llm-2024", "code": "https://github.com/galib/bengali-llm", "dataset": "https://huggingface.co/datasets/galib/bengali-corpus" },
+        "featured": true
+      },
+      {
+        "id": 2,
+        "title": "Federated Learning for Privacy-Preserving Healthcare AI",
+        "abstract": "Novel federated learning framework enabling collaborative medical AI training while maintaining patient privacy across distributed healthcare networks.",
+        "image": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop",
+        "category": "AI/ML",
+        "tags": ["Federated Learning", "Healthcare", "Privacy", "Distributed ML"],
+        "publication": "Under Review at Nature Machine Intelligence",
+        "year": "2024",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Maria Rodriguez", "Prof. James Wilson"],
+        "links": { "paper": "https://arxiv.org/paper/federated-healthcare-2024", "code": "https://github.com/galib/federated-health-ai" },
+        "featured": false
+      },
+      {
+        "id": 3,
+        "title": "Real-time Emotion Recognition in Bengali Speech",
+        "abstract": "Deep learning approach for emotion classification in Bengali speech using attention-based neural networks with cultural context awareness.",
+        "image": "https://images.unsplash.com/photo-1589254065878-42c9da997008?w=600&h=400&fit=crop",
+        "category": "NLP",
+        "tags": ["Speech Recognition", "Emotion AI", "Bengali", "Attention Networks"],
+        "publication": "Published in IEEE TASLP 2023",
+        "year": "2023",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Fatima Khan"],
+        "links": { "paper": "https://ieeexplore.ieee.org/document/bengali-emotion-2023", "code": "https://github.com/galib/bengali-emotion-recognition" },
+        "featured": false
+      },
+      {
+        "id": 4,
+        "title": "Multimodal AI for Educational Content Generation",
+        "abstract": "Innovative multimodal approach combining text, image, and audio for automated educational content creation tailored to individual learning styles.",
+        "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+        "category": "AI/ML",
+        "tags": ["Multimodal AI", "Education", "Content Generation", "Personalization"],
+        "publication": "Presented at ICML 2023",
+        "year": "2023",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Alex Thompson", "Prof. Linda Chen"],
+        "links": { "paper": "https://proceedings.mlr.press/multimodal-education-2023", "code": "https://github.com/galib/multimodal-education-ai" },
+        "featured": false
+      },
+      {
+        "id": 5,
+        "title": "Adversarial Robustness in Bengali Text Classification",
+        "abstract": "Comprehensive analysis of adversarial vulnerabilities in Bengali NLP models and development of robust defense mechanisms.",
+        "image": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop",
+        "category": "NLP",
+        "tags": ["Adversarial ML", "Robustness", "Bengali NLP", "Security"],
+        "publication": "Published in ACL 2023",
+        "year": "2023",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Michael Brown"],
+        "links": { "paper": "https://aclanthology.org/2023.acl-long.adversarial-bengali", "code": "https://github.com/galib/adversarial-bengali-nlp" },
+        "featured": false
+      },
+      {
+        "id": 6,
+        "title": "Neural Architecture Search for Edge AI Deployment",
+        "abstract": "Automated neural architecture search framework optimized for resource-constrained edge devices with emphasis on model efficiency.",
+        "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop",
+        "category": "AI/ML",
+        "tags": ["NAS", "Edge Computing", "Model Compression", "Optimization"],
+        "publication": "Published in NeurIPS 2022",
+        "year": "2022",
+        "authors": ["Sheikh Yeasin A. Al-Galib", "Dr. Jennifer Lee", "Prof. David Kim"],
+        "links": { "paper": "https://papers.nips.cc/paper/2022/nas-edge-ai", "code": "https://github.com/galib/nas-edge-ai" },
+        "featured": false
+      }
+    ]
+  },
+  "blogPage": {
+    "title": "Insights &",
+    "titleHighlight": "Ideas",
+    "subtitle": "Thoughts on AI, technology, and building the future",
+    "posts": [
+      {
+        "id": 1,
+        "title": "The Future of AI in Bangladesh: Opportunities and Challenges",
+        "excerpt": "Exploring how artificial intelligence can transform industries in Bangladesh while addressing local challenges.",
+        "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=240&fit=crop",
+        "date": "2024-01-15",
+        "readTime": "8 min read",
+        "tags": ["AI", "Bangladesh", "Technology"],
+        "featured": true
+      }
+    ]
+  },
+  "contactPage": {
+    "title": "Let's",
+    "titleHighlight": "Connect",
+    "subtitle": "Whether you have a project in mind, a question, or just want to say hello — I'd love to hear from you.",
+    "formLabels": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message"
+    }
+  },
+  "achievementsPage": {
+    "title": "Milestones &",
+    "titleHighlight": "Recognitions",
+    "subtitle": "A journey of learning, leadership, and innovation",
+    "filters": ["All", "Education", "Awards", "Certifications", "Leadership"],
+    "milestones": [
+      {
+        "id": 1,
+        "year": "2024",
+        "date": "January 2024",
+        "title": "UIHP National Award Winner",
+        "subtitle": "Outstanding Innovation in AI Technology",
+        "type": "Awards",
+        "icon": "Trophy",
+        "description": "Recognized nationally for groundbreaking work on AIELTS platform, achieving 95% accuracy in IELTS score prediction and helping 10,000+ students.",
+        "organization": "University Industry Hub Program, Bangladesh",
+        "location": "Dhaka, Bangladesh",
+        "image": "https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=600&h=400&fit=crop",
+        "links": { "certificate": "#", "news": "#" }
+      },
+      {
+        "id": 2,
+        "year": "2023",
+        "date": "June 2023",
+        "title": "Chairman - Intelleeo",
+        "subtitle": "Leading Technology Innovation Initiative",
+        "type": "Leadership",
+        "icon": "Users",
+        "description": "Appointed as Chairman of Intelleeo, spearheading technology initiatives and strategic partnerships in AI and software development.",
+        "organization": "Intelleeo Technology Initiative",
+        "location": "Khulna, Bangladesh",
+        "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop",
+        "links": { "website": "https://intelleeo.com" }
+      },
+      {
+        "id": 3,
+        "year": "2023",
+        "date": "March 2023",
+        "title": "TensorFlow Developer Certification",
+        "subtitle": "Advanced Machine Learning Specialization",
+        "type": "Certifications",
+        "icon": "Award",
+        "description": "Achieved professional certification in TensorFlow development with specialization in deep learning and neural network architectures.",
+        "organization": "Google Cloud Platform",
+        "location": "Online",
+        "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+        "links": { "certificate": "https://certificates.google.com/tensorflow-dev", "verify": "#" }
+      },
+      {
+        "id": 4,
+        "year": "2022",
+        "date": "December 2022",
+        "title": "Best Paper Award - EMNLP 2022",
+        "subtitle": "Excellence in NLP Research",
+        "type": "Awards",
+        "icon": "Trophy",
+        "description": "Awarded Best Paper for research on 'Bengali Language Processing with Large Language Models' at the premier NLP conference.",
+        "organization": "Association for Computational Linguistics",
+        "location": "Abu Dhabi, UAE",
+        "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
+        "links": { "paper": "https://aclanthology.org/2022.emnlp-main.bengali", "award": "#" }
+      },
+      {
+        "id": 5,
+        "year": "2021",
+        "date": "July 2021",
+        "title": "B.Sc. in Computer Science & Engineering",
+        "subtitle": "Northern University of Business & Technology",
+        "type": "Education",
+        "icon": "GraduationCap",
+        "description": "Graduated with First Class Honors. Class Representative for 2 years. Led multiple student innovation projects and research initiatives.",
+        "organization": "NUBT Khulna",
+        "location": "Khulna, Bangladesh",
+        "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop",
+        "links": { "transcript": "#", "university": "https://nubtkhulna.ac.bd" }
+      },
+      {
+        "id": 6,
+        "year": "2021",
+        "date": "May 2021",
+        "title": "Class Representative Excellence Award",
+        "subtitle": "Outstanding Leadership in Student Affairs",
+        "type": "Leadership",
+        "icon": "Users",
+        "description": "Recognized for exceptional leadership as Class Representative, organizing academic events and representing student interests.",
+        "organization": "NUBT Khulna",
+        "location": "Khulna, Bangladesh",
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+        "links": { "certificate": "#" }
+      },
+      {
+        "id": 7,
+        "year": "2023",
+        "date": "September 2023",
+        "title": "AWS Solutions Architect Professional",
+        "subtitle": "Cloud Architecture Certification",
+        "type": "Certifications",
+        "icon": "Award",
+        "description": "Advanced certification in designing distributed systems and scalable applications on Amazon Web Services platform.",
+        "organization": "Amazon Web Services",
+        "location": "Online",
+        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
+        "links": { "certificate": "https://aws.amazon.com/certification/certified-solutions-architect-professional", "verify": "#" }
+      },
+      {
+        "id": 8,
+        "year": "2024",
+        "date": "March 2024",
+        "title": "Tech Innovation Award",
+        "subtitle": "Startup Excellence Recognition",
+        "type": "Awards",
+        "icon": "Trophy",
+        "description": "Recognized for innovative contributions to AI education technology and successful scaling of AIELTS platform.",
+        "organization": "Bangladesh Startup Summit",
+        "location": "Dhaka, Bangladesh",
+        "image": "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&h=400&fit=crop",
+        "links": { "award": "#", "summit": "#" }
+      }
+    ]
+  },
+  "galleryPage": {
+    "title": "Gallery &",
+    "titleHighlight": "Media",
+    "subtitle": "A visual journey through my work, achievements, and public appearances",
+    "filters": ["All", "Events", "Awards", "Speaking", "Press", "Behind the Scenes"],
+    "items": [
+      {
+        "id": 1,
+        "title": "UIHP Award Ceremony 2024",
+        "category": "Awards",
+        "type": "image",
+        "thumbnail": "https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=600&h=400&fit=crop",
+        "fullImage": "https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?w=1200&h=800&fit=crop",
+        "date": "January 15, 2024",
+        "location": "Dhaka, Bangladesh",
+        "description": "Receiving the prestigious UIHP National Award for innovation in AI technology and educational platforms.",
+        "featured": true
+      },
+      {
+        "id": 2,
+        "title": "AI Conference Keynote",
+        "category": "Speaking",
+        "type": "video",
+        "thumbnail": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop",
+        "videoUrl": "https://player.vimeo.com/video/sample",
+        "date": "March 10, 2024",
+        "location": "Dhaka University",
+        "description": "Keynote presentation on 'The Future of AI in Bangladesh' at the International AI Conference.",
+        "featured": true
+      },
+      {
+        "id": 3,
+        "title": "Team Building at Intelleeo",
+        "category": "Behind the Scenes",
+        "type": "image",
+        "thumbnail": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+        "fullImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop",
+        "date": "February 20, 2024",
+        "location": "Khulna Office",
+        "description": "Strategic planning session with the Intelleeo team, discussing new technology initiatives.",
+        "featured": false
+      },
+      {
+        "id": 4,
+        "title": "TechCrunch Feature",
+        "category": "Press",
+        "type": "article",
+        "thumbnail": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&h=400&fit=crop",
+        "articleUrl": "https://techcrunch.com/aielts-feature",
+        "date": "December 5, 2023",
+        "location": "Online",
+        "description": "Featured article about AIELTS platform and its impact on language learning technology.",
+        "featured": false
+      },
+      {
+        "id": 5,
+        "title": "Product Launch Event",
+        "category": "Events",
+        "type": "image",
+        "thumbnail": "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&h=400&fit=crop",
+        "fullImage": "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1200&h=800&fit=crop",
+        "date": "November 18, 2023",
+        "location": "Dhaka Tech Hub",
+        "description": "Official launch of AIELTS 2.0 with advanced AI features and enhanced user experience.",
+        "featured": false
+      },
+      {
+        "id": 6,
+        "title": "Research Lab Visit",
+        "category": "Behind the Scenes",
+        "type": "image",
+        "thumbnail": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop",
+        "fullImage": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=800&fit=crop",
+        "date": "October 15, 2023",
+        "location": "BUET AI Lab",
+        "description": "Collaborative research session on Bengali language processing models.",
+        "featured": false
+      },
+      {
+        "id": 7,
+        "title": "Startup Summit Panel",
+        "category": "Speaking",
+        "type": "video",
+        "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
+        "videoUrl": "https://player.vimeo.com/video/sample2",
+        "date": "September 22, 2023",
+        "location": "Dhaka Convention Center",
+        "description": "Panel discussion on 'AI Entrepreneurship in Bangladesh' at the National Startup Summit.",
+        "featured": false
+      },
+      {
+        "id": 8,
+        "title": "University Guest Lecture",
+        "category": "Speaking",
+        "type": "image",
+        "thumbnail": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop",
+        "fullImage": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+        "date": "August 12, 2023",
+        "location": "NSU, Dhaka",
+        "description": "Guest lecture on 'Machine Learning Applications in EdTech' for computer science students.",
+        "featured": false
+      },
+      {
+        "id": 9,
+        "title": "IEEE Publication Feature",
+        "category": "Press",
+        "type": "article",
+        "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop",
+        "articleUrl": "https://ieee.org/publications/bengali-nlp",
+        "date": "July 8, 2023",
+        "location": "Online",
+        "description": "Research paper featured in IEEE Transactions on Audio, Speech, and Language Processing.",
+        "featured": false
+      }
+    ]
   }
 }

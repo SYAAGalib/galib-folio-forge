@@ -5,18 +5,32 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Mail, MessageCircle, Send, Download, QrCode } from 'lucide-react';
+import { useContactPageContent } from '@/hooks/useContent';
 
 const Contact = () => {
+  const { contactPage, loading } = useContactPageContent();
+
+  const title = contactPage?.title ?? "Let's";
+  const titleHighlight = contactPage?.titleHighlight ?? 'Connect';
+  const subtitle = contactPage?.subtitle ?? "Whether you have a project in mind, a question, or just want to say hello — I'd love to hear from you.";
+  const formLabels = contactPage?.formLabels ?? {
+    name: 'Name',
+    email: 'Email',
+    subject: 'Subject',
+    message: 'Message',
+    submit: 'Send Message'
+  };
+
   return (
     <Layout>
       <div className="min-h-screen">
         <section className="py-20 bg-gradient-bg">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-6xl font-bold text-center mb-6">
-              Let's <span className="hero-text-gradient">Connect</span>
+              {title} <span className="hero-text-gradient">{titleHighlight}</span>
             </h1>
             <p className="text-xl text-muted-foreground text-center max-w-2xl mx-auto">
-              Whether you have a project in mind, a question, or just want to say hello — I'd love to hear from you.
+              {subtitle}
             </p>
           </div>
         </section>
@@ -31,25 +45,25 @@ const Contact = () => {
                   <form className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="name">Name</Label>
+                        <Label htmlFor="name">{formLabels.name}</Label>
                         <Input id="name" placeholder="Your name" />
                       </div>
                       <div>
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">{formLabels.email}</Label>
                         <Input id="email" type="email" placeholder="your.email@example.com" />
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="subject">Subject</Label>
+                      <Label htmlFor="subject">{formLabels.subject}</Label>
                       <Input id="subject" placeholder="What's this about?" />
                     </div>
                     <div>
-                      <Label htmlFor="message">Message</Label>
+                      <Label htmlFor="message">{formLabels.message}</Label>
                       <Textarea id="message" placeholder="Your message..." rows={5} />
                     </div>
                     <Button className="btn-hero w-full">
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {formLabels.submit}
                     </Button>
                   </form>
                 </CardContent>

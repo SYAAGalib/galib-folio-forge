@@ -2,9 +2,15 @@ import Layout from '@/components/layout/Layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { useBlogPageContent } from '@/hooks/useContent';
 
 const Blog = () => {
-  const blogPosts = [
+  const { blogPage, loading } = useBlogPageContent();
+
+  const title = blogPage?.title ?? 'Insights &';
+  const titleHighlight = blogPage?.titleHighlight ?? 'Ideas';
+  const subtitle = blogPage?.subtitle ?? 'Thoughts on AI, technology, and building the future';
+  const blogPosts = blogPage?.posts ?? [
     {
       id: 1,
       title: 'The Future of AI in Bangladesh: Opportunities and Challenges',
@@ -15,7 +21,6 @@ const Blog = () => {
       tags: ['AI', 'Bangladesh', 'Technology'],
       featured: true
     },
-    // ... more posts
   ];
 
   return (
@@ -24,10 +29,10 @@ const Blog = () => {
         <section className="py-20 bg-gradient-bg">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-6xl font-bold text-center mb-6">
-              Insights & <span className="hero-text-gradient">Ideas</span>
+              {title} <span className="hero-text-gradient">{titleHighlight}</span>
             </h1>
             <p className="text-xl text-muted-foreground text-center max-w-2xl mx-auto">
-              Thoughts on AI, technology, and building the future
+              {subtitle}
             </p>
           </div>
         </section>
