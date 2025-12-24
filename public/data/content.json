@@ -139,6 +139,34 @@
       "readTime": "7 min read",
       "createdAt": "2024-12-01",
       "updatedAt": "2024-12-01"
+    },
+    {
+      "id": "9",
+      "title": "TypeScript vs JavaScript in 2025: Which Should You Learn First?",
+      "description": "A comprehensive comparison of TypeScript and JavaScript, helping developers decide which language to learn and when to use each.",
+      "content": "<h2>The JavaScript Foundation</h2><p>JavaScript remains the backbone of web development. It runs in browsers, powers Node.js servers, and has the largest ecosystem of libraries and frameworks.</p><h2>Enter TypeScript</h2><p>TypeScript is a superset of JavaScript that adds static typing. Created by Microsoft, it's become increasingly popular for large-scale applications.</p><h2>Key Differences</h2><ul><li><strong>Type Safety:</strong> TypeScript catches errors at compile time, not runtime</li><li><strong>IDE Support:</strong> Better autocomplete, refactoring, and documentation</li><li><strong>Learning Curve:</strong> TypeScript requires understanding types and generics</li><li><strong>Build Step:</strong> TypeScript needs compilation, JavaScript doesn't</li></ul><h2>When to Use Each</h2><p><strong>Use JavaScript when:</strong> Building quick prototypes, small scripts, or learning programming basics.</p><p><strong>Use TypeScript when:</strong> Working on large codebases, team projects, or production applications where reliability matters.</p><h2>The Verdict</h2><p>Learn JavaScript first to understand the fundamentals, then adopt TypeScript for professional projects. Most modern frameworks like React, Vue, and Angular have excellent TypeScript support.</p>",
+      "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
+      "category": "Development",
+      "tags": ["TypeScript", "JavaScript", "Programming", "Web Development", "Tutorial"],
+      "status": "published",
+      "featured": false,
+      "readTime": "8 min read",
+      "createdAt": "2024-11-28",
+      "updatedAt": "2024-11-28"
+    },
+    {
+      "id": "10",
+      "title": "Prompt Engineering: The Art of Communicating with AI Models",
+      "description": "Master the skill of prompt engineering to get better results from AI models like ChatGPT, Claude, and Gemini. Learn techniques used by professionals.",
+      "content": "<h2>What is Prompt Engineering?</h2><p>Prompt engineering is the practice of crafting inputs to AI models to achieve desired outputs. It's become a crucial skill as AI tools become more prevalent in work and life.</p><h2>Core Principles</h2><ul><li><strong>Be Specific:</strong> Vague prompts lead to vague responses</li><li><strong>Provide Context:</strong> Give background information relevant to your request</li><li><strong>Define Format:</strong> Specify how you want the output structured</li><li><strong>Use Examples:</strong> Show the AI what you're looking for with examples</li></ul><h2>Advanced Techniques</h2><h3>Chain-of-Thought Prompting</h3><p>Ask the AI to think step-by-step through a problem. This improves accuracy for complex reasoning tasks.</p><h3>Role Playing</h3><p>Assign the AI a specific role or persona to guide its responses in a particular direction.</p><h3>Few-Shot Learning</h3><p>Provide multiple examples of input-output pairs to help the model understand the pattern you want.</p><h2>Common Mistakes to Avoid</h2><ul><li>Being too broad or generic</li><li>Not iterating on prompts</li><li>Ignoring the model's limitations</li><li>Not providing enough context</li></ul><h2>Practice Makes Perfect</h2><p>Like any skill, prompt engineering improves with practice. Experiment with different approaches and learn from the results.</p>",
+      "image": "https://images.unsplash.com/photo-1676299081847-824916de030a?w=800&h=400&fit=crop",
+      "category": "AI",
+      "tags": ["Prompt Engineering", "AI", "ChatGPT", "Claude", "Machine Learning", "Tutorial"],
+      "status": "published",
+      "featured": true,
+      "readTime": "10 min read",
+      "createdAt": "2024-11-25",
+      "updatedAt": "2024-11-25"
     }
   ],
   "testimonials": [
