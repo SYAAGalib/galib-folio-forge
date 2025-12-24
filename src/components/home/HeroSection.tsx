@@ -210,7 +210,11 @@ const HeroSection = () => {
             }}
           >
             <div className="relative">
-              <div className="glow-border p-2 animate-pulse-glow">
+              {/* Rotating border effect */}
+              <div className="absolute -inset-3 rounded-xl bg-gradient-to-r from-primary via-secondary to-primary opacity-60 blur-sm animate-[spin_8s_linear_infinite]"></div>
+              <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary/50 via-transparent to-secondary/50 animate-[spin_12s_linear_infinite_reverse]"></div>
+              
+              <div className="relative glow-border p-2 animate-pulse-glow bg-background">
                 <LazyImage
                   src={heroPortrait}
                   alt="Sheikh Yeasin Ahsanullah Al‑Galib - AI Engineer and Startup Founder"
