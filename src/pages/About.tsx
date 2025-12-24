@@ -1,21 +1,38 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Brain, Code, Rocket, Users, Award, Globe } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
+import { useAboutPageContent } from '@/hooks/useContent';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Brain,
+  Code,
+  Rocket,
+  Users,
+  Award,
+  Globe,
+};
 
 const About = () => {
-  const skills = [
-    { icon: Brain, label: 'AI/ML', description: 'TensorFlow, PyTorch, Hugging Face' },
-    { icon: Code, label: 'Development', description: 'React, Python, Node.js, Rust' },
-    { icon: Rocket, label: 'Cloud & DevOps', description: 'AWS, Docker, Kubernetes' },
-    { icon: Users, label: 'Leadership', description: 'Team Management, Strategy' },
-    { icon: Award, label: 'Research', description: 'Published Papers, Patents' },
-    { icon: Globe, label: 'Languages', description: 'Bengali, English, Hindi' },
-  ];
+  const { aboutPage, loading } = useAboutPageContent();
 
-  const workflowPhases = [
+  const name = aboutPage?.name ?? 'Sheikh Yeasin';
+  const fullName = aboutPage?.fullName ?? 'Ahsanullah Al‑Galib';
+  const title = aboutPage?.title ?? 'AI Innovator • Software Engineer • Startup Founder';
+  const paragraphs = aboutPage?.paragraphs ?? [
+    "I'm a passionate AI engineer and startup founder from Bangladesh, driven by creating intelligent solutions that bridge technology with real-world impact.",
+    "My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities."
+  ];
+  const skills = aboutPage?.skills ?? [
+    { icon: 'Brain', label: 'AI/ML', description: 'TensorFlow, PyTorch, Hugging Face' },
+    { icon: 'Code', label: 'Development', description: 'React, Python, Node.js, Rust' },
+    { icon: 'Rocket', label: 'Cloud & DevOps', description: 'AWS, Docker, Kubernetes' },
+    { icon: 'Users', label: 'Leadership', description: 'Team Management, Strategy' },
+    { icon: 'Award', label: 'Research', description: 'Published Papers, Patents' },
+    { icon: 'Globe', label: 'Languages', description: 'Bengali, English, Hindi' },
+  ];
+  const workflowPhases = aboutPage?.workflowPhases ?? [
     'Discovery & Research', 'Problem Definition', 'Solution Design', 'Prototyping',
     'Development', 'Testing & Validation', 'Deployment', 'Monitoring & Iteration',
     'Documentation', 'Knowledge Transfer', 'Continuous Improvement', 'Impact Assessment'
@@ -31,29 +48,24 @@ const About = () => {
               <div className="space-y-6">
                 <div>
                   <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                    <span className="hero-text-gradient">Sheikh Yeasin</span>
-                    <br /><span className="text-foreground">Ahsanullah Al‑Galib</span>
+                    <span className="hero-text-gradient">{name}</span>
+                    <br /><span className="text-foreground">{fullName}</span>
                   </h1>
                   <p className="text-xl text-muted-foreground">
-                    AI Innovator • Software Engineer • Startup Founder
+                    {title}
                   </p>
                 </div>
                 <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    I'm a passionate AI engineer and startup founder from Bangladesh, driven by creating 
-                    intelligent solutions that bridge technology with real-world impact.
-                  </p>
-                  <p>
-                    My journey combines deep technical expertise with entrepreneurial vision, 
-                    always focusing on solutions that matter to people and communities.
-                  </p>
+                  {paragraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
                 </div>
               </div>
               <div className="flex justify-center">
                 <div className="glow-border p-2">
                   <img
                     src={heroPortrait}
-                    alt="Sheikh Yeasin Ahsanullah Al‑Galib"
+                    alt={`${name} ${fullName}`}
                     className="w-80 h-80 object-cover rounded-lg"
                   />
                 </div>
@@ -69,8 +81,8 @@ const About = () => {
               Core <span className="hero-text-gradient">Expertise</span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {skills.map((skill, index) => {
-                const Icon = skill.icon;
+              {skills.map((skill) => {
+                const Icon = iconMap[skill.icon] || Brain;
                 return (
                   <Card key={skill.label} className="card-elevated p-6 text-center group">
                     <div className="space-y-4">

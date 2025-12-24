@@ -148,6 +148,136 @@ export interface SEOContent {
   keywords: string[];
 }
 
+// Extended content types for full pages
+export interface AboutPageContent {
+  name: string;
+  fullName: string;
+  title: string;
+  paragraphs: string[];
+  skills: { icon: string; label: string; description: string }[];
+  workflowPhases: string[];
+}
+
+export interface ProjectItem {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  type: string;
+  category: string;
+  techStack: string[];
+  metrics: string[];
+  links: { live: string; github: string };
+  featured: boolean;
+}
+
+export interface ProjectsPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  filters: string[];
+  projects: ProjectItem[];
+}
+
+export interface ResearchItem {
+  id: number;
+  title: string;
+  abstract: string;
+  image: string;
+  category: string;
+  tags: string[];
+  publication: string;
+  year: string;
+  authors: string[];
+  links: { paper: string; code: string; dataset?: string };
+  featured: boolean;
+}
+
+export interface ResearchPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  filters: string[];
+  research: ResearchItem[];
+}
+
+export interface BlogItem {
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  featured: boolean;
+}
+
+export interface BlogPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  posts: BlogItem[];
+}
+
+export interface ContactPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  formLabels: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+    submit: string;
+  };
+}
+
+export interface AchievementItem {
+  id: number;
+  year: string;
+  date: string;
+  title: string;
+  subtitle: string;
+  type: string;
+  icon: string;
+  description: string;
+  organization: string;
+  location: string;
+  image: string;
+  links: Record<string, string>;
+}
+
+export interface AchievementsPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  filters: string[];
+  milestones: AchievementItem[];
+}
+
+export interface GalleryItem {
+  id: number;
+  title: string;
+  category: string;
+  type: string;
+  thumbnail: string;
+  fullImage?: string;
+  videoUrl?: string;
+  articleUrl?: string;
+  date: string;
+  location: string;
+  description: string;
+  featured: boolean;
+}
+
+export interface GalleryPageContent {
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  filters: string[];
+  items: GalleryItem[];
+}
+
 export interface SiteContent {
   hero: HeroContent;
   about: AboutContent;
@@ -159,6 +289,14 @@ export interface SiteContent {
   footer: FooterContent;
   businessCard: BusinessCardContent;
   seo: SEOContent;
+  // Extended page content
+  aboutPage?: AboutPageContent;
+  projectsPage?: ProjectsPageContent;
+  researchPage?: ResearchPageContent;
+  blogPage?: BlogPageContent;
+  contactPage?: ContactPageContent;
+  achievementsPage?: AchievementsPageContent;
+  galleryPage?: GalleryPageContent;
 }
 
 // Legacy content types for backward compatibility
@@ -401,6 +539,77 @@ export function useSEOContent() {
     loading,
     error,
     updateSEO: (data: SEOContent) => updateSection('seo', data)
+  };
+}
+
+// Page-specific content hooks
+export function useAboutPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    aboutPage: content?.aboutPage ?? null,
+    loading,
+    error,
+    updateAboutPage: (data: AboutPageContent) => updateSection('aboutPage', data)
+  };
+}
+
+export function useProjectsPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    projectsPage: content?.projectsPage ?? null,
+    loading,
+    error,
+    updateProjectsPage: (data: ProjectsPageContent) => updateSection('projectsPage', data)
+  };
+}
+
+export function useResearchPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    researchPage: content?.researchPage ?? null,
+    loading,
+    error,
+    updateResearchPage: (data: ResearchPageContent) => updateSection('researchPage', data)
+  };
+}
+
+export function useBlogPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    blogPage: content?.blogPage ?? null,
+    loading,
+    error,
+    updateBlogPage: (data: BlogPageContent) => updateSection('blogPage', data)
+  };
+}
+
+export function useContactPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    contactPage: content?.contactPage ?? null,
+    loading,
+    error,
+    updateContactPage: (data: ContactPageContent) => updateSection('contactPage', data)
+  };
+}
+
+export function useAchievementsPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    achievementsPage: content?.achievementsPage ?? null,
+    loading,
+    error,
+    updateAchievementsPage: (data: AchievementsPageContent) => updateSection('achievementsPage', data)
+  };
+}
+
+export function useGalleryPageContent() {
+  const { content, loading, error, updateSection } = useSiteContent();
+  return {
+    galleryPage: content?.galleryPage ?? null,
+    loading,
+    error,
+    updateGalleryPage: (data: GalleryPageContent) => updateSection('galleryPage', data)
   };
 }
 
