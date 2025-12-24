@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { useBlogPageContent } from '@/hooks/useContent';
+import SEO from '@/components/SEO';
 
 const Blog = () => {
   const { blogPage, loading } = useBlogPageContent();
@@ -25,6 +26,11 @@ const Blog = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Blog"
+        description="Read insights and ideas on AI, technology, startups, and innovation from Sheikh Yeasin Ahsanullah Al-Galib."
+        keywords="blog, AI insights, technology articles, machine learning, startup tips"
+      />
       <div className="min-h-screen">
         <section className="py-20 bg-gradient-bg">
           <div className="container mx-auto px-4">

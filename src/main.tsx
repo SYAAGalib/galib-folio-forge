@@ -1,8 +1,10 @@
 import { createRoot } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
 import './index.css'
 
-// Force set the correct title immediately
-document.title = "Sheikh Yeasin Ahsanullah Al-Galib | AI Engineer & Startup Founder";
-
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <HelmetProvider>
+    <App />
+  </HelmetProvider>
+);

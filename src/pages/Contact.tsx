@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import SEO from '@/components/SEO';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -99,6 +100,11 @@ const Contact = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Contact"
+        description="Get in touch with Sheikh Yeasin Ahsanullah Al-Galib for collaborations, projects, or inquiries about AI and software development."
+        keywords="contact, get in touch, collaboration, AI projects, software development"
+      />
       <div className="min-h-screen">
         <section className="py-20 bg-gradient-bg">
           <div className="container mx-auto px-4">
