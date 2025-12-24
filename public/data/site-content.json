@@ -1,0 +1,194 @@
+{
+  "hero": {
+    "firstName": "Sheikh Yeasin",
+    "lastName": "Ahsanullah Al-Galib",
+    "typingName": "Ahsanullah Al‑Galib",
+    "roles": ["AI Innovator", "Software Engineer", "Startup Founder"],
+    "portrait": "/src/assets/galib-hero-best.jpg",
+    "ctaButtons": {
+      "primary": { "text": "View My Work", "link": "#projects" },
+      "secondary": { "text": "Download Resume", "link": "/resume.pdf" }
+    },
+    "socialLinks": [
+      { "platform": "email", "url": "mailto:syaagalib@gmail.com", "label": "Email" },
+      { "platform": "whatsapp", "url": "https://wa.me/8801946303020", "label": "WhatsApp" },
+      { "platform": "telegram", "url": "https://t.me/SYAAGalib", "label": "Telegram" },
+      { "platform": "linkedin", "url": "https://linkedin.com/in/SYAAGalib", "label": "LinkedIn" },
+      { "platform": "github", "url": "https://github.com/syaagalib", "label": "GitHub" }
+    ]
+  },
+  "about": {
+    "title": "About",
+    "titleHighlight": "Me",
+    "paragraphs": [
+      "I'm a passionate AI engineer and startup founder from Bangladesh, driven by the vision of creating intelligent solutions that bridge technology with real-world impact.",
+      "From founding AIELTS and winning the UIHP National Award to leading Intelleeo as Chairman, I've dedicated my career to pushing the boundaries of what's possible with AI and machine learning.",
+      "My journey combines deep technical expertise with entrepreneurial vision, always focusing on solutions that matter to people and communities."
+    ],
+    "ctaButton": { "text": "Read My Full Story", "link": "/about" },
+    "skills": [
+      { "icon": "Brain", "label": "AI/ML", "description": "Deep Learning & LLMs" },
+      { "icon": "Code", "label": "Full Stack", "description": "React, Python, Node.js" },
+      { "icon": "Rocket", "label": "Innovation", "description": "Product Development" },
+      { "icon": "Users", "label": "Leadership", "description": "Team Management" },
+      { "icon": "Award", "label": "Research", "description": "Published Papers" },
+      { "icon": "Globe", "label": "Impact", "description": "Global Solutions" }
+    ]
+  },
+  "stats": [
+    { "icon": "Briefcase", "value": 50, "suffix": "+", "label": "Projects Completed" },
+    { "icon": "Users", "value": 10000, "suffix": "+", "label": "Users Impacted" },
+    { "icon": "Award", "value": 15, "suffix": "+", "label": "Awards Won" },
+    { "icon": "Star", "value": 4.9, "suffix": "", "label": "Average Rating" }
+  ],
+  "featuredProjects": {
+    "title": "Featured",
+    "titleHighlight": "Projects",
+    "subtitle": "Building innovative solutions that make a real impact in the world",
+    "heroProject": {
+      "title": "AIELTS - AI-Powered IELTS Preparation Platform",
+      "description": "Revolutionary AI platform that achieved 95% accuracy in IELTS score prediction and helped 10,000+ students improve their scores.",
+      "image": "/src/assets/project-hero.jpg",
+      "metrics": ["+10K Users", "95% Accuracy", "UIHP Award Winner"],
+      "techStack": ["React", "Python", "TensorFlow", "FastAPI", "PostgreSQL"],
+      "liveUrl": "https://aielts.com",
+      "githubUrl": "https://github.com/galib/aielts"
+    },
+    "secondaryProjects": [
+      {
+        "id": "1",
+        "title": "Intelleeo Platform",
+        "description": "Advanced analytics dashboard for startup metrics and KPI tracking.",
+        "techStack": ["Vue.js", "Node.js", "MongoDB"]
+      },
+      {
+        "id": "2",
+        "title": "Smart Contract Analyzer",
+        "description": "AI-powered tool for smart contract vulnerability detection.",
+        "techStack": ["Python", "Solidity", "ML"]
+      }
+    ]
+  },
+  "featuredResearch": {
+    "title": "Featured",
+    "titleHighlight": "Research",
+    "subtitle": "Pushing the boundaries of AI and machine learning through innovative research",
+    "heroResearch": {
+      "title": "Large Language Models for Bangladeshi Language Processing",
+      "description": "Groundbreaking research on fine-tuning LLMs for Bengali language understanding, achieving state-of-the-art results in sentiment analysis and machine translation.",
+      "image": "/src/assets/research-hero.jpg",
+      "tags": ["LLM", "NLP", "Bengali", "Transformer"],
+      "publication": "Accepted at EMNLP 2024",
+      "paperUrl": "https://arxiv.org/paper/bengali-llm",
+      "codeUrl": "https://github.com/galib/bengali-llm"
+    },
+    "secondaryResearch": [
+      {
+        "id": "1",
+        "title": "AI-Driven Code Generation for Low-Resource Languages",
+        "description": "Novel approach to automated code generation using multi-modal transformers.",
+        "tags": ["AI", "Code Generation", "Multimodal"]
+      },
+      {
+        "id": "2",
+        "title": "Federated Learning in Edge Computing",
+        "description": "Privacy-preserving machine learning framework for distributed systems.",
+        "tags": ["Federated Learning", "Edge Computing", "Privacy"]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What People",
+    "titleHighlight": "Say",
+    "subtitle": "Testimonials from colleagues, collaborators, and industry leaders",
+    "items": [
+      {
+        "id": "1",
+        "name": "Dr. Sarah Ahmed",
+        "role": "Professor of Computer Science",
+        "organization": "University of Dhaka",
+        "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+        "content": "Sheikh Yeasin's work on Bengali language processing has been groundbreaking. His approach to fine-tuning LLMs shows exceptional understanding of both technical depth and cultural context."
+      },
+      {
+        "id": "2",
+        "name": "Rajesh Kumar",
+        "role": "CEO",
+        "organization": "TechVenture Partners",
+        "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+        "content": "AIELTS has revolutionized how students prepare for language proficiency tests. The AI accuracy and user experience Galib created is truly remarkable."
+      },
+      {
+        "id": "3",
+        "name": "Maria Rodriguez",
+        "role": "Lead Data Scientist",
+        "organization": "Google Research",
+        "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+        "content": "Working with Galib on research collaborations has been inspiring. His innovative thinking and technical execution consistently exceed expectations."
+      }
+    ]
+  },
+  "callToAction": {
+    "title": "Let's Build Something",
+    "titleHighlight": "Extraordinary",
+    "subtitle": "Whether you have a project in mind, want to collaborate on research, or just want to connect, I'd love to hear from you.",
+    "ctaButtons": {
+      "primary": { "text": "Contact Me", "link": "/contact" },
+      "secondary": { "text": "Download Resume", "link": "/resume.pdf" }
+    },
+    "stats": [
+      { "value": "10K+", "label": "Students Helped" },
+      { "value": "5+", "label": "Research Papers" },
+      { "value": "15+", "label": "Projects Built" },
+      { "value": "3+", "label": "Awards Won" }
+    ]
+  },
+  "footer": {
+    "brand": {
+      "logo": "/logo.svg",
+      "tagline": "AI Innovator • Software Engineer • Startup Founder",
+      "description": "Building the future with intelligent solutions."
+    },
+    "quickLinks": [
+      { "label": "Portfolio", "href": "/projects" },
+      { "label": "About", "href": "/about" },
+      { "label": "Blog", "href": "/blog" },
+      { "label": "Contact", "href": "/contact" },
+      { "label": "Digital Card", "href": "/card" }
+    ],
+    "socialLinks": [
+      { "platform": "email", "url": "mailto:syaagalib@gmail.com", "label": "Email" },
+      { "platform": "linkedin", "url": "https://linkedin.com/in/SYAAGalib", "label": "LinkedIn" },
+      { "platform": "github", "url": "https://github.com/syaagalib", "label": "GitHub" },
+      { "platform": "whatsapp", "url": "https://wa.me/8801946303020", "label": "WhatsApp" },
+      { "platform": "telegram", "url": "https://t.me/SYAAGalib", "label": "Telegram" }
+    ],
+    "copyright": "Sheikh Yeasin Ahsanullah Al‑Galib",
+    "madeIn": "Bangladesh"
+  },
+  "businessCard": {
+    "name": "Sheikh Yeasin Ahsanullah Al‑Galib",
+    "title": "AI Innovator • Software Engineer • Startup Founder",
+    "email": "syaagalib@gmail.com",
+    "phone": "+880 1946 303 020",
+    "location": "Dhaka, Bangladesh",
+    "website": "https://galib.dev",
+    "expertise": [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Full-Stack Development",
+      "Startup Strategy",
+      "Research & Innovation"
+    ],
+    "highlights": [
+      { "icon": "Briefcase", "label": "15+ Projects", "desc": "Delivered" },
+      { "icon": "GraduationCap", "label": "5+ Papers", "desc": "Published" },
+      { "icon": "Award", "label": "3+ Awards", "desc": "Won" }
+    ]
+  },
+  "seo": {
+    "title": "Sheikh Yeasin Ahsanullah Al-Galib | AI Engineer & Startup Founder",
+    "description": "AI Innovator, Software Engineer, and Startup Founder from Bangladesh. Building intelligent solutions that bridge technology with real-world impact.",
+    "keywords": ["AI Engineer", "Startup Founder", "Machine Learning", "Bangladesh", "Full Stack Developer"]
+  }
+}

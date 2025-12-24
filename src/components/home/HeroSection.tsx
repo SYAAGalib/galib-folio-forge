@@ -5,29 +5,41 @@ import { useEffect, useState } from 'react';
 import TypeIt from 'typeit';
 import useParallax from '@/hooks/useParallax';
 import LazyImage from '@/components/ui/LazyImage';
+import { useHeroContent } from '@/hooks/useContent';
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  email: Mail,
+  whatsapp: MessageCircle,
+  telegram: Send,
+  linkedin: Linkedin,
+  github: Github,
+};
 
 const HeroSection = () => {
   const { parallaxY, parallaxOpacity } = useParallax();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { hero, loading } = useHeroContent();
   
-  const socialLinks = [
-    { icon: Mail, href: 'mailto:syaagalib@gmail.com', label: 'Email' },
-    { icon: MessageCircle, href: 'https://wa.me/8801234567890', label: 'WhatsApp' },
-    { icon: Send, href: 'https://t.me/SYAAGalib', label: 'Telegram' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com/syaagalib', label: 'GitHub' },
+  const socialLinks = hero?.socialLinks ?? [
+    { platform: 'email', url: 'mailto:syaagalib@gmail.com', label: 'Email' },
+    { platform: 'whatsapp', url: 'https://wa.me/8801234567890', label: 'WhatsApp' },
+    { platform: 'telegram', url: 'https://t.me/SYAAGalib', label: 'Telegram' },
+    { platform: 'linkedin', url: 'https://linkedin.com/in/SYAAGalib', label: 'LinkedIn' },
+    { platform: 'github', url: 'https://github.com/syaagalib', label: 'GitHub' },
   ];
+
+  const firstName = hero?.firstName ?? 'Sheikh Yeasin';
+  const roles = hero?.roles ?? ['AI Innovator', 'Software Engineer', 'Startup Founder'];
+  const ctaPrimary = hero?.ctaButtons?.primary ?? { text: 'View My Work', link: '#projects' };
+  const ctaSecondary = hero?.ctaButtons?.secondary ?? { text: 'Download Resume', link: '/resume.pdf' };
 
   useEffect(() => {
     const primaryBullet = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> • </strong></em>';
     const primaryHyphen = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
-    // '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
-    // '<em><strong class="text-pink-600"> • </strong></em>';
     
     let heroComplete = false;
     let subInitialComplete = false;
 
-    // Step 1: Hero name typing with corrections
     const heroInstance = new TypeIt("#hero-typing", {
       speed: 80,
       startDelay: 500,
@@ -72,8 +84,8 @@ const HeroSection = () => {
       });
 
       subInstance
-        .type(`AI Innovator${primaryBullet}`, { delay: 250 })
-        .type(`Software Engineer${primaryBullet}`, { delay: 250 })
+        .type(`${roles[0]}${primaryBullet}`, { delay: 250 })
+        .type(`${roles[1]}${primaryBullet}`, { delay: 250 })
         .go();
     }
 
@@ -111,7 +123,7 @@ const HeroSection = () => {
       const subEl = document.querySelector("#sub-typing");
       const currentContent = subEl?.innerHTML.replace(/<span[^>]*class="ti-cursor"[^>]*>.*?<\/span>/g, '') || '';
       
-      const finalText = "Startup Founder";
+      const finalText = roles[2] || "Startup Founder";
       let currentIndex = 0;
       
       function typeNextChar() {
@@ -139,7 +151,7 @@ const HeroSection = () => {
         cursor.style.visibility = "visible";
       }
     }
-  }, []);
+  }, [roles]);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
@@ -162,7 +174,7 @@ const HeroSection = () => {
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="hero-text-gradient">Sheikh Yeasin</span>
+                <span className="hero-text-gradient">{firstName}</span>
                 <br />
                 <span id="hero-typing" className="text-foreground"></span>
               </h1>
@@ -171,24 +183,28 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="btn-hero text-lg px-8 py-6">
-                View My Work
-                <ArrowDown className="ml-2 w-5 h-5" />
+              <Button size="lg" className="btn-hero text-lg px-8 py-6" asChild>
+                <a href={ctaPrimary.link}>
+                  {ctaPrimary.text}
+                  <ArrowDown className="ml-2 w-5 h-5" />
+                </a>
               </Button>
-              <Button variant="outline" size="lg" className="btn-ghost-glow text-lg px-8 py-6">
-                <Download className="mr-2 w-5 h-5" />
-                Download Resume
+              <Button variant="outline" size="lg" className="btn-ghost-glow text-lg px-8 py-6" asChild>
+                <a href={ctaSecondary.link}>
+                  <Download className="mr-2 w-5 h-5" />
+                  {ctaSecondary.text}
+                </a>
               </Button>
             </div>
 
             {/* Social Icons */}
             <div className="flex space-x-4 pt-4">
               {socialLinks.map((social) => {
-                const Icon = social.icon;
+                const Icon = iconMap[social.platform] || Mail;
                 return (
                   <a
-                    key={social.href}
-                    href={social.href}
+                    key={social.url}
+                    href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-background/10 backdrop-blur-sm border border-border/30 rounded-lg flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110 hover:shadow-glow"
@@ -217,7 +233,7 @@ const HeroSection = () => {
               <div className="relative glow-border p-2 animate-pulse-glow bg-background">
                 <LazyImage
                   src={heroPortrait}
-                  alt="Sheikh Yeasin Ahsanullah Al‑Galib - AI Engineer and Startup Founder"
+                  alt={`${firstName} - AI Engineer and Startup Founder`}
                   className="w-80 h-80 md:w-96 md:h-96 rounded-lg hero-portrait-bg"
                   skeletonClassName="rounded-lg"
                 />
