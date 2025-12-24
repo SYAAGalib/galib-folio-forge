@@ -14,25 +14,39 @@ const Home = () => {
     <Layout>
       <div className="min-h-screen">
         <HeroSection />
-        <ScrollReveal direction="up" delay={100}>
+        
+        {/* Stats - zoom in with slight delay for impact */}
+        <ScrollReveal animation="zoom-in" duration={600} delay={0}>
           <StatsSection />
         </ScrollReveal>
-        <ScrollReveal direction="up" delay={100}>
+        
+        {/* Projects - slide up with a subtle flip for depth */}
+        <ScrollReveal animation="flip-up" duration={800} delay={50}>
           <FeaturedProjects />
         </ScrollReveal>
-        <ScrollReveal direction="up" delay={100}>
+        
+        {/* Research - fade from right for variety */}
+        <ScrollReveal animation="fade-left" duration={750} delay={0} distance={80}>
           <FeaturedResearch />
         </ScrollReveal>
-        <ScrollReveal direction="left" delay={100}>
+        
+        {/* About - blur in for a soft, personal feel */}
+        <ScrollReveal animation="blur-in" duration={900} delay={0}>
           <AboutSnapshot />
         </ScrollReveal>
-        <ScrollReveal direction="up" delay={100}>
+        
+        {/* Testimonials - gentle fade up */}
+        <ScrollReveal animation="fade-up" duration={700} delay={0} distance={50}>
           <TestimonialsPreview />
         </ScrollReveal>
-        <ScrollReveal direction="right" delay={100}>
+        
+        {/* Blog - slide from right */}
+        <ScrollReveal animation="slide-right" duration={800} delay={0}>
           <BlogPreview />
         </ScrollReveal>
-        <ScrollReveal direction="up" delay={100}>
+        
+        {/* CTA - rotate in for attention */}
+        <ScrollReveal animation="rotate-in" duration={700} delay={0}>
           <CallToAction />
         </ScrollReveal>
       </div>
