@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import confetti from 'canvas-confetti';
 import heroPortrait from '@/assets/galib-hero-best.jpg';
+import cardBanner from '@/assets/card-banner.jpg';
 
 const BusinessCard = () => {
   const { resolvedTheme } = useTheme();
@@ -161,13 +162,20 @@ END:VCARD`;
           ></div>
           
           {/* Gradient Header with Banner */}
-          <div className="h-36 bg-gradient-primary relative overflow-hidden">
-            {/* Animated mesh gradient */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-black/10 via-transparent to-transparent"></div>
+          <div className="h-40 relative overflow-hidden">
+            {/* Cover image */}
+            <img 
+              src={cardBanner} 
+              alt="" 
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            
+            {/* Gradient overlay to blend with theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90"></div>
+            <div className="absolute inset-0 bg-gradient-primary opacity-40 mix-blend-overlay"></div>
             
             {/* Geometric patterns */}
-            <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 opacity-30">
               <div className="absolute top-4 left-4 w-20 h-20 border border-white/30 rounded-full"></div>
               <div className="absolute top-8 left-8 w-12 h-12 border border-white/20 rounded-full"></div>
               <div className="absolute bottom-4 right-4 w-16 h-16 border border-white/30 rotate-45"></div>
@@ -175,11 +183,11 @@ END:VCARD`;
             </div>
             
             {/* Decorative blurs */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/15 rounded-full blur-2xl"></div>
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             
             {/* Subtle grid overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
           </div>
 
           {/* Profile Image with Banner Effect */}
