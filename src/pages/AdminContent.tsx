@@ -1125,7 +1125,30 @@ const AdminContent = () => {
                     />
                   </div>
                   <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-4">Projects ({editedContent.projectsPage.projects.length})</h4>
+                    <div className="flex justify-between items-center mb-4">
+                      <h4 className="font-semibold">Projects ({editedContent.projectsPage.projects.length})</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          updateField('projectsPage', 'projects', [
+                            ...editedContent.projectsPage!.projects,
+                            {
+                              id: Date.now().toString(),
+                              title: 'New Project',
+                              description: '',
+                              category: 'Web Development',
+                              technologies: [],
+                              links: { live: '', github: '' },
+                              featured: false,
+                              image: ''
+                            }
+                          ]);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Project
+                      </Button>
+                    </div>
                     {editedContent.projectsPage.projects.map((project, index) => (
                       <div key={project.id} className="border rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex justify-between items-center">
@@ -1252,7 +1275,31 @@ const AdminContent = () => {
                     />
                   </div>
                   <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-4">Research Items ({editedContent.researchPage.research.length})</h4>
+                    <div className="flex justify-between items-center mb-4">
+                      <h4 className="font-semibold">Research Items ({editedContent.researchPage.research.length})</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          updateField('researchPage', 'research', [
+                            ...editedContent.researchPage!.research,
+                            {
+                              id: Date.now().toString(),
+                              title: 'New Research',
+                              abstract: '',
+                              publication: '',
+                              year: new Date().getFullYear().toString(),
+                              category: 'Research',
+                              authors: [],
+                              links: { paper: '', code: '' },
+                              featured: false
+                            }
+                          ]);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Research
+                      </Button>
+                    </div>
                     {editedContent.researchPage.research.map((item, index) => (
                       <div key={item.id} className="border rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex justify-between items-center">
@@ -1349,7 +1396,31 @@ const AdminContent = () => {
                     />
                   </div>
                   <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-4">Blog Posts ({editedContent.blogPage.posts.length})</h4>
+                    <div className="flex justify-between items-center mb-4">
+                      <h4 className="font-semibold">Blog Posts ({editedContent.blogPage.posts.length})</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          updateField('blogPage', 'posts', [
+                            ...editedContent.blogPage!.posts,
+                            {
+                              id: Date.now().toString(),
+                              title: 'New Blog Post',
+                              excerpt: '',
+                              content: '',
+                              date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                              readTime: '5 min read',
+                              category: 'General',
+                              tags: [],
+                              image: ''
+                            }
+                          ]);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Post
+                      </Button>
+                    </div>
                     {editedContent.blogPage.posts.map((post, index) => (
                       <div key={post.id} className="border rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex justify-between items-center">
@@ -1532,7 +1603,30 @@ const AdminContent = () => {
                     />
                   </div>
                   <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-4">Milestones ({editedContent.achievementsPage.milestones.length})</h4>
+                    <div className="flex justify-between items-center mb-4">
+                      <h4 className="font-semibold">Milestones ({editedContent.achievementsPage.milestones.length})</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          updateField('achievementsPage', 'milestones', [
+                            ...editedContent.achievementsPage!.milestones,
+                            {
+                              id: Date.now().toString(),
+                              title: 'New Achievement',
+                              subtitle: '',
+                              description: '',
+                              year: new Date().getFullYear().toString(),
+                              type: 'Award',
+                              organization: '',
+                              icon: 'Award'
+                            }
+                          ]);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Achievement
+                      </Button>
+                    </div>
                     {editedContent.achievementsPage.milestones.map((milestone, index) => (
                       <div key={milestone.id} className="border rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex justify-between items-center">
@@ -1656,7 +1750,31 @@ const AdminContent = () => {
                     />
                   </div>
                   <div className="border-t pt-4">
-                    <h4 className="font-semibold mb-4">Gallery Items ({editedContent.galleryPage.items.length})</h4>
+                    <div className="flex justify-between items-center mb-4">
+                      <h4 className="font-semibold">Gallery Items ({editedContent.galleryPage.items.length})</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          updateField('galleryPage', 'items', [
+                            ...editedContent.galleryPage!.items,
+                            {
+                              id: Date.now().toString(),
+                              title: 'New Gallery Item',
+                              description: '',
+                              type: 'image',
+                              category: 'Photos',
+                              date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                              location: '',
+                              image: '',
+                              featured: false
+                            }
+                          ]);
+                        }}
+                      >
+                        <Plus className="w-4 h-4 mr-2" /> Add Gallery Item
+                      </Button>
+                    </div>
                     {editedContent.galleryPage.items.map((item, index) => (
                       <div key={item.id} className="border rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex justify-between items-center">
