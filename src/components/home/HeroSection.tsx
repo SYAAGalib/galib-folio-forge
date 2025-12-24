@@ -33,7 +33,15 @@ const HeroSection = () => {
   const ctaPrimary = hero?.ctaButtons?.primary ?? { text: 'View My Work', link: '#projects' };
   const ctaSecondary = hero?.ctaButtons?.secondary ?? { text: 'Download Resume', link: '/resume.pdf' };
 
+  // Track if animation has already run to prevent re-runs
+  const [animationStarted, setAnimationStarted] = useState(false);
+
   useEffect(() => {
+    // Don't run animation if still loading or already started
+    if (loading || animationStarted) return;
+    
+    setAnimationStarted(true);
+    
     const primaryBullet = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> • </strong></em>';
     const primaryHyphen = '<em><strong style="background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">‑</strong></em>';
     
@@ -151,7 +159,7 @@ const HeroSection = () => {
         cursor.style.visibility = "visible";
       }
     }
-  }, [roles]);
+  }, [loading, animationStarted, roles]);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
