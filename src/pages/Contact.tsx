@@ -204,13 +204,25 @@ const Contact = () => {
                   <CardContent className="p-8 text-center">
                     <h3 className="text-xl font-bold mb-6">Direct Contact</h3>
                     <div className="grid grid-cols-2 gap-4">
-                      <Button variant="outline" className="btn-ghost-glow h-20 flex-col">
-                        <Mail className="w-6 h-6 mb-2" />
-                        Email
+                      <Button 
+                        variant="outline" 
+                        className="btn-ghost-glow h-20 flex-col"
+                        asChild
+                      >
+                        <a href="mailto:syaagalib@gmail.com">
+                          <Mail className="w-6 h-6 mb-2" />
+                          Email
+                        </a>
                       </Button>
-                      <Button variant="outline" className="btn-ghost-glow h-20 flex-col">
-                        <MessageCircle className="w-6 h-6 mb-2" />
-                        WhatsApp
+                      <Button 
+                        variant="outline" 
+                        className="btn-ghost-glow h-20 flex-col"
+                        asChild
+                      >
+                        <a href="https://wa.me/8801946303020" target="_blank" rel="noopener noreferrer">
+                          <MessageCircle className="w-6 h-6 mb-2" />
+                          WhatsApp
+                        </a>
                       </Button>
                     </div>
                   </CardContent>
