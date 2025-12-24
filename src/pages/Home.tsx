@@ -5,7 +5,6 @@ import AboutSnapshot from '@/components/home/AboutSnapshot';
 import TestimonialsPreview from '@/components/home/TestimonialsPreview';
 import BlogPreview from '@/components/home/BlogPreview';
 import CallToAction from '@/components/home/CallToAction';
-import StatsSection from '@/components/home/StatsSection';
 import Layout from '@/components/layout/Layout';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import MorphingBackground from '@/components/ui/MorphingBackground';
@@ -18,11 +17,6 @@ const Home = () => {
       <ScrollParticles particleCount={40} maxOpacity={0.5} />
       <div className="min-h-screen relative z-10">
         <HeroSection />
-        
-        {/* Stats - zoom in with slight delay for impact */}
-        <ScrollReveal animation="zoom-in" duration={600} delay={0}>
-          <StatsSection />
-        </ScrollReveal>
         
         {/* Projects - slide up with a subtle flip for depth */}
         <ScrollReveal animation="flip-up" duration={800} delay={50}>
