@@ -184,6 +184,13 @@
       { "icon": "Briefcase", "label": "15+ Projects", "desc": "Delivered" },
       { "icon": "GraduationCap", "label": "5+ Papers", "desc": "Published" },
       { "icon": "Award", "label": "3+ Awards", "desc": "Won" }
+    ],
+    "socialLinks": [
+      { "icon": "Mail", "href": "mailto:syaagalib@gmail.com", "label": "Email", "color": "bg-red-500/10 text-red-500 hover:bg-red-500" },
+      { "icon": "MessageCircle", "href": "https://wa.me/8801946303020", "label": "WhatsApp", "color": "bg-green-500/10 text-green-500 hover:bg-green-500" },
+      { "icon": "Send", "href": "https://t.me/SYAAGalib", "label": "Telegram", "color": "bg-blue-400/10 text-blue-400 hover:bg-blue-400" },
+      { "icon": "Linkedin", "href": "https://linkedin.com/in/SYAAGalib", "label": "LinkedIn", "color": "bg-blue-600/10 text-blue-600 hover:bg-blue-600" },
+      { "icon": "Github", "href": "https://github.com/syaagalib", "label": "GitHub", "color": "bg-gray-500/10 text-gray-500 hover:bg-gray-500" }
     ]
   },
   "seo": {
